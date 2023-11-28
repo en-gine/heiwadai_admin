@@ -20,7 +20,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Titlebar />
+        <Titlebar title="平和台ホテルアプリ管理画面" />
         {props.children}
       </body>
     </html>
