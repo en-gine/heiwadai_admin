@@ -17,16 +17,6 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  // DropdownMenuItem,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
   Table,
   TableBody,
   TableCell,
@@ -35,14 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import Link from "next/link"
-
-import { SelectPref } from "@/components/parts/prefecture"
 import { User, getUsers } from "@/lib/getUsers"
-
-export default function Home(props: { children: React.ReactNode }) {
-  return <DataTable />
-}
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -53,34 +36,15 @@ export const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          ユーザー名
+          チェックイン店舗
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => (
       <div className="lowercase">
-        <Link href={"/dashboard/users/" + row.original.id}>
-          {row.getValue("firstName")} {row.original.lastName}
-        </Link>
+        {row.getValue("firstName")} {row.original.lastName}
       </div>
-    ),
-  },
-  {
-    accessorKey: "prefecture",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          都道府県
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("prefecture")}</div>
     ),
   },
   {
@@ -91,7 +55,7 @@ export const columns: ColumnDef<User>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          最終チェックイン
+          チェックイン時間
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -101,8 +65,7 @@ export const columns: ColumnDef<User>[] = [
     ),
   },
 ]
-
-export function DataTable() {
+export function CheckinTable() {
   const data = getUsers()
 
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -139,90 +102,6 @@ export function DataTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="姓"
-          value={
-            (table.getColumn("lastName")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("lastName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        />
-        &nbsp;
-        <Input
-          placeholder="せい"
-          value={
-            (table.getColumn("lastNameKana")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("lastNameKana")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        />
-        &nbsp;
-        {/* <Input
-          placeholder="都道府県"
-          value={
-            (table.getColumn("prefecture")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("prefecture")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        /> */}
-        <SelectPref />
-      </div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="名"
-          value={
-            (table.getColumn("firstName")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("firstName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        />
-        &nbsp;
-        <Input
-          placeholder="めい"
-          value={
-            (table.getColumn("firstNameKana")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("firstNameKana")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

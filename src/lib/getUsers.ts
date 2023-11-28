@@ -16,6 +16,7 @@ export type User = {
   mail: string
   acceptMail: boolean
   CheckInAt: string
+  internalMessage?: string
 }
 
 const data: User[] = [
@@ -66,8 +67,8 @@ const data: User[] = [
     city: "string",
     address: "string",
     tel: "string",
-    mail: "ken99@yahoo.com",
-    acceptMail: true,
+    mail: "rrr33ken99@yahoo.com",
+    acceptMail: false,
     CheckInAt: "2023/9/20",
   },
   {
@@ -83,7 +84,7 @@ const data: User[] = [
     city: "string",
     address: "string",
     tel: "string",
-    mail: "ken99@yahoo.com",
+    mail: "a22ken99@yahoo.com",
     acceptMail: true,
     CheckInAt: "2023/9/20",
   },
