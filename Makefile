@@ -1,8 +1,9 @@
 init-proto:
 	git submodule add git@github.com:en-gine/heiwadai_proto.git v1
-	
-update-proto:
-	git submodule update --remote
 
-buf:
+buf: # protoファイルのbufコンパイル
 	npx buf generate
+
+buf-update: # protoの更新とbufコンパイル
+	git submodule update --remote
+	@make buf
