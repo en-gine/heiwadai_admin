@@ -19,6 +19,95 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@bufbuild/buf-darwin-arm64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-darwin-arm64/-/buf-darwin-arm64-1.28.1.tgz#ffe09c8b998d6cc714ab525999fe026b25c952e9"
+  integrity sha512-nAyvwKkcd8qQTExCZo5MtSRhXLK7e3vzKFKHjXfkveRakSUST2HFlFZAHfErZimN4wBrPTN0V0hNRU8PPjkMpQ==
+
+"@bufbuild/buf-darwin-x64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-darwin-x64/-/buf-darwin-x64-1.28.1.tgz#03aa18f7961b651679e349a382f71f1bad3dadec"
+  integrity sha512-b0eT3xd3vX5a5lWAbo5h7FPuf9MsOJI4I39qs4TZnrlZ8BOuPfqzwzijiFf9UCwaX2vR1NQXexIoQ80Ci+fCHw==
+
+"@bufbuild/buf-linux-aarch64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-linux-aarch64/-/buf-linux-aarch64-1.28.1.tgz#2af0683dd6a803bdaba7ea92148007393a058705"
+  integrity sha512-p5h9bZCVLMh8No9/7k7ulXzsFx5P7Lu6DiUMjSJ6aBXPMYo6Xl7r/6L2cQkpsZ53HMtIxCgMYS9a7zoS4K8wIw==
+
+"@bufbuild/buf-linux-x64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-linux-x64/-/buf-linux-x64-1.28.1.tgz#dbac29d39fb4c0a509ebf49fb3a76d481aebe1e0"
+  integrity sha512-fVJ3DiRigIso06jgEl+JNp59Y5t2pxDHd10d3SA4r+14sXbZ2J7Gy/wBqVXPry4x/jW567KKlvmhg7M5ZBgCQQ==
+
+"@bufbuild/buf-win32-arm64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-win32-arm64/-/buf-win32-arm64-1.28.1.tgz#69242d904c73368c2735aa9efc338dd1f5864bfa"
+  integrity sha512-KJiRJpugQRK/jXC46Xjlb68UydWhCZj2jHdWLIwNtgXd1WTJ3LngChZV7Y6pPK08pwBAVz0JYeVbD5IlTCD4TQ==
+
+"@bufbuild/buf-win32-x64@1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf-win32-x64/-/buf-win32-x64-1.28.1.tgz#5014fd87ed29fd26c1c6d2e97eba9ac7b8a14e51"
+  integrity sha512-vMnc+7OVCkmlRWQsgYHgUqiBPRIjD8XeoRyApJ07YZzGs7DkRH4LhvmacJbLd3wORylbn6gLz3pQa8J/M61mzg==
+
+"@bufbuild/buf@^1.28.1":
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/buf/-/buf-1.28.1.tgz#b107bd1b01a676040b1112de9eb94642bea48a08"
+  integrity sha512-WRDagrf0uBjfV9s5eyrSPJDcdI4A5Q7JMCA4aMrHRR8fo/TTjniDBjJprszhaguqsDkn/LS4QIu92HVFZCrl9A==
+  optionalDependencies:
+    "@bufbuild/buf-darwin-arm64" "1.28.1"
+    "@bufbuild/buf-darwin-x64" "1.28.1"
+    "@bufbuild/buf-linux-aarch64" "1.28.1"
+    "@bufbuild/buf-linux-x64" "1.28.1"
+    "@bufbuild/buf-win32-arm64" "1.28.1"
+    "@bufbuild/buf-win32-x64" "1.28.1"
+
+"@bufbuild/protobuf@1.4.2", "@bufbuild/protobuf@^1.3.3", "@bufbuild/protobuf@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.4.2.tgz#dc4faf21264a47b71a15806616043cb006e80ac8"
+  integrity sha512-JyEH8Z+OD5Sc2opSg86qMHn1EM1Sa+zj/Tc0ovxdwk56ByVNONJSabuCUbLQp+eKN3rWNfrho0X+3SEqEPXIow==
+
+"@bufbuild/protoc-gen-es@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoc-gen-es/-/protoc-gen-es-1.4.2.tgz#00c8b09430dd1154e626da7c247fd6425a1cd41d"
+  integrity sha512-/It7M2s8H1zTDvUMJu6vhBmtnzeFL2VS6e78RYIY38602pNXDK/vbteKUo4KrG0O07lOPFu87hHZ0Y+w5Ib6iw==
+  dependencies:
+    "@bufbuild/protobuf" "^1.4.2"
+    "@bufbuild/protoplugin" "1.4.2"
+
+"@bufbuild/protoplugin@1.4.2", "@bufbuild/protoplugin@^1.3.3":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoplugin/-/protoplugin-1.4.2.tgz#abf9b0e6a3dc8b52b1d6699d7a1ce5219fa82322"
+  integrity sha512-5IwGC1ZRD2A+KydGXeaSOErwfILLqVtvMH/RkN+cOoHcQd4EYXFStcF7g7aR+yICRDEEjQVi5tQF/qPGBSr9vg==
+  dependencies:
+    "@bufbuild/protobuf" "1.4.2"
+    "@typescript/vfs" "^1.4.0"
+    typescript "4.5.2"
+
+"@connectrpc/connect-node@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-1.1.3.tgz#fdbd541c314e40e71ff59866a525dcc760a44371"
+  integrity sha512-oq7Uk8XlLzC2+eHaxZTX189dhujD0/tK9plizxofsFHUnLquMSmzQQ2GzvTv4u6U05eZYc/crySmf86Sqpi1bA==
+  dependencies:
+    undici "^5.26.2"
+
+"@connectrpc/connect-web@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-1.1.3.tgz#027922b4f1537ecb1eaaa31ec3a59dd471a65320"
+  integrity sha512-WfShOZt91duJngqivYF4wJFRbeRa4bF/fPMfDVN0MAYSX3VuaTMn8o9qgKN7tsg2H2ZClyOVQwMkZx6IdcP7Zw==
+
+"@connectrpc/connect@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.1.3.tgz#6099789e392bf3d4c3d831f294b1a9ff969703a1"
+  integrity sha512-AXkbsLQe2Nm7VuoN5nqp05GEb9mPa/f5oFzDqTbHME4i8TghTrlY03uefbhuAq4wjsnfDnmuxHZvn6ndlgXmbg==
+
+"@connectrpc/protoc-gen-connect-es@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@connectrpc/protoc-gen-connect-es/-/protoc-gen-connect-es-1.1.3.tgz#2472133dce58bbe433b4c10076c85d8f4f6833e3"
+  integrity sha512-Irt1WM1o45KL0DNz8D8nraNfRrOyZfn7rzRsOyfrwbNzeVO1JV3rELFpARqGAvtVveYBoO9uwYtQ8TKLXsnrng==
+  dependencies:
+    "@bufbuild/protobuf" "^1.3.3"
+    "@bufbuild/protoplugin" "^1.3.3"
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz"
@@ -50,6 +139,11 @@
   version "8.53.0"
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.53.0.tgz"
   integrity sha512-Kn7K8dx/5U6+cT1yEhpX1w4PCSg0M+XyRILPgvwcEBjerFWCwQj5sbr3/VmxqV0JGHCBCzyd6LxypEuehypY1w==
+
+"@fastify/busboy@^2.0.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.1.0.tgz#0709e9f4cb252351c609c6e6d8d6779a8d25edff"
+  integrity sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==
 
 "@floating-ui/core@^1.4.2":
   version "1.5.0"
@@ -646,6 +740,13 @@
     "@typescript-eslint/types" "6.10.0"
     eslint-visitor-keys "^3.4.1"
 
+"@typescript/vfs@^1.4.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@typescript/vfs/-/vfs-1.5.0.tgz#ed942922724f9ace8c07c80b006c47e5e3833218"
+  integrity sha512-AJS307bPgbsZZ9ggCT3wwpg3VbTKMFNHfaY/uF0ahSkYYrPF2dSSKDNIDIQAHm9qJqbLvCsSJH7yN4Vs/CsMMg==
+  dependencies:
+    debug "^4.1.1"
+
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
@@ -1014,6 +1115,11 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
+
+cookie@^0.4.1:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.2.tgz#0e41f24de5ecf317947c82fc789e06a884824432"
+  integrity sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==
 
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -2273,6 +2379,14 @@ node-releases@^2.0.13:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.13.tgz"
   integrity sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==
 
+nookies@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/nookies/-/nookies-2.5.2.tgz#cc55547efa982d013a21475bd0db0c02c1b35b27"
+  integrity sha512-x0TRSaosAEonNKyCrShoUaJ5rrT5KHRNZ5DwPCuizjgrnkpE5DRf3VL7AyyQin4htict92X1EQ7ejDbaHDVdYA==
+  dependencies:
+    cookie "^0.4.1"
+    set-cookie-parser "^2.4.6"
+
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
@@ -2758,6 +2872,11 @@ semver@^7.5.4:
   dependencies:
     lru-cache "^6.0.0"
 
+set-cookie-parser@^2.4.6:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/set-cookie-parser/-/set-cookie-parser-2.6.0.tgz#131921e50f62ff1a66a461d7d62d7b21d5d15a51"
+  integrity sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==
+
 set-function-length@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.1.tgz"
@@ -3100,6 +3219,11 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
+typescript@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
+  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
+
 typescript@^5:
   version "5.2.2"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.2.2.tgz"
@@ -3119,6 +3243,13 @@ undici-types@~5.26.4:
   version "5.26.5"
   resolved "https://registry.npmjs.org/undici-types/-/undici-types-5.26.5.tgz"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
+
+undici@^5.26.2:
+  version "5.28.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.28.1.tgz#1052d37bd1a2e8cf3e188d7caebff833fdc06fa7"
+  integrity sha512-xcIIvj1LOQH9zAL54iWFkuDEaIVEjLrru7qRpa3GrEEHk6OBhb/LycuUY2m7VCcTuDeLziXCxobQVyKExyGeIA==
+  dependencies:
+    "@fastify/busboy" "^2.0.0"
 
 update-browserslist-db@^1.0.13:
   version "1.0.13"
