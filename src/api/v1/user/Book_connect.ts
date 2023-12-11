@@ -13,6 +13,8 @@ export const BookController = {
   typeName: "server.user.BookController",
   methods: {
     /**
+     * 現在の自身の予約状況
+     *
      * @generated from rpc server.user.BookController.GetMyBook
      */
     getMyBook: {
@@ -22,6 +24,8 @@ export const BookController = {
       kind: MethodKind.Unary,
     },
     /**
+     * 現在の自身の特定の予約の詳細を取得
+     *
      * @generated from rpc server.user.BookController.GetBookByID
      */
     getBookByID: {
@@ -31,6 +35,8 @@ export const BookController = {
       kind: MethodKind.Unary,
     },
     /**
+     * 予約のキャンセル
+     *
      * @generated from rpc server.user.BookController.Cancel
      */
     cancel: {
@@ -40,6 +46,8 @@ export const BookController = {
       kind: MethodKind.Unary,
     },
     /**
+     * 予約情報からプランの予約
+     *
      * @generated from rpc server.user.BookController.Reserve
      */
     reserve: {

@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { PostRequest, PostResponse, PostsResponse } from "./Post_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
+import { PostRequest, PostResponse, PostsResponse } from "./Post_pb.ts";
 
 /**
  * @generated from service server.user.PostController
@@ -13,21 +13,25 @@ export const PostController = {
   typeName: "server.user.PostController",
   methods: {
     /**
-     * @generated from rpc server.user.PostController.GetPostByID
-     */
-    getPostByID: {
-      name: "GetPostByID",
-      I: PostRequest,
-      O: PostResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
+     * お知らせ一覧を取得
+     *
      * @generated from rpc server.user.PostController.GetPosts
      */
     getPosts: {
       name: "GetPosts",
       I: Empty,
       O: PostsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * お知らせの詳細を取得
+     *
+     * @generated from rpc server.user.PostController.GetPostByID
+     */
+    getPostByID: {
+      name: "GetPostByID",
+      I: PostRequest,
+      O: PostResponse,
       kind: MethodKind.Unary,
     },
   }

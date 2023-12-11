@@ -1,10 +1,8 @@
-import { useClient } from "@/lib/client"
+import { clientFetcher } from "@/lib/grpc/clientFetcher"
 import { AuthController } from "@/api/v1/admin/Auth_connect"
-import { ConnectError } from "@connectrpc/connect"
-import { setCookie, destroyCookie } from "nookies"
 
 export const useLogin = () => {
-  const client = useClient(AuthController)
+  const client = clientFetcher(AuthController)
 
   const signIn = async ({
     email,
@@ -14,16 +12,9 @@ export const useLogin = () => {
     password: string
   }) => {
     try {
-      const message = await client.signIn({
+      await client.signIn({
         email: email,
         password: password,
-      })
-      setCookie(null, "accessToken", message.accessToken, {
-        MaxAge: message.expiresIn,
-        path: "/",
-      })
-      setCookie(null, "refreshToken", message.refreshToken, {
-        path: "/",
       })
     } catch (error) {
       console.error(error)
@@ -33,8 +24,6 @@ export const useLogin = () => {
   const signOut = async () => {
     try {
       await client.signOut({})
-      destroyCookie(null, "accessToken")
-      destroyCookie(null, "refreshToken")
     } catch (error) {
       console.error(error)
       throw error

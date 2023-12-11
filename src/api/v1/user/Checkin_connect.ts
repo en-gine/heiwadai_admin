@@ -13,6 +13,8 @@ export const CheckinController = {
   typeName: "server.user.CheckinController",
   methods: {
     /**
+     * 自身のスタンプカード取得（現在のチェックイン済情報と店舗のスタンプ画像が届く）
+     *
      * @generated from rpc server.user.CheckinController.GetStampCard
      */
     getStampCard: {
@@ -22,6 +24,8 @@ export const CheckinController = {
       kind: MethodKind.Unary,
     },
     /**
+     * 店舗に対するチェックイン（QRコード利用）
+     *
      * @generated from rpc server.user.CheckinController.Checkin
      */
     checkin: {

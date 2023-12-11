@@ -50,6 +50,43 @@ export class UserAuthRequest extends Message<UserAuthRequest> {
 }
 
 /**
+ * @generated from message server.user.RefreshTokenRequest
+ */
+export class RefreshTokenRequest extends Message<RefreshTokenRequest> {
+  /**
+   * @generated from field: string refreshToken = 1;
+   */
+  refreshToken = "";
+
+  constructor(data?: PartialMessage<RefreshTokenRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.RefreshTokenRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RefreshTokenRequest {
+    return new RefreshTokenRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RefreshTokenRequest {
+    return new RefreshTokenRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RefreshTokenRequest {
+    return new RefreshTokenRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RefreshTokenRequest | PlainMessage<RefreshTokenRequest> | undefined, b: RefreshTokenRequest | PlainMessage<RefreshTokenRequest> | undefined): boolean {
+    return proto3.util.equals(RefreshTokenRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.user.UserAuthResponse
  */
 export class UserAuthResponse extends Message<UserAuthResponse> {

@@ -1,12 +1,7 @@
 "use client"
 import { Sidebar } from "@/components/parts/sidebar"
 
-// export const css = {
-//   subsets: ["latin"],
-//   variable: "--font-sans",
-// }
-
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function Layout(props: { children: React.ReactNode }) {
   return (
     <main>
       <style jsx>{`

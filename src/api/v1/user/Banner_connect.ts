@@ -13,6 +13,8 @@ export const BannerController = {
   typeName: "server.user.BannerController",
   methods: {
     /**
+     * TOPバナーの取得 URLと画像URLを配列で返す
+     *
      * @generated from rpc server.user.BannerController.GetBanner
      */
     getBanner: {

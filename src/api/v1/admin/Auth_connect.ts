@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AdminAuthRequest, AdminAuthResponse, AdminRegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
+import { AdminAuthRequest, AdminAuthResponse, AdminRefreshTokenRequest, AdminRegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -37,6 +37,15 @@ export const AuthController = {
       name: "SignOut",
       I: Empty,
       O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AuthController.Refresh
+     */
+    refresh: {
+      name: "Refresh",
+      I: AdminRefreshTokenRequest,
+      O: AdminAuthResponse,
       kind: MethodKind.Unary,
     },
     /**

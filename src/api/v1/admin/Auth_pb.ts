@@ -50,6 +50,49 @@ export class AdminAuthRequest extends Message<AdminAuthRequest> {
 }
 
 /**
+ * @generated from message server.admin.AdminRefreshTokenRequest
+ */
+export class AdminRefreshTokenRequest extends Message<AdminRefreshTokenRequest> {
+  /**
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string refreshToken = 2;
+   */
+  refreshToken = "";
+
+  constructor(data?: PartialMessage<AdminRefreshTokenRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminRefreshTokenRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminRefreshTokenRequest {
+    return new AdminRefreshTokenRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminRefreshTokenRequest {
+    return new AdminRefreshTokenRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminRefreshTokenRequest {
+    return new AdminRefreshTokenRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminRefreshTokenRequest | PlainMessage<AdminRefreshTokenRequest> | undefined, b: AdminRefreshTokenRequest | PlainMessage<AdminRefreshTokenRequest> | undefined): boolean {
+    return proto3.util.equals(AdminRefreshTokenRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.AdminAuthResponse
  */
 export class AdminAuthResponse extends Message<AdminAuthResponse> {

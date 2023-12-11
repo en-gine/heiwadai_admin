@@ -13,6 +13,8 @@ export const MessageController = {
   typeName: "server.user.MessageController",
   methods: {
     /**
+     * 　ポップアップメッセージのリストを取得する（最後に取得したIDを元にリクエスト）
+     *
      * @generated from rpc server.user.MessageController.GetMessagesAfter
      */
     getMessagesAfter: {

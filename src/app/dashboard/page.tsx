@@ -1,11 +1,6 @@
-"use client"
-
-import * as React from "react"
+'use client'
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -13,17 +8,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-// import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  // DropdownMenuItem,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -36,199 +27,13 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-const data: User[] = [
-  {
-    id: "m5gr84i9",
-    name: "m5gr84i9_1",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "3u1reuv4",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "derv1ws0",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "5kma53ae",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "bhqecj4p",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "carmella@hotmail.com",
-  },
-  {
-    id: "m5gr84i9",
-    name: "m5gr84i9_1",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "3u1reuv4",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "derv1ws0",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "5kma53ae",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "bhqecj4p",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "carmella@hotmail.com",
-  },
-  {
-    id: "m5gr84i9",
-    name: "m5gr84i9_1",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "3u1reuv4",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "derv1ws0",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "5kma53ae",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "bhqecj4p",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "carmella@hotmail.com",
-  },
-  {
-    id: "m5gr84i9",
-    name: "m5gr84i9_1",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "3u1reuv4",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "derv1ws0",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "5kma53ae",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "bhqecj4p",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "carmella@hotmail.com",
-  },
-  {
-    id: "m5gr84i9",
-    name: "m5gr84i9_1",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "3u1reuv4",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "derv1ws0",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "5kma53ae",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "bhqecj4p",
-    shop: "ken99@yahoo.com",
-    checkin: "2023/9/20",
-    email: "carmella@hotmail.com",
-  },
-]
-
-export type User = {
-  id: string
-  name: string
-  shop: string
-  checkin: string
-  email: string
-}
-
-
-export default function Home(props: { children: React.ReactNode }) {
+import { useUserCheckin, type UserCheckin } from "@/hooks/api/client/useUserCheckin"
+import { useState, useEffect } from "react"
+export default function Page() {
   return <DataTable />
 }
 
-
-export const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<UserCheckin>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -277,31 +82,23 @@ export const columns: ColumnDef<User>[] = [
 ]
 
 export function DataTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+  const { getRecent } = useUserCheckin()
+  const [tableData, setTableData] = useState<UserCheckin[]>([])
+  useEffect(() => {
+    (async () => {
+      const res = await getRecent()
+      setTableData(tableData)
+    })()
+  }, [tableData])
+
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
   })
 
   return (
@@ -415,3 +212,5 @@ export function DataTable() {
     </div>
   )
 }
+
+

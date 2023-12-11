@@ -13,6 +13,8 @@ export const UserDataController = {
   typeName: "server.user.UserDataController",
   methods: {
     /**
+     * ユーザー情報の更新
+     *
      * @generated from rpc server.user.UserDataController.Update
      */
     update: {

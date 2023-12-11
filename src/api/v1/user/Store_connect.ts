@@ -14,6 +14,8 @@ export const StoreController = {
   typeName: "server.user.StoreController",
   methods: {
     /**
+     * 店舗情報の詳細を取得
+     *
      * @generated from rpc server.user.StoreController.GetByID
      */
     getByID: {
@@ -23,6 +25,8 @@ export const StoreController = {
       kind: MethodKind.Unary,
     },
     /**
+     * 店舗情報の一覧を取得
+     *
      * @generated from rpc server.user.StoreController.GetAll
      */
     getAll: {
@@ -32,6 +36,8 @@ export const StoreController = {
       kind: MethodKind.Unary,
     },
     /**
+     * ホテル（宿泊可能な店舗）の一覧を取得
+     *
      * @generated from rpc server.user.StoreController.GetStayables
      */
     getStayables: {
@@ -41,6 +47,8 @@ export const StoreController = {
       kind: MethodKind.Unary,
     },
     /**
+     * ホテル（宿泊可能な店舗）の詳細を取得
+     *
      * @generated from rpc server.user.StoreController.GetStayableByID
      */
     getStayableByID: {

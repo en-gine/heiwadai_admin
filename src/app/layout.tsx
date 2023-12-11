@@ -6,7 +6,7 @@ import "@/styles/globals.css"
 import { Titlebar } from "@/components/parts/titlebar"
 
 // const inter = Inter({ subsets: ['latin'] })
-export const inter = Inter({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 })

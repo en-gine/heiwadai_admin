@@ -5,7 +5,7 @@
 
 import { UserRegisterRequest } from "./UserData_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest, UserAuthRequest, UserAuthResponse } from "./Auth_pb.ts";
+import { RefreshTokenRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest, UserAuthRequest, UserAuthResponse } from "./Auth_pb.ts";
 
 /**
  * @generated from service server.user.AuthController
@@ -14,6 +14,8 @@ export const AuthController = {
   typeName: "server.user.AuthController",
   methods: {
     /**
+     * 初回ユーザー登録
+     *
      * @generated from rpc server.user.AuthController.Register
      */
     register: {
@@ -23,6 +25,8 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * ユーザー登録後にメールアドレスの確認が完了し、パスワードを設定する
+     *
      * @generated from rpc server.user.AuthController.SignUp
      */
     signUp: {
@@ -32,6 +36,8 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * ログイン
+     *
      * @generated from rpc server.user.AuthController.SignIn
      */
     signIn: {
@@ -41,6 +47,8 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * ログアウト
+     *
      * @generated from rpc server.user.AuthController.SignOut
      */
     signOut: {
@@ -50,6 +58,19 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * リフレッシュトークンを使ってアクセストークンを更新する（通常は通信ヘッダーを用いて自動でリフレッシュしている）
+     *
+     * @generated from rpc server.user.AuthController.Refresh
+     */
+    refresh: {
+      name: "Refresh",
+      I: RefreshTokenRequest,
+      O: UserAuthResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * パスワードリセット用メール送信
+     *
      * @generated from rpc server.user.AuthController.ResetPasswordMail
      */
     resetPasswordMail: {
@@ -59,6 +80,8 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * パスワードアップデート
+     *
      * @generated from rpc server.user.AuthController.UpdatePassword
      */
     updatePassword: {
@@ -68,6 +91,8 @@ export const AuthController = {
       kind: MethodKind.Unary,
     },
     /**
+     * メールアドレス更新（認証メールが飛ぶ）
+     *
      * @generated from rpc server.user.AuthController.UpdateEmail
      */
     updateEmail: {

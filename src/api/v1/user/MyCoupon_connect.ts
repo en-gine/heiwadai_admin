@@ -3,9 +3,9 @@
 /* eslint-disable */
 // @ts-nocheck
 
+import { Empty, MethodKind } from "@bufbuild/protobuf";
 import { CouponIDRequest, MyCouponsResponse } from "./MyCoupon_pb.ts";
 import { Coupon } from "../shared/Coupon_pb.ts";
-import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
  * @generated from service server.user.MyCouponController
@@ -14,15 +14,8 @@ export const MyCouponController = {
   typeName: "server.user.MyCouponController",
   methods: {
     /**
-     * @generated from rpc server.user.MyCouponController.GetDetail
-     */
-    getDetail: {
-      name: "GetDetail",
-      I: CouponIDRequest,
-      O: Coupon,
-      kind: MethodKind.Unary,
-    },
-    /**
+     * 現在ユーザーが持っているクーポン一覧を取得する
+     *
      * @generated from rpc server.user.MyCouponController.GetList
      */
     getList: {
@@ -32,6 +25,19 @@ export const MyCouponController = {
       kind: MethodKind.Unary,
     },
     /**
+     * クーポンの詳細
+     *
+     * @generated from rpc server.user.MyCouponController.GetDetail
+     */
+    getDetail: {
+      name: "GetDetail",
+      I: CouponIDRequest,
+      O: Coupon,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * クーポンの使用
+     *
      * @generated from rpc server.user.MyCouponController.Use
      */
     use: {

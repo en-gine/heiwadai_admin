@@ -147,7 +147,7 @@ export class StampCardResponse extends Message<StampCardResponse> {
  */
 export class CheckinResponse extends Message<CheckinResponse> {
   /**
-   * @generated from field: server.shared.Coupon MayCoupon = 1;
+   * @generated from field: optional server.shared.Coupon MayCoupon = 1;
    */
   MayCoupon?: Coupon;
 
@@ -159,7 +159,7 @@ export class CheckinResponse extends Message<CheckinResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.user.CheckinResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "MayCoupon", kind: "message", T: Coupon },
+    { no: 1, name: "MayCoupon", kind: "message", T: Coupon, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckinResponse {
