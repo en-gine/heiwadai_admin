@@ -21,7 +21,7 @@ export const useUserData = () => {
       })
     } catch (error) {
       console.error(error)
-      throw error
+      alert(error)
     }
   }
 

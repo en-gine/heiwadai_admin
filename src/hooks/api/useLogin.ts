@@ -1,4 +1,8 @@
-import { clientFetcher } from "@/lib/grpc/clientFetcher"
+import {
+  clientFetcher,
+  disposeToken,
+  storeToken,
+} from "@/lib/grpc/clientFetcher"
 import { AuthController } from "@/api/v1/admin/Auth_connect"
 
 export const useLogin = () => {
@@ -12,10 +16,18 @@ export const useLogin = () => {
     password: string
   }) => {
     try {
-      await client.signIn({
+      const message = await client.signIn({
         email: email,
         password: password,
       })
+      if (message.accessToken) {
+        storeToken(
+          "accessToken",
+          message.accessToken,
+          Number(message.expiresIn),
+        )
+        storeToken("refreshToken", message.refreshToken)
+      }
     } catch (error) {
       console.error(error)
       throw error
@@ -24,6 +36,8 @@ export const useLogin = () => {
   const signOut = async () => {
     try {
       await client.signOut({})
+      disposeToken("accessToken")
+      disposeToken("refreshToken")
     } catch (error) {
       console.error(error)
       throw error

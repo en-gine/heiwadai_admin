@@ -27,7 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { useUserCheckin, type UserCheckin } from "@/hooks/api/client/useUserCheckin"
+import { useUserCheckin, type UserCheckin } from "@/hooks/api/useUserCheckin"
 import { useState, useEffect } from "react"
 export default function Page() {
   return <DataTable />

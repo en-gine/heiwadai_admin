@@ -54,7 +54,12 @@ export class UserAuthRequest extends Message<UserAuthRequest> {
  */
 export class RefreshTokenRequest extends Message<RefreshTokenRequest> {
   /**
-   * @generated from field: string refreshToken = 1;
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string refreshToken = 2;
    */
   refreshToken = "";
 
@@ -66,7 +71,8 @@ export class RefreshTokenRequest extends Message<RefreshTokenRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.user.RefreshTokenRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RefreshTokenRequest {
