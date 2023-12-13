@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState } from "react"
 
 import {
   Card,
@@ -15,10 +15,18 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 // import { SelectPref } from "@/components/parts/prefecture"
 import { getSingleUser } from "@/lib/getUsers"
-
+import dayjs from "dayjs"
 export default function Home(props: {
   children: React.ReactNode
   params: { id: string }
@@ -30,13 +38,7 @@ export default function Home(props: {
 export function DataCard(params: { id: string }) {
   const data = getSingleUser(params.id)
 
-  // const [sorting, setSorting] = React.useState<SortingState>([])
-  // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-  //   [],
-  // )
-  // const [columnVisibility, setColumnVisibility] =
-  //   React.useState<VisibilityState>({})
-  // const [rowSelection, setRowSelection] = React.useState({})
+  const [birthdate, set] = useState<Date>(new Date())
 
   return (
     <div className="w-full">
@@ -45,15 +47,21 @@ export function DataCard(params: { id: string }) {
           <form>
             <div className="grid w-full items-center pt-4">
               <div className="flex items-center justify-between py-2">
+                <Label htmlFor="lastName" className="required">姓</Label>
                 <Input
+                  id="lastName"
                   placeholder="* 姓"
                   value={data?.lastName ?? ""}
+                  required
                   onChange={
                     (event) => console.log(event.target.value)
-                  }
+                                                                      }
                     className="max-w-xs"
                 />
+                <Label htmlFor="firstName" className="required">名</Label>
                 <Input
+                  id="firstName"
+                  required
                   placeholder="名"
                   value={data?.firstName ?? ""}
                   onChange={
@@ -63,17 +71,21 @@ export function DataCard(params: { id: string }) {
                 />
               </div>
               <div className="flex items-center justify-between py-2">
+              <Label htmlFor="lastNameKana" className="required">せい</Label>
                 <Input
                   placeholder="* せい"
+                  id="lastNameKana"
+                  required
                   value={data?.lastNameKana ?? "" ?? ""}
                   onChange={
                     (event) => console.log(event.target.value)
                   }
                     className="max-w-xs"
                 />
-                &nbsp;
+                <Label htmlFor="firstNameKana" className="required">めい</Label>
                 <Input
                   placeholder="めい"
+                  id="firstNameKana"
                   value={data?.firstNameKana ?? ""}
                   onChange={
                     (event) => console.log(event.target.value)
@@ -81,9 +93,11 @@ export function DataCard(params: { id: string }) {
                     className="max-w-xs"
                 />
               </div>
-              <div className="flex items-center justify-between py-2">
+              <div className="flex items-center justify-left-2 py-2">
+              <Label htmlFor="companyName">会社名</Label>
                 <Input
                   placeholder="会社名"
+                  id="companyName"
                   value={data?.companyName ?? ""}
                   onChange={
                     (event) => console.log(event.target.value)
@@ -91,7 +105,18 @@ export function DataCard(params: { id: string }) {
                     className="max-w-xs"
                 />
               </div>
-              <div className="flex items-center py-4">生年月日</div>
+              <div className="flex items-center py-4">
+                  <Label htmlFor="borth-date">
+                  生年月日
+                  </Label>
+                  <Input type="date"
+                    id="birth-date"
+                    className="max-w-[15em]"
+                    defaultValue={dayjs(data?.birthDate).format("YYYY-MM-DD")}
+                  >
+                  </Input>
+
+              </div>
             </div>
           </form>
           <Card className="w-[650px] mt-4">
@@ -99,6 +124,9 @@ export function DataCard(params: { id: string }) {
               <CardTitle>ご住所</CardTitle>
             </CardHeader>
             <CardContent>
+              <Label>
+                  郵便番号
+              </Label>
               <Input
                 placeholder="郵便番号"
                 value={data?.zipCode ?? ""}
@@ -107,6 +135,9 @@ export function DataCard(params: { id: string }) {
                 }
                 className="max-w-xs"
               />
+              <Label>
+                  都道府県
+              </Label>
               <Input
                 placeholder="* 都道府県"
                 value={data?.prefecture ?? ""}
@@ -115,7 +146,9 @@ export function DataCard(params: { id: string }) {
                 }
                 className="max-w-xs mt-4"
               />
-
+              <Label>
+              市区町村
+              </Label>
               <Input
                 placeholder="市区町村"
                 value={data?.city ?? ""}
@@ -124,7 +157,9 @@ export function DataCard(params: { id: string }) {
                 }
                 className="max-w-xs mt-4"
               />
-
+              <Label>
+              番地マンション名
+              </Label>
               <Input
                 placeholder="番地マンション名"
                 value={data?.address ?? ""}
@@ -140,6 +175,9 @@ export function DataCard(params: { id: string }) {
               <CardTitle>ご連絡先</CardTitle>
             </CardHeader>
             <CardContent>
+            <Label>
+            電話番号
+              </Label>
               <Input
                 placeholder="電話番号"
                 value={data?.tel ?? ""}

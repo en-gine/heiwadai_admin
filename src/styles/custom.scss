@@ -1,0 +1,7 @@
+label {
+  &.required::after {
+    content: "*";
+    display: inline-block;
+    color: red;
+  }
+}
