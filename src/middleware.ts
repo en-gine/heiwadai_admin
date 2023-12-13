@@ -1,11 +1,12 @@
+import { createPromiseClient } from "@connectrpc/connect"
+import { createConnectTransport } from "@connectrpc/connect-web"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
-import { createPromiseClient } from "@connectrpc/connect"
-import { AuthController } from "./api/v1/admin/Auth_connect"
-import { createConnectTransport } from "@connectrpc/connect-web"
 
+import { AuthController } from "./api/v1/admin/Auth_connect"
 import { BASE_URL } from "./lib/env"
-export async function middleware(request: NextRequest) {
+
+export const middleware = async (request: NextRequest) => {
   // ダッシュボードのページを保護する
   try {
     const prevPath = request.headers.get("next-url")
@@ -21,13 +22,13 @@ export async function middleware(request: NextRequest) {
           req.header.set("Authorization", `${accessToken?.value}`)
           req.header.set("X-Refresh-Token", `${refreshToken?.value}`)
           return await next(req)
-        },
-      ],
+        }
+      ]
     })
     const client = createPromiseClient(AuthController, transport)
     const data = await client.refresh({
       accessToken: accessToken?.value,
-      refreshToken: refreshToken?.value,
+      refreshToken: refreshToken?.value
     })
     // リフレッシュトークンが有効ならば、アクセストークンを更新
     if (data.accessToken) {
@@ -46,5 +47,5 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 export const config = {
-  matcher: "/dashboard/:path*",
+  matcher: "/dashboard/:path*"
 }

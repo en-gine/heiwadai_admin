@@ -1,7 +1,11 @@
 "use client"
-import { Sidebar } from "@/components/parts/sidebar"
 
-export default function Layout(props: { children: React.ReactNode }) {
+import * as React from "react"
+
+import Sidebar from "@/components/parts/sidebar"
+
+const Layout = (props: { children: React.ReactNode }) => {
+  const { children } = props
   return (
     <main>
       <style jsx>{`
@@ -12,7 +16,9 @@ export default function Layout(props: { children: React.ReactNode }) {
         }
       `}</style>
       <Sidebar />
-      {props.children}
+      {children}
     </main>
   )
 }
+
+export default Layout

@@ -1,18 +1,22 @@
-'use client'
+"use client"
+
 import Link from "next/link"
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation"
 import type { FC } from "react"
-type Props = { id?: string }
 
 import styles from "./sidebar.module.scss"
+
+type Props = { id?: string }
 
 const Sidebar: FC<Props> = () => {
   const pathname = usePathname()
   return (
     <nav className={styles.sidebar}>
-      <h2 className={pathname == "/dashboard" ? styles.active : ""}><Link href="/dashboard/">TOP</Link></h2>
+      <h2 className={pathname === "/dashboard" ? styles.active : ""}>
+        <Link href="/dashboard/">TOP</Link>
+      </h2>
       <ul>
-       <li className={pathname == "/dashboard/users" ? styles.active : ""}>
+        <li className={pathname === "/dashboard/users" ? styles.active : ""}>
           <Link href="/dashboard/users">アプリユーザー一覧</Link>
         </li>
         <li className="active">
@@ -37,4 +41,4 @@ const Sidebar: FC<Props> = () => {
     </nav>
   )
 }
-export { Sidebar }
+export default Sidebar

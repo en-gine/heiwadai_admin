@@ -1,14 +1,11 @@
-import { useMemo } from "react"
 import { ServiceType } from "@bufbuild/protobuf"
-
-import {
-  createPromiseClient,
-  Interceptor,
-  ConnectError,
-} from "@connectrpc/connect"
+import { createPromiseClient, Interceptor } from "@connectrpc/connect"
 import { createConnectTransport } from "@connectrpc/connect-web"
+import { destroyCookie, parseCookies, setCookie } from "nookies"
+import { useMemo } from "react"
+
 import { BASE_URL } from "../env"
-import { destroyCookie, setCookie, parseCookies } from "nookies"
+
 const authHeader: Interceptor = (next) => async (req) => {
   // リクエストヘッダーにTokenヘッダーを追加
   req.header.set("Authorization", `${getToken("accessToken")}`)
@@ -35,19 +32,19 @@ const setAuthHeader: Interceptor = (next) => async (req) => {
 
 const transport = createConnectTransport({
   baseUrl: BASE_URL,
-  interceptors: [authHeader, setAuthHeader],
+  interceptors: [authHeader, setAuthHeader]
 })
 
 export const storeToken = (
   key: "accessToken" | "refreshToken",
   value: string,
-  maxAge?: number,
+  maxAge?: number
 ) => {
   setCookie(null, key, value, {
-    maxAge: maxAge,
+    maxAge,
     path: "/",
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === "production"
   })
 }
 
@@ -60,6 +57,10 @@ const getToken = (key: "accessToken" | "refreshToken") => {
   return cookies[key]
 }
 
-export const clientFetcher = <T extends ServiceType>(service: T) => {
-  return useMemo(() => createPromiseClient(service, transport), [service])
+export const useGrpc = <T extends ServiceType>(service: T) => {
+  const client = useMemo(
+    () => createPromiseClient(service, transport),
+    [service]
+  )
+  return client
 }

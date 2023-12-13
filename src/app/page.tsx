@@ -1,6 +1,7 @@
 "use client"
 
-import { useCallback, useRef, FormEvent } from "react"
+import { useRouter } from "next/navigation"
+import { FormEvent, useCallback, useRef } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,37 +9,35 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
 import { useLogin } from "@/hooks/api/useLogin"
-import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <main>
-      {/* <Titlebar /> */}
-      <CardWithForm />
-    </main>
-  )
-}
+const HomePage = () => (
+  <main>
+    {/* <Titlebar /> */}
+    <CardWithForm />
+  </main>
+)
 
-export function CardWithForm() {
+export default HomePage
+
+const CardWithForm = () => {
   const { signIn } = useLogin()
-  const router = useRouter();
+  const router = useRouter()
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
   const handleLogin = useCallback(
     async (event: FormEvent) => {
       event.preventDefault()
-      const email = emailRef.current?.value;
-      const password = passwordRef.current?.value;
+      const email = emailRef.current?.value
+      const password = passwordRef.current?.value
       if (!email || !password) {
-        alert("Emailとパスワードを入力してください");
-        return;
+        alert("Emailとパスワードを入力してください")
+        return
       }
       try {
         await signIn({
@@ -47,33 +46,33 @@ export function CardWithForm() {
         })
         router.push("/dashboard")
       } catch (error) {
-        alert("ログインに失敗しました");
+        alert("ログインに失敗しました")
       }
     },
-    [emailRef.current?.value, emailRef.current?.value]
+    [router, signIn]
   )
 
   return (
     <Card className="w-[370px] m-auto">
       <form onSubmit={handleLogin}>
-      <CardHeader>
-        <CardTitle>平和台ホテルアプリ管理画面</CardTitle>
-      </CardHeader>
-      <CardContent>
+        <CardHeader>
+          <CardTitle>平和台ホテルアプリ管理画面</CardTitle>
+        </CardHeader>
+        <CardContent>
           <div className="grid w-full items-center gap-4">
-          <div className="flex flex-col space-y-1.5">
+            <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Email</Label>
-              <Input id="email" type="email" ref={emailRef} required/>
+              <Input id="email" type="email" ref={emailRef} required />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" ref={passwordRef} required />
             </div>
           </div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button type="submit">ログイン</Button>
-      </CardFooter>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button type="submit">ログイン</Button>
+        </CardFooter>
       </form>
     </Card>
   )

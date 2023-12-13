@@ -1,4 +1,5 @@
-{ // Tailwind CSS IntelliSenseの設定
+{
+  // Tailwind CSS IntelliSenseの設定
   // https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
   "files.associations": {
     "*.css": "tailwindcss"
@@ -6,27 +7,4 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  // formatter
-  "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "eslint.format.enable": false,
-    "editor.formatOnSave": true,
-    "[javascript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-    },
-    "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-    },
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-    },
-    "editor.lineNumbers": "on",
-    "editor.rulers": [80],
-    "editor.wordWrap": "on",
-    "eslint.packageManager": "yarn",
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "npm.packageManager": "yarn",
-    "typescript.enablePromptUseWorkspaceTsdk": true
-  }
+}

@@ -1,45 +1,31 @@
 "use client"
 
-import { useState } from "react"
+import dayjs from "dayjs"
 
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 // import { SelectPref } from "@/components/parts/prefecture"
 import { getSingleUser } from "@/lib/getUsers"
-import dayjs from "dayjs"
-export default function Home(props: {
-  children: React.ReactNode
-  params: { id: string }
-}) {
-  return <DataCard id={props.params.id} />
-}
 
+const Home = (props: { params: { id: string } }) => (
+  <DataCard id={props.params.id} />
+)
 
-export function DataCard(params: { id: string }) {
+export default Home
+
+const DataCard = (params: { id: string }) => {
   const data = getSingleUser(params.id)
-
-  const [birthdate, set] = useState<Date>(new Date())
-
   return (
     <div className="w-full">
       <Card className="w-[700px] mb-20">
@@ -47,75 +33,70 @@ export function DataCard(params: { id: string }) {
           <form>
             <div className="grid w-full items-center pt-4">
               <div className="flex items-center justify-between py-2">
-                <Label htmlFor="lastName" className="required">姓</Label>
+                <Label htmlFor="lastName" className="required">
+                  姓
+                </Label>
                 <Input
                   id="lastName"
                   placeholder="* 姓"
-                  value={data?.lastName ?? ""}
+                  value={data.lastName}
                   required
-                  onChange={
-                    (event) => console.log(event.target.value)
-                                                                      }
-                    className="max-w-xs"
+                  onChange={(event) => console.log(event.target.value)}
+                  className="max-w-xs"
                 />
-                <Label htmlFor="firstName" className="required">名</Label>
+                <Label htmlFor="firstName" className="required">
+                  名
+                </Label>
                 <Input
                   id="firstName"
                   required
                   placeholder="名"
-                  value={data?.firstName ?? ""}
-                  onChange={
-                    (event) => console.log(event.target.value)
-                  }
-                    className="max-w-xs"
+                  value={data.firstName}
+                  onChange={(event) => console.log(event.target.value)}
+                  className="max-w-xs"
                 />
               </div>
               <div className="flex items-center justify-between py-2">
-              <Label htmlFor="lastNameKana" className="required">せい</Label>
+                <Label htmlFor="lastNameKana" className="required">
+                  せい
+                </Label>
                 <Input
                   placeholder="* せい"
                   id="lastNameKana"
                   required
-                  value={data?.lastNameKana ?? "" ?? ""}
-                  onChange={
-                    (event) => console.log(event.target.value)
-                  }
-                    className="max-w-xs"
+                  value={data.lastNameKana}
+                  onChange={(event) => console.log(event.target.value)}
+                  className="max-w-xs"
                 />
-                <Label htmlFor="firstNameKana" className="required">めい</Label>
+                <Label htmlFor="firstNameKana" className="required">
+                  めい
+                </Label>
                 <Input
                   placeholder="めい"
                   id="firstNameKana"
-                  value={data?.firstNameKana ?? ""}
-                  onChange={
-                    (event) => console.log(event.target.value)
-                  }
-                    className="max-w-xs"
+                  value={data.firstNameKana}
+                  onChange={(event) => console.log(event.target.value)}
+                  className="max-w-xs"
                 />
               </div>
               <div className="flex items-center justify-left-2 py-2">
-              <Label htmlFor="companyName">会社名</Label>
+                <Label htmlFor="companyName">会社名</Label>
                 <Input
                   placeholder="会社名"
                   id="companyName"
-                  value={data?.companyName ?? ""}
-                  onChange={
-                    (event) => console.log(event.target.value)
-                  }
-                    className="max-w-xs"
+                  value={data.companyName}
+                  onChange={(event) => console.log(event.target.value)}
+                  className="max-w-xs"
                 />
               </div>
               <div className="flex items-center py-4">
-                  <Label htmlFor="borth-date">
-                  生年月日
-                  </Label>
-                  <Input type="date"
-                    id="birth-date"
-                    className="max-w-[15em]"
-                    defaultValue={dayjs(data?.birthDate).format("YYYY-MM-DD")}
-                  >
-                  </Input>
-
+                <Label htmlFor="borth-date">生年月日</Label>
+                <Input
+                  type="date"
+                  id="birth-date"
+                  className="max-w-[15em]"
+                  defaultValue={dayjs(data.birthDate).format("YYYY-MM-DD")}
+                />
               </div>
             </div>
           </form>
@@ -124,48 +105,32 @@ export function DataCard(params: { id: string }) {
               <CardTitle>ご住所</CardTitle>
             </CardHeader>
             <CardContent>
-              <Label>
-                  郵便番号
-              </Label>
+              <Label>郵便番号</Label>
               <Input
                 placeholder="郵便番号"
-                value={data?.zipCode ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.zipCode}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs"
               />
-              <Label>
-                  都道府県
-              </Label>
+              <Label>都道府県</Label>
               <Input
                 placeholder="* 都道府県"
-                value={data?.prefecture ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.prefecture}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs mt-4"
               />
-              <Label>
-              市区町村
-              </Label>
+              <Label>市区町村</Label>
               <Input
                 placeholder="市区町村"
-                value={data?.city ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.city}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs mt-4"
               />
-              <Label>
-              番地マンション名
-              </Label>
+              <Label>番地マンション名</Label>
               <Input
                 placeholder="番地マンション名"
-                value={data?.address ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.address}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs mt-4"
               />
             </CardContent>
@@ -175,30 +140,24 @@ export function DataCard(params: { id: string }) {
               <CardTitle>ご連絡先</CardTitle>
             </CardHeader>
             <CardContent>
-            <Label>
-            電話番号
-              </Label>
+              <Label>電話番号</Label>
               <Input
                 placeholder="電話番号"
-                value={data?.tel ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.tel}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs"
               />
               <Input
                 placeholder="メールアドレス"
-                value={data?.mail ?? ""}
-                onChange={
-                  (event) => console.log(event.target.value)
-                }
+                value={data.mail}
+                onChange={(event) => console.log(event.target.value)}
                 className="max-w-xs mt-4"
               />
               <div className="flex items-center space-x-2 mt-4">
                 <div>メルマガ配信</div>
                 <RadioGroup
                   defaultValue="1"
-                  value={data?.acceptMail ? "1" : "0"}
+                  value={data.acceptMail ? "1" : "0"}
                   className="flex"
                 >
                   <div className="flex items-center space-x-2">
@@ -214,7 +173,7 @@ export function DataCard(params: { id: string }) {
               <Textarea
                 placeholder="内部伝達事項"
                 className="mt-4"
-                value={data?.internalMessage}
+                value={data.internalMessage}
               />
             </CardContent>
           </Card>

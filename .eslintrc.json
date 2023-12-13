@@ -30,7 +30,10 @@
     "no-invalid-this": "error",
     "no-unexpected-multiline": "error",
     "func-style": "error",
+    "react/destructuring-assignment": "off",
     "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
+    "no-console": ["warn", { "allow": ["warn", "error"]}],
+    "no-alert": "off",
     "react-hooks/exhaustive-deps": [
       "warn",
       {
@@ -86,10 +89,11 @@
           { "ts": "never", "tsx": "never" }
         ],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-use-before-define": ["off"],
         "@typescript-eslint/no-var-requires": "error",
+        "no-return-await": "off",
         "@typescript-eslint/explicit-function-return-type": [
-          "error",
+          "off",
           {
             "allowExpressions": true,
             "allowTypedFunctionExpressions": true
@@ -107,7 +111,7 @@
           "error",
           {
             "selector": "default",
-            "format": ["camelCase"]
+            "format": ["camelCase", "PascalCase"]
           },
           {
             "selector": ["variableLike", "memberLike"],
@@ -115,7 +119,7 @@
           },
           {
             "selector": ["variable", "parameter"],
-            "format": ["strictCamelCase", "StrictPascalCase"],
+            "format": ["strictCamelCase", "StrictPascalCase", "UPPER_CASE"],
             "leadingUnderscore": "allow"
           },
           {
