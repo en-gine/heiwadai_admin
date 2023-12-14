@@ -4,7 +4,7 @@ import { createConnectTransport } from "@connectrpc/connect-web"
 import { destroyCookie, parseCookies, setCookie } from "nookies"
 import { useMemo } from "react"
 
-import { BASE_URL } from "../env"
+import { BASE_URL } from "@/lib/env"
 
 const authHeader: Interceptor = (next) => async (req) => {
   // リクエストヘッダーにTokenヘッダーを追加
@@ -30,7 +30,7 @@ const setAuthHeader: Interceptor = (next) => async (req) => {
   return res
 }
 
-const transport = createConnectTransport({
+export const transport = createConnectTransport({
   baseUrl: BASE_URL,
   interceptors: [authHeader, setAuthHeader]
 })
@@ -62,5 +62,5 @@ export const useGrpc = <T extends ServiceType>(service: T) => {
     () => createPromiseClient(service, transport),
     [service]
   )
-  return client
+  return { client }
 }

@@ -41,7 +41,7 @@ const DataCard = (params: { id: string }) => {
                   placeholder="* 姓"
                   value={data.lastName}
                   required
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => console.debug(event.target.value)}
                   className="max-w-xs"
                 />
                 <Label htmlFor="firstName" className="required">
@@ -52,7 +52,7 @@ const DataCard = (params: { id: string }) => {
                   required
                   placeholder="名"
                   value={data.firstName}
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => console.debug(event.target.value)}
                   className="max-w-xs"
                 />
               </div>
@@ -65,7 +65,7 @@ const DataCard = (params: { id: string }) => {
                   id="lastNameKana"
                   required
                   value={data.lastNameKana}
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => console.debug(event.target.value)}
                   className="max-w-xs"
                 />
                 <Label htmlFor="firstNameKana" className="required">
@@ -75,7 +75,7 @@ const DataCard = (params: { id: string }) => {
                   placeholder="めい"
                   id="firstNameKana"
                   value={data.firstNameKana}
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => console.debug(event.target.value)}
                   className="max-w-xs"
                 />
               </div>
@@ -85,7 +85,7 @@ const DataCard = (params: { id: string }) => {
                   placeholder="会社名"
                   id="companyName"
                   value={data.companyName}
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => console.debug(event.target.value)}
                   className="max-w-xs"
                 />
               </div>
@@ -109,28 +109,28 @@ const DataCard = (params: { id: string }) => {
               <Input
                 placeholder="郵便番号"
                 value={data.zipCode}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs"
               />
               <Label>都道府県</Label>
               <Input
                 placeholder="* 都道府県"
                 value={data.prefecture}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs mt-4"
               />
               <Label>市区町村</Label>
               <Input
                 placeholder="市区町村"
                 value={data.city}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs mt-4"
               />
               <Label>番地マンション名</Label>
               <Input
                 placeholder="番地マンション名"
                 value={data.address}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs mt-4"
               />
             </CardContent>
@@ -144,13 +144,13 @@ const DataCard = (params: { id: string }) => {
               <Input
                 placeholder="電話番号"
                 value={data.tel}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs"
               />
               <Input
                 placeholder="メールアドレス"
                 value={data.mail}
-                onChange={(event) => console.log(event.target.value)}
+                onChange={(event) => console.debug(event.target.value)}
                 className="max-w-xs mt-4"
               />
               <div className="flex items-center space-x-2 mt-4">

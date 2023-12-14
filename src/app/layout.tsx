@@ -8,7 +8,7 @@ import React from "react"
 
 import Titlebar from "@/components/parts/titlebar"
 
-// const inter = Inter({ subsets: ['latin'] })
+import Providers from "./provider"
 
 const noto = Noto_Sans_JP({
   weight: ["400", "700"],
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
 const RootLayout = (props: { children: React.ReactNode }) => {
   const { children } = props
   return (
-    <html lang="en">
+    <html lang="ja">
       <body className={noto.variable}>
         <Titlebar title="平和台ホテルアプリ管理画面" />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

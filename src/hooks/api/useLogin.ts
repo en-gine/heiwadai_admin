@@ -1,30 +1,26 @@
-import {
-  clientFetcher,
-  disposeToken,
-  storeToken,
-} from "@/lib/grpc/clientFetcher"
 import { AuthController } from "@/api/v1/admin/Auth_connect"
+import { disposeToken, storeToken, useGrpc } from "@/hooks/api/useGrpc"
 
-export const useLogin = () => {
-  const client = clientFetcher(AuthController)
+const useLogin = () => {
+  const { client } = useGrpc(AuthController)
 
   const signIn = async ({
     email,
-    password,
+    password
   }: {
     email: string
     password: string
   }) => {
     try {
       const message = await client.signIn({
-        email: email,
-        password: password,
+        email,
+        password
       })
       if (message.accessToken) {
         storeToken(
           "accessToken",
           message.accessToken,
-          Number(message.expiresIn),
+          Number(message.expiresIn)
         )
         storeToken("refreshToken", message.refreshToken)
       }
@@ -45,3 +41,4 @@ export const useLogin = () => {
   }
   return { signIn, signOut }
 }
+export { useLogin }

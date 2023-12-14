@@ -1,5 +1,5 @@
-import { clientFetcher } from "@/lib/grpc/clientFetcher"
 import { UserDataController } from "@/api/v1/admin/UserData_connect"
+import { useGrpc } from "@/hooks/api/useGrpc"
 
 export type UserSearchFilter = {
   lastName?: string
@@ -9,15 +9,15 @@ export type UserSearchFilter = {
   prefecture?: string
 }
 export const useUserData = () => {
+  const { client } = useGrpc(UserDataController)
   const getList = async (page: number) => {
-    const fetcher = clientFetcher(UserDataController)
     try {
-      return await fetcher.getList({
+      return await client.getList({
         Search: {},
         Pager: {
           CurrentPage: page,
-          PerPage: 30,
-        },
+          PerPage: 30
+        }
       })
     } catch (error) {
       console.error(error)
