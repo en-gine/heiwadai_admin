@@ -151,16 +151,6 @@ const DataTable = () => {
           className="max-w-xs"
         />
         &nbsp;
-        {/* <Input
-          placeholder="都道府県"
-          value={
-            (table.getColumn("prefecture")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("prefecture")?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        /> */}
         <SelectPref />
       </div>
       <div className="flex items-center py-4">

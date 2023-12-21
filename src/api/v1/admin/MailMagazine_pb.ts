@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Pager } from "../shared/Pager_pb.ts";
+import { Pager, PageResponse } from "../shared/Pager_pb.ts";
 import { Prefecture } from "../shared/Prefecture_pb.ts";
 
 /**
@@ -78,6 +78,43 @@ export class GetMailMagazineListRequest extends Message<GetMailMagazineListReque
 }
 
 /**
+ * @generated from message server.admin.MailMagazineIDRequest
+ */
+export class MailMagazineIDRequest extends Message<MailMagazineIDRequest> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  constructor(data?: PartialMessage<MailMagazineIDRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.MailMagazineIDRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MailMagazineIDRequest {
+    return new MailMagazineIDRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MailMagazineIDRequest {
+    return new MailMagazineIDRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MailMagazineIDRequest {
+    return new MailMagazineIDRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MailMagazineIDRequest | PlainMessage<MailMagazineIDRequest> | undefined, b: MailMagazineIDRequest | PlainMessage<MailMagazineIDRequest> | undefined): boolean {
+    return proto3.util.equals(MailMagazineIDRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.MailMagazine
  */
 export class MailMagazine extends Message<MailMagazine> {
@@ -126,6 +163,11 @@ export class MailMagazine extends Message<MailMagazine> {
    */
   SentAt?: Timestamp;
 
+  /**
+   * @generated from field: optional google.protobuf.Timestamp CreateAt = 10;
+   */
+  CreateAt?: Timestamp;
+
   constructor(data?: PartialMessage<MailMagazine>) {
     super();
     proto3.util.initPartial(data, this);
@@ -143,6 +185,7 @@ export class MailMagazine extends Message<MailMagazine> {
     { no: 7, name: "UnsentCount", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 8, name: "SentCount", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 9, name: "SentAt", kind: "message", T: Timestamp, opt: true },
+    { no: 10, name: "CreateAt", kind: "message", T: Timestamp, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MailMagazine {
@@ -171,6 +214,11 @@ export class MailMagazinesResponse extends Message<MailMagazinesResponse> {
    */
   MailMagazines: MailMagazine[] = [];
 
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
   constructor(data?: PartialMessage<MailMagazinesResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -180,6 +228,7 @@ export class MailMagazinesResponse extends Message<MailMagazinesResponse> {
   static readonly typeName = "server.admin.MailMagazinesResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "MailMagazines", kind: "message", T: MailMagazine, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MailMagazinesResponse {

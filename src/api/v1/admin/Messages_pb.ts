@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { Pager } from "../shared/Pager_pb.ts";
+import { Pager, PageResponse } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from message server.admin.MessageIDRequest
@@ -53,6 +53,11 @@ export class MessagesResponse extends Message<MessagesResponse> {
    */
   messages: MessageResponse[] = [];
 
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
   constructor(data?: PartialMessage<MessagesResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -62,6 +67,7 @@ export class MessagesResponse extends Message<MessagesResponse> {
   static readonly typeName = "server.admin.MessagesResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "messages", kind: "message", T: MessageResponse, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MessagesResponse {
@@ -251,6 +257,11 @@ export class MessageResponse extends Message<MessageResponse> {
    */
   DisplayDate?: Timestamp;
 
+  /**
+   * @generated from field: google.protobuf.Timestamp CreateAt = 6;
+   */
+  CreateAt?: Timestamp;
+
   constructor(data?: PartialMessage<MessageResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -264,6 +275,7 @@ export class MessageResponse extends Message<MessageResponse> {
     { no: 3, name: "Content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "AuthorID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "DisplayDate", kind: "message", T: Timestamp },
+    { no: 6, name: "CreateAt", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MessageResponse {

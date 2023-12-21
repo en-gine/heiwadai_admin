@@ -4,4 +4,3 @@ dist
 out
 src/components/ui
 src/lib/utils.ts
-src/components/parts/prefecture.tsx

@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AdminAuthRequest, AdminAuthResponse, AdminRefreshTokenRequest, AdminRegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
+import { AdminAuthTokenResponse, AdminRefreshTokenRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
 
 /**
  * @generated from service server.admin.AuthController
@@ -13,24 +13,8 @@ export const AuthController = {
   typeName: "server.admin.AuthController",
   methods: {
     /**
-     * @generated from rpc server.admin.AuthController.Register
-     */
-    register: {
-      name: "Register",
-      I: AdminRegisterRequest,
-      O: Empty,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * @generated from rpc server.admin.AuthController.SignUp
-     */
-    signUp: {
-      name: "SignUp",
-      I: AdminAuthRequest,
-      O: Empty,
-      kind: MethodKind.Unary,
-    },
-    /**
+     * トークン必要
+     *
      * @generated from rpc server.admin.AuthController.SignOut
      */
     signOut: {
@@ -45,25 +29,7 @@ export const AuthController = {
     refresh: {
       name: "Refresh",
       I: AdminRefreshTokenRequest,
-      O: AdminAuthResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * @generated from rpc server.admin.AuthController.SignIn
-     */
-    signIn: {
-      name: "SignIn",
-      I: AdminAuthRequest,
-      O: AdminAuthResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * @generated from rpc server.admin.AuthController.ResetPasswordMail
-     */
-    resetPasswordMail: {
-      name: "ResetPasswordMail",
-      I: ResetPasswordRequest,
-      O: Empty,
+      O: AdminAuthTokenResponse,
       kind: MethodKind.Unary,
     },
     /**

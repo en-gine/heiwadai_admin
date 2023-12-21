@@ -110,28 +110,28 @@ const DataCard = (params: { id: string }) => {
                 placeholder="郵便番号"
                 value={data.zipCode}
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs"
+                className="max-w-xs mb-4"
               />
               <Label>都道府県</Label>
               <Input
                 placeholder="* 都道府県"
                 value={data.prefecture}
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs mt-4"
+                className="max-w-xs mb-4"
               />
               <Label>市区町村</Label>
               <Input
                 placeholder="市区町村"
                 value={data.city}
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs mt-4"
+                className="max-w-xs mb-4"
               />
               <Label>番地マンション名</Label>
               <Input
                 placeholder="番地マンション名"
                 value={data.address}
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs mt-4"
+                className="max-w-xs mb-4"
               />
             </CardContent>
           </Card>
@@ -140,22 +140,28 @@ const DataCard = (params: { id: string }) => {
               <CardTitle>ご連絡先</CardTitle>
             </CardHeader>
             <CardContent>
-              <Label>電話番号</Label>
+              <Label htmlFor="tel">電話番号</Label>
               <Input
+                id="tel"
                 placeholder="電話番号"
                 value={data.tel}
+                type="tel"
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs"
+                className="max-w-xs mb-4"
               />
+              <Label htmlFor="mail">メールアドレス</Label>
               <Input
+                id="mail"
                 placeholder="メールアドレス"
                 value={data.mail}
+                type="email"
                 onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs mt-4"
+                className="max-w-xs mb-4"
               />
-              <div className="flex items-center space-x-2 mt-4">
-                <div>メルマガ配信</div>
+              <div className="flex items-center space-x-2 mt-6 mb-6">
+                <Label htmlFor="magazine">メルマガ配信</Label>
                 <RadioGroup
+                  id="magazine"
                   defaultValue="1"
                   value={data.acceptMail ? "1" : "0"}
                   className="flex"
@@ -170,9 +176,12 @@ const DataCard = (params: { id: string }) => {
                   </div>
                 </RadioGroup>
               </div>
+              <Label htmlFor="innnerNote">内部伝達事項</Label>
+
               <Textarea
+                id="innnerNote"
                 placeholder="内部伝達事項"
-                className="mt-4"
+                className="mt-b"
                 value={data.internalMessage}
               />
             </CardContent>

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreateDraftRequest, DeleteMailMagazineRequest, GetMailMagazineListRequest, MailMagazine, MailMagazinesResponse, SendMailMagazineRequest, UpdateMailMagazineRequest } from "./MailMagazine_pb.ts";
+import { CreateDraftRequest, DeleteMailMagazineRequest, GetMailMagazineListRequest, MailMagazine, MailMagazineIDRequest, MailMagazinesResponse, SendMailMagazineRequest, UpdateMailMagazineRequest } from "./MailMagazine_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,15 @@ export const MailMagazineController = {
       name: "GetList",
       I: GetMailMagazineListRequest,
       O: MailMagazinesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.MailMagazineController.GetByID
+     */
+    getByID: {
+      name: "GetByID",
+      I: MailMagazineIDRequest,
+      O: MailMagazine,
       kind: MethodKind.Unary,
     },
     /**

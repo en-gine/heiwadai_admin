@@ -1,9 +1,10 @@
+import { AnonAuthController } from "@/api/v1/admin/AnonAuth_connect"
 import { AuthController } from "@/api/v1/admin/Auth_connect"
 import { disposeToken, storeToken, useGrpc } from "@/hooks/api/useGrpc"
 
 const useLogin = () => {
-  const { client } = useGrpc(AuthController)
-
+  const { client } = useGrpc(AnonAuthController)
+  const { client: AuthClient } = useGrpc(AuthController)
   const signIn = async ({
     email,
     password
@@ -31,7 +32,7 @@ const useLogin = () => {
   }
   const signOut = async () => {
     try {
-      await client.signOut({})
+      await AuthClient.signOut({})
       disposeToken("accessToken")
       disposeToken("refreshToken")
     } catch (error) {

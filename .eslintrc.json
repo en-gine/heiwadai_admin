@@ -36,6 +36,7 @@
     "no-console": ["warn", { "allow": ["warn", "error"]}],
     "no-alert": "off",
     "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
     "react-hooks/exhaustive-deps": [
       "warn",
       {
@@ -58,9 +59,7 @@
     "react/jsx-pascal-case": ["error"],
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
     "react/jsx-props-no-spreading": [
-      "error",
-      { "exceptions": ["Layout", "Component", "FormProvider", "input"] }
-    ],
+      "off"   ],
     "react/function-component-definition": [
       "error",
       {
@@ -117,7 +116,7 @@
           },
           {
             "selector": ["variableLike", "memberLike"],
-            "format": ["strictCamelCase",  "StrictPascalCase"]
+            "format": ["strictCamelCase",  "StrictPascalCase", "UPPER_CASE"]
           },
           {
             "selector": ["variable", "parameter"],

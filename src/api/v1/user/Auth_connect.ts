@@ -3,9 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { UserRegisterRequest } from "./UserData_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { RefreshTokenRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest, UserAuthRequest, UserAuthResponse } from "./Auth_pb.ts";
+import { RefreshTokenRequest, UpdateEmailRequest, UpdatePasswordRequest, UserAuthTokenResponse } from "./Auth_pb.ts";
 
 /**
  * @generated from service server.user.AuthController
@@ -13,39 +12,6 @@ import { RefreshTokenRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePa
 export const AuthController = {
   typeName: "server.user.AuthController",
   methods: {
-    /**
-     * 初回ユーザー登録
-     *
-     * @generated from rpc server.user.AuthController.Register
-     */
-    register: {
-      name: "Register",
-      I: UserRegisterRequest,
-      O: Empty,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * ユーザー登録後にメールアドレスの確認が完了し、パスワードを設定する
-     *
-     * @generated from rpc server.user.AuthController.SignUp
-     */
-    signUp: {
-      name: "SignUp",
-      I: UserAuthRequest,
-      O: Empty,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * ログイン
-     *
-     * @generated from rpc server.user.AuthController.SignIn
-     */
-    signIn: {
-      name: "SignIn",
-      I: UserAuthRequest,
-      O: UserAuthResponse,
-      kind: MethodKind.Unary,
-    },
     /**
      * ログアウト
      *
@@ -65,18 +31,7 @@ export const AuthController = {
     refresh: {
       name: "Refresh",
       I: RefreshTokenRequest,
-      O: UserAuthResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
-     * パスワードリセット用メール送信
-     *
-     * @generated from rpc server.user.AuthController.ResetPasswordMail
-     */
-    resetPasswordMail: {
-      name: "ResetPasswordMail",
-      I: ResetPasswordRequest,
-      O: Empty,
+      O: UserAuthTokenResponse,
       kind: MethodKind.Unary,
     },
     /**

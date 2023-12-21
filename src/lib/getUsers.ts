@@ -1,4 +1,4 @@
-import { Prefecture } from "@/components/parts/prefecture"
+import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
 
 export type User = {
   id: string

@@ -1,9 +1,4 @@
-/* eslint-disable no-shadow */
-/* eslint-disable default-case */
-/* eslint-disable complexity */
-/* eslint-disable func-style */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-restricted-syntax */
+import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
 import {
   Select,
   SelectContent,
@@ -14,228 +9,184 @@ import {
   SelectValue
 } from "@/components/ui/select"
 
-export enum Prefecture {
-  Hokkaido,
-  Aomori,
-  Iwate,
-  Miyagi,
-  Akita,
-  Yamagata,
-  Fukushima,
-  Ibaraki,
-  Tochigi,
-  Gunma,
-  Saitama,
-  Chiba,
-  Tokyo,
-  Kanagawa,
-  Niigata,
-  Toyama,
-  Ishikawa,
-  Fukui,
-  Yamanashi,
-  Nagano,
-  Gifu,
-  Shizuoka,
-  Aichi,
-  Mie,
-  Shiga,
-  Kyoto,
-  Osaka,
-  Hyogo,
-  Nara,
-  Wakayama,
-  Tottori,
-  Shimane,
-  Okayama,
-  Hiroshima,
-  Yamaguchi,
-  Tokushima,
-  Kagawa,
-  Ehime,
-  Kochi,
-  Fukuoka,
-  Saga,
-  Nagasaki,
-  Kumamoto,
-  Oita,
-  Miyazaki,
-  Kagoshima,
-  Okinawa
+import { MultiSelect } from "../ui/multiselect"
+
+type Props = {
+  className?: string
 }
 
-export const SelectPref = () => (
+export const SelectPref = ({ className = "w-full" }: Props) => (
   <Select>
-    <SelectTrigger className="w-[180px]">
+    <SelectTrigger className={className}>
       <SelectValue placeholder="都道府県" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup className="overflow-y-auto max-h-[25rem]">
         <SelectGroup>
           <SelectLabel>九州・沖縄</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Fukuoka)}>
+          <SelectItem value={Prefecture.Fukuoka.toString()}>
             {getPrefName(Prefecture.Fukuoka)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Saga)}>
+          <SelectItem value={Prefecture.Saga.toString()}>
             {getPrefName(Prefecture.Saga)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Nagasaki)}>
+          <SelectItem value={Prefecture.Nagasaki.toString()}>
             {getPrefName(Prefecture.Nagasaki)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kumamoto)}>
+          <SelectItem value={Prefecture.Kumamoto.toString()}>
             {getPrefName(Prefecture.Kumamoto)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Oita)}>
+          <SelectItem value={Prefecture.Oita.toString()}>
             {getPrefName(Prefecture.Oita)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Miyazaki)}>
+          <SelectItem value={Prefecture.Miyazaki.toString()}>
             {getPrefName(Prefecture.Miyazaki)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kagoshima)}>
+          <SelectItem value={Prefecture.Kagoshima.toString()}>
             {getPrefName(Prefecture.Kagoshima)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Okinawa)}>
+          <SelectItem value={Prefecture.Okinawa.toString()}>
             {getPrefName(Prefecture.Okinawa)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>北海道</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Hokkaido)}>
+          <SelectItem value={Prefecture.Hokkaido.toString()}>
             {getPrefName(Prefecture.Hokkaido)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>東北</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Aomori)}>
+          <SelectItem value={Prefecture.Aomori.toString()}>
             {getPrefName(Prefecture.Aomori)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Iwate)}>
+          <SelectItem value={Prefecture.Iwate.toString()}>
             {getPrefName(Prefecture.Iwate)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Miyagi)}>
+          <SelectItem value={Prefecture.Miyagi.toString()}>
             {getPrefName(Prefecture.Miyagi)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Akita)}>
+          <SelectItem value={Prefecture.Akita.toString()}>
             {getPrefName(Prefecture.Akita)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Akita)}>
+          <SelectItem value={Prefecture.Akita.toString()}>
             {getPrefName(Prefecture.Akita)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Yamagata)}>
+          <SelectItem value={Prefecture.Yamagata.toString()}>
             {getPrefName(Prefecture.Yamagata)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Fukushima)}>
+          <SelectItem value={Prefecture.Fukushima.toString()}>
             {getPrefName(Prefecture.Fukushima)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>関東</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Ibaraki)}>
+          <SelectItem value={Prefecture.Ibaraki.toString()}>
             {getPrefName(Prefecture.Ibaraki)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Tochigi)}>
+          <SelectItem value={Prefecture.Tochigi.toString()}>
             {getPrefName(Prefecture.Tochigi)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Gunma)}>
+          <SelectItem value={Prefecture.Gunma.toString()}>
             {getPrefName(Prefecture.Gunma)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Saitama)}>
+          <SelectItem value={Prefecture.Saitama.toString()}>
             {getPrefName(Prefecture.Saitama)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Chiba)}>
+          <SelectItem value={Prefecture.Chiba.toString()}>
             {getPrefName(Prefecture.Chiba)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Tokyo)}>
+          <SelectItem value={Prefecture.Tokyo.toString()}>
             {getPrefName(Prefecture.Tokyo)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kanagawa)}>
+          <SelectItem value={Prefecture.Kanagawa.toString()}>
             {getPrefName(Prefecture.Kanagawa)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>中部</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Niigata)}>
+          <SelectItem value={Prefecture.Niigata.toString()}>
             {getPrefName(Prefecture.Niigata)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Toyama)}>
+          <SelectItem value={Prefecture.Toyama.toString()}>
             {getPrefName(Prefecture.Toyama)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Ishikawa)}>
+          <SelectItem value={Prefecture.Ishikawa.toString()}>
             {getPrefName(Prefecture.Ishikawa)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Fukui)}>
+          <SelectItem value={Prefecture.Fukui.toString()}>
             {getPrefName(Prefecture.Fukui)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Yamanashi)}>
+          <SelectItem value={Prefecture.Yamanashi.toString()}>
             {getPrefName(Prefecture.Yamanashi)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Nagano)}>
+          <SelectItem value={Prefecture.Nagano.toString()}>
             {getPrefName(Prefecture.Nagano)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Gifu)}>
+          <SelectItem value={Prefecture.Gifu.toString()}>
             {getPrefName(Prefecture.Gifu)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Shizuoka)}>
+          <SelectItem value={Prefecture.Shizuoka.toString()}>
             {getPrefName(Prefecture.Shizuoka)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Aichi)}>
+          <SelectItem value={Prefecture.Aichi.toString()}>
             {getPrefName(Prefecture.Aichi)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>近畿</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Mie)}>
+          <SelectItem value={Prefecture.Mie.toString()}>
             {getPrefName(Prefecture.Mie)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Shiga)}>
+          <SelectItem value={Prefecture.Shiga.toString()}>
             {getPrefName(Prefecture.Shiga)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kyoto)}>
+          <SelectItem value={Prefecture.Kyoto.toString()}>
             {getPrefName(Prefecture.Kyoto)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Osaka)}>
+          <SelectItem value={Prefecture.Osaka.toString()}>
             {getPrefName(Prefecture.Osaka)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Hyogo)}>
+          <SelectItem value={Prefecture.Hyogo.toString()}>
             {getPrefName(Prefecture.Hyogo)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Nara)}>
+          <SelectItem value={Prefecture.Nara.toString()}>
             {getPrefName(Prefecture.Nara)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Wakayama)}>
+          <SelectItem value={Prefecture.Wakayama.toString()}>
             {getPrefName(Prefecture.Wakayama)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>中国</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Tottori)}>
+          <SelectItem value={Prefecture.Tottori.toString()}>
             {getPrefName(Prefecture.Tottori)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Shimane)}>
+          <SelectItem value={Prefecture.Shimane.toString()}>
             {getPrefName(Prefecture.Shimane)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Okayama)}>
+          <SelectItem value={Prefecture.Okayama.toString()}>
             {getPrefName(Prefecture.Okayama)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Hiroshima)}>
+          <SelectItem value={Prefecture.Hiroshima.toString()}>
             {getPrefName(Prefecture.Hiroshima)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Yamaguchi)}>
+          <SelectItem value={Prefecture.Yamaguchi.toString()}>
             {getPrefName(Prefecture.Yamaguchi)}
           </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>四国</SelectLabel>
-          <SelectItem value={getPrefName(Prefecture.Tokushima)}>
+          <SelectItem value={Prefecture.Tokushima.toString()}>
             {getPrefName(Prefecture.Tokushima)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kagawa)}>
+          <SelectItem value={Prefecture.Kagawa.toString()}>
             {getPrefName(Prefecture.Kagawa)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Ehime)}>
+          <SelectItem value={Prefecture.Ehime.toString()}>
             {getPrefName(Prefecture.Ehime)}
           </SelectItem>
-          <SelectItem value={getPrefName(Prefecture.Kochi)}>
+          <SelectItem value={Prefecture.Kochi.toString()}>
             {getPrefName(Prefecture.Kochi)}
           </SelectItem>
         </SelectGroup>
@@ -244,7 +195,16 @@ export const SelectPref = () => (
   </Select>
 )
 
-function getPrefName(p: Prefecture) {
+export const MultiSelectPref = () => {
+  const prefs = Object.keys(Prefecture).map((key) => ({
+    value: Prefecture[key as keyof typeof Prefecture].toString(),
+    label: getPrefName(Prefecture[key as keyof typeof Prefecture])
+  }))
+
+  return <MultiSelect data={prefs} />
+}
+// eslint-disable-next-line complexity
+const getPrefName = (p: Prefecture) => {
   switch (p) {
     case Prefecture.Hokkaido:
       return "北海道"
@@ -340,5 +300,9 @@ function getPrefName(p: Prefecture) {
       return "鹿児島県"
     case Prefecture.Okinawa:
       return "沖縄県"
+    case Prefecture.Unspecified:
+      return "未指定"
+    default:
+      return ""
   }
 }
