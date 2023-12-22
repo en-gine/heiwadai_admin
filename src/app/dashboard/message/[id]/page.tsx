@@ -6,9 +6,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { Form } from "../_form"
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
   const client = fetcher(MessageController)
-  const messageId = params.slug
+  const messageId = params.id
   let message: MessageResponse | undefined
   try {
     const res = await client.getByID({
@@ -16,12 +16,11 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     })
     message = res
   } catch (error) {
-    alert("エラーが発生しました。")
     console.error(error)
   }
   return (
     <div className="w-full">
-      <Form data={message} />
+      <Form data={message} data-superjson />
     </div>
   )
 }

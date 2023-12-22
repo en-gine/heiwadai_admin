@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation"
 import * as React from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
@@ -9,10 +8,13 @@ import { fetcher } from "@/lib/fetch"
 
 import { MagazineListTable } from "./_table"
 
-const Page = async () => {
+const Page = async ({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
   const client = fetcher(MailMagazineController)
-  const searchParams = useSearchParams()
-  const pageParam = searchParams.get("page")
+  const pageParam = searchParams.page
   const currentPage =
     pageParam && Number.isNaN(pageParam) ? Number(pageParam) : 1
   let magazines: MailMagazine[] = []

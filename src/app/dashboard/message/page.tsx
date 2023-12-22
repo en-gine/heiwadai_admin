@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation"
 import * as React from "react"
 
 import { MessageController } from "@/api/v1/admin/Messages_connect"
@@ -9,10 +8,13 @@ import { fetcher } from "@/lib/fetch"
 
 import { MessageListTable } from "./_table"
 
-const Page = async () => {
+const Page = async ({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
   const client = fetcher(MessageController)
-  const searchParams = useSearchParams()
-  const pageParam = searchParams.get("page")
+  const pageParam = searchParams.page
   const currentPage =
     pageParam && Number.isNaN(pageParam) ? Number(pageParam) : 1
   let messages: MessageResponse[] = []
@@ -25,6 +27,7 @@ const Page = async () => {
       }
     })
     messages = res.messages
+    pageResponse = res.PageResponse
   } catch (error) {
     console.error(error)
     throw error

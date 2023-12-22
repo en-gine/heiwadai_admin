@@ -1,5 +1,6 @@
 "use client"
 
+import { Timestamp } from "@bufbuild/protobuf"
 import dayjs from "dayjs"
 import Link from "next/link"
 
@@ -20,7 +21,7 @@ export const MessageListTable = ({ messages }: Props) => (
   <>
     <div className="text-right">
       <Button variant="default" className="mb-4">
-        <Link href="./messages/new/">新規作成</Link>
+        <Link href="./message/new">新規作成</Link>
       </Button>
     </div>
     <Table>
@@ -37,7 +38,7 @@ export const MessageListTable = ({ messages }: Props) => (
         {messages.map((msg) => (
           <TableRow key={msg.ID}>
             <TableCell className="font-medium">
-              <Link href={`./${msg.ID}`}>{msg.Title}</Link>
+              <Link href={`./message/${msg.ID}`}>{msg.Title}</Link>
             </TableCell>
             <TableCell>
               {msg.Content.length > 50
@@ -45,12 +46,10 @@ export const MessageListTable = ({ messages }: Props) => (
                 : msg.Content}
             </TableCell>
             <TableCell>
-              {msg.DisplayDate &&
-                dayjs(msg.DisplayDate.toDate()).format("yyyy/mm/dd HH:mm")}
+              {dayjs(msg.DisplayDate as unknown as string).format("YYYY/MM/DD")}
             </TableCell>
             <TableCell>
-              {msg.CreateAt &&
-                dayjs(msg.CreateAt.toDate()).format("yyyy/mm/dd HH:mm")}
+              {dayjs(msg.CreateAt as unknown as string).format("YYYY/MM/DD")}
             </TableCell>
           </TableRow>
         ))}

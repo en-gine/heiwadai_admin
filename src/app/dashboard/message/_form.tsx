@@ -2,11 +2,11 @@
 
 import { Timestamp } from "@bufbuild/protobuf"
 import dayjs from "dayjs"
-import { FormEvent, useCallback } from "react"
+import { useRouter } from "next/navigation"
+import { FormEvent, FormEventHandler, useCallback } from "react"
 
 import { MessageController } from "@/api/v1/admin/Messages_connect"
 import { MessageResponse } from "@/api/v1/admin/Messages_pb"
-import { MultiSelectPref } from "@/components/parts/prefecture"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -24,32 +24,33 @@ type Props = {
 
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(MessageController)
-  const handleSubmit = useCallback(
+  const router = useRouter()
+  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       const formData = new FormData(event.currentTarget)
+      const { submitter } = event.nativeEvent as SubmitEvent
+      const { value: submitType } = submitter as HTMLButtonElement
       const title = formData.get("title") as string
       const content = formData.get("content") as string
-      const displayDate = formData.get("desplayDate")
-      if (!(displayDate instanceof Date)) {
-        alert("日付の形式が不正です。")
-        return
-      }
-      const submitType = formData.get("submit-type")
-      if (!title || !content || !submitType) {
-        alert("タイトルと本文は必須です。")
-        return
-      }
+      const displayDate = dayjs(formData.get("displayDate") as string).toDate()
+
+      if (!submitType) return
       try {
         switch (submitType) {
           case SubmitType.Save:
-            if (data?.ID) {
-              await client.create({
+            if (!title || !content) {
+              alert("タイトルと本文は必須です。")
+              return
+            }
+            if (!data?.ID) {
+              const res = await client.create({
                 Title: title,
                 DisplayDate: Timestamp.fromDate(displayDate),
                 Content: content
               })
               alert("保存しました。")
+              router.push(`./${res.ID}}`)
               return
             }
             await client.update({
@@ -59,15 +60,14 @@ export const Form = ({ data }: Props) => {
             })
             alert("更新しました。")
             return
-          case SubmitType.Delete: {
-            const res = window.confirm("削除しますか？")
-            if (!res) return
+          case SubmitType.Delete:
+            if (!window.confirm("削除しますか？")) return
             await client.delete({
               ID: data?.ID
             })
             alert("削除しました。")
+            router.push(`./`)
             return
-          }
           default:
             throw new Error("invalid submit type")
         }
@@ -75,13 +75,14 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, data?.ID]
+    [client, data?.ID, router]
   )
   return (
     <form onSubmit={handleSubmit}>
       {data?.CreateAt && (
         <div className="text-right">
-          作成日:{dayjs(data.CreateAt?.toDate()).format("YYYY年MM月DD日")}
+          作成日:
+          {dayjs(data.CreateAt as unknown as string).format("YYYY年MM月DD日")}
         </div>
       )}
       <Label htmlFor="title" className="required">
@@ -104,8 +105,8 @@ export const Form = ({ data }: Props) => {
         type="date"
         defaultValue={
           data?.DisplayDate
-            ? data?.DisplayDate?.toDate().toISOString()
-            : new Date().toISOString()
+            ? dayjs(data.CreateAt as unknown as string).format("YYYY-MM-DD")
+            : dayjs().format("YYYY-MM-DD")
         }
       />
 
@@ -115,11 +116,10 @@ export const Form = ({ data }: Props) => {
       <Textarea
         id="content"
         name="content"
-        className="w-full"
+        className="w-full min-h-[300px] mt-1"
         defaultValue={data?.Content}
       />
-      <MultiSelectPref />
-      <div className="flex gap-20 justify-center">
+      <div className="flex gap-20 justify-center mt-7">
         <Button
           type="submit"
           variant="default"

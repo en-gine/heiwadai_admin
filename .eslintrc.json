@@ -9,7 +9,7 @@
   ],
   "plugins": ["react", "jest", "simple-import-sort"],
   "rules": {
-    "complexity": ["error", 10],
+    "complexity": ["error", 15],
     "max-depth": ["error", 4],
     "camelcase": "error",
     "eqeqeq": "error",

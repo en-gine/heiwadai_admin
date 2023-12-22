@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useCallback } from "react"
+import { FormEvent, FormEventHandler, useCallback } from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
 import {
@@ -26,20 +26,22 @@ type Props = {
 
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(MailMagazineController)
-  const handleSubmit = useCallback(
+  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       const formData = new FormData(event.currentTarget)
       const title = formData.get("title") as string
       const content = formData.get("content") as string
-      const submitType = formData.get("submit-type") as string
-      if (!title || !content || !submitType) {
-        alert("タイトルと本文は必須です。")
-        return
-      }
+      const submitType = formData.get("submit-type")
+      if (!submitType) return
       try {
         switch (submitType) {
           case SubmitType.Save:
+            if (!title || !content) {
+              alert("タイトルと本文は必須です。")
+              return
+            }
+
             if (
               data?.MailMagazineStatus ===
                 MailMagazineStatus.MailMagazineDraft &&
@@ -60,12 +62,14 @@ export const Form = ({ data }: Props) => {
             alert("更新しました。")
             return
           case SubmitType.Delete:
+            if (!window.confirm("削除しますか？")) return
             await client.delete({
               ID: data?.ID
             })
             alert("削除しました。")
             return
           case SubmitType.Send:
+            if (!window.confirm("送信しますか？")) return
             await client.send({
               ID: data?.ID
             })
