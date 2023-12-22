@@ -1,3 +1,5 @@
+import type { SelectProps } from "@radix-ui/react-select"
+
 import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
 import {
   Select,
@@ -9,15 +11,11 @@ import {
   SelectValue
 } from "@/components/ui/select"
 
-import { MultiSelect } from "../ui/multiselect"
+import { MultiSelect } from "../ui/multi-select"
 
-type Props = {
-  className?: string
-}
-
-export const SelectPref = ({ className = "w-full" }: Props) => (
-  <Select>
-    <SelectTrigger className={className}>
+export const SelectPref = (props: SelectProps) => (
+  <Select {...props}>
+    <SelectTrigger>
       <SelectValue placeholder="都道府県" />
     </SelectTrigger>
     <SelectContent>
@@ -201,7 +199,7 @@ export const MultiSelectPref = () => {
     label: getPrefName(Prefecture[key as keyof typeof Prefecture])
   }))
 
-  return <MultiSelect data={prefs} />
+  return <MultiSelect options={prefs} />
 }
 // eslint-disable-next-line complexity
 const getPrefName = (p: Prefecture) => {

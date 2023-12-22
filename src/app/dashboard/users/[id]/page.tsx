@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs"
 
+import { SelectPref } from "@/components/parts/prefecture"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -28,7 +29,7 @@ const DataCard = (params: { id: string }) => {
   const data = getSingleUser(params.id)
   return (
     <div className="w-full">
-      <Card className="w-[700px] mb-20">
+      <Card className="mb-20">
         <CardContent>
           <form>
             <div className="grid w-full items-center pt-4">
@@ -113,11 +114,9 @@ const DataCard = (params: { id: string }) => {
                 className="max-w-xs mb-4"
               />
               <Label>都道府県</Label>
-              <Input
-                placeholder="* 都道府県"
-                value={data.prefecture}
-                onChange={(event) => console.debug(event.target.value)}
-                className="max-w-xs mb-4"
+              <SelectPref
+                onValueChange={(event) => console.debug(event)}
+                defaultValue={data.prefecture.toLocaleString()}
               />
               <Label>市区町村</Label>
               <Input

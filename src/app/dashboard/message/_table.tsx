@@ -1,6 +1,5 @@
 "use client"
 
-import { Timestamp } from "@bufbuild/protobuf"
 import dayjs from "dayjs"
 import Link from "next/link"
 
@@ -25,7 +24,6 @@ export const MessageListTable = ({ messages }: Props) => (
       </Button>
     </div>
     <Table>
-      <TableCaption>ログイン通知メッセージ</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">タイトル</TableHead>

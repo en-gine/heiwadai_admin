@@ -79,12 +79,6 @@ export const Form = ({ data }: Props) => {
   )
   return (
     <form onSubmit={handleSubmit}>
-      {data?.CreateAt && (
-        <div className="text-right">
-          作成日:
-          {dayjs(data.CreateAt as unknown as string).format("YYYY年MM月DD日")}
-        </div>
-      )}
       <Label htmlFor="title" className="required">
         タイトル
       </Label>
@@ -95,6 +89,12 @@ export const Form = ({ data }: Props) => {
         defaultValue={data?.Title}
         className="w-full"
       />
+      {data?.CreateAt && (
+        <div className="text-right">
+          作成日:
+          {dayjs(data.CreateAt as unknown as string).format("YYYY年MM月DD日")}
+        </div>
+      )}
       <Label htmlFor="displayDate" className="required">
         表示日
       </Label>
@@ -116,7 +116,7 @@ export const Form = ({ data }: Props) => {
       <Textarea
         id="content"
         name="content"
-        className="w-full min-h-[300px] mt-1"
+        className="w-full min-h-[100px] mt-1"
         defaultValue={data?.Content}
       />
       <div className="flex gap-20 justify-center mt-7">

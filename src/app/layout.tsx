@@ -7,6 +7,7 @@ import { Noto_Sans_JP } from "next/font/google"
 import React from "react"
 
 import Titlebar from "@/components/parts/titlebar"
+import { cn } from "@/lib/utils"
 
 import Providers from "./provider"
 
@@ -25,7 +26,14 @@ const RootLayout = (props: { children: React.ReactNode }) => {
   const { children } = props
   return (
     <html lang="ja">
-      <body className={noto.variable}>
+      <body
+        className={cn(
+          noto.variable,
+          "bg-gradient-to-r",
+          "from-green-400/20",
+          "to-blue-500/20"
+        )}
+      >
         <Titlebar title="平和台ホテルアプリ管理画面" />
         <Providers>{children}</Providers>
       </body>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { FormEvent, FormEventHandler, useCallback } from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
@@ -26,13 +27,15 @@ type Props = {
 
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(MailMagazineController)
+  const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       const formData = new FormData(event.currentTarget)
       const title = formData.get("title") as string
       const content = formData.get("content") as string
-      const submitType = formData.get("submit-type")
+      const { submitter } = event.nativeEvent as SubmitEvent
+      const { value: submitType } = submitter as HTMLButtonElement
       if (!submitType) return
       try {
         switch (submitType) {
@@ -47,11 +50,12 @@ export const Form = ({ data }: Props) => {
                 MailMagazineStatus.MailMagazineDraft &&
               data?.ID
             ) {
-              await client.createDraft({
+              const res = await client.createDraft({
                 Title: title,
                 Content: content
               })
               alert("保存しました。")
+              router.push(`./${res.ID}}`)
               return
             }
             await client.update({
@@ -82,7 +86,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, data?.ID, data?.MailMagazineStatus]
+    [client, data?.ID, data?.MailMagazineStatus, router]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -102,10 +106,41 @@ export const Form = ({ data }: Props) => {
       <Textarea
         id="content"
         name="content"
-        className="w-full"
+        className="w-full min-h-[300px]"
         defaultValue={data?.Content}
       />
+      <Label htmlFor="prefectures" className="mt-4">
+        都道府県
+      </Label>
+      <div className="note">
+        送信対象の都道府県を選択してください。未選択の場合は全国に送信されます。
+      </div>
       <MultiSelectPref />
+      {data?.SentCount && (
+        <div className="mt-4">
+          <Label htmlFor="displayDate">
+            {data?.MailMagazineStatus === MailMagazineStatus.MailMagazineSaved
+              ? "送信予定ユーザー数"
+              : "送信ユーザー数"}
+          </Label>
+          <span className="bold">{data?.SentCount}</span>
+        </div>
+      )}
+      {data?.UnsentCount && (
+        <div className="mt-4">
+          <Label htmlFor="displayDate">未送信ユーザー数</Label>
+          <span className="bold">{data?.UnsentCount}</span>
+        </div>
+      )}
+      {data?.MailMagazineStatus === MailMagazineStatus.MailMagazineDraft || (
+        <span className="note">送信は保存後に可能になります。</span>
+      )}
+      {data?.MailMagazineStatus ===
+        MailMagazineStatus.MailMagazineSentUnCompleted || (
+        <span className="note">
+          未送信のユーザーがいます。もう一回「送信」を押すと未送信のユーザーにだけ送信されます。
+        </span>
+      )}
       <div className="flex gap-20 justify-center">
         <Button
           type="submit"

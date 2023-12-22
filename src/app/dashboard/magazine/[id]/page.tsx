@@ -6,9 +6,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { Form } from "../_form"
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
   const client = fetcher(MailMagazineController)
-  const magazineId = params.slug
+  const magazineId = params.id
   let magazine: MailMagazine | undefined
   try {
     const res = await client.getByID({

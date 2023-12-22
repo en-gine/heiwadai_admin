@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   }
   return (
     <div className="w-full">
-      <Form data={message} data-superjson />
+      <Form data={message} />
     </div>
   )
 }
