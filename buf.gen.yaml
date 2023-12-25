@@ -8,3 +8,6 @@ plugins:
   - plugin: connect-es
     opt: target=ts,import_extension=.ts
     out: src/api
+  - name: connect-query
+    out: src/api
+    opt: target=ts,import_extension=.ts

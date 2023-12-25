@@ -80,25 +80,39 @@
   resolved "https://registry.yarnpkg.com/@bufbuild/connect/-/connect-0.13.0.tgz#97a84a2cac747c7a52d4421a3382d8d165f61c99"
   integrity sha512-eZSMbVLyUFtXiZNORgCEvv580xKZeYQdMOWj2i/nxOcpXQcrEzTMTA7SZzWv4k4gveWCOSRoWmYDeOhfWXJv0g==
 
-"@bufbuild/protobuf@1.4.2", "@bufbuild/protobuf@^1.3.3", "@bufbuild/protobuf@^1.4.2":
+"@bufbuild/protobuf@1.4.2", "@bufbuild/protobuf@^1.3.3":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.4.2.tgz#dc4faf21264a47b71a15806616043cb006e80ac8"
   integrity sha512-JyEH8Z+OD5Sc2opSg86qMHn1EM1Sa+zj/Tc0ovxdwk56ByVNONJSabuCUbLQp+eKN3rWNfrho0X+3SEqEPXIow==
+
+"@bufbuild/protobuf@1.6.0", "@bufbuild/protobuf@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.6.0.tgz#c33128f70330312e2bd78fd7e988576595b8f74d"
+  integrity sha512-hp19vSFgNw3wBBcVBx5qo5pufCqjaJ0Cfk5H/pfjNOfNWU+4/w0QVOmfAOZNRrNWRrVuaJWxcN8P2vhOkkzbBQ==
 
 "@bufbuild/protobuf@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.5.1.tgz#5cecbb7d8bc9a5daaff9b8b4d0ef9bbc64c80e73"
   integrity sha512-LX+MeB1AzlbqgJXkq83lilQpLGnPvsAMj7SH8KtJAmQfBc55ee78Stxuff/HMw0xLMYJN3P1FBh5TENgjJof1w==
 
-"@bufbuild/protoc-gen-es@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@bufbuild/protoc-gen-es/-/protoc-gen-es-1.4.2.tgz#00c8b09430dd1154e626da7c247fd6425a1cd41d"
-  integrity sha512-/It7M2s8H1zTDvUMJu6vhBmtnzeFL2VS6e78RYIY38602pNXDK/vbteKUo4KrG0O07lOPFu87hHZ0Y+w5Ib6iw==
+"@bufbuild/protoc-gen-es@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoc-gen-es/-/protoc-gen-es-1.6.0.tgz#88f89a5ade8ba0a7bc9b05b4b85c853edbc2f2c1"
+  integrity sha512-m0akOPWeD5UBfGdZyudrbnmdjI8l/ZHlP8TyEIcj7qMCR4kh68tMtGvrjRzj5ynIpavrr6G7P06XP9F9f2MDRw==
   dependencies:
-    "@bufbuild/protobuf" "^1.4.2"
-    "@bufbuild/protoplugin" "1.4.2"
+    "@bufbuild/protobuf" "^1.6.0"
+    "@bufbuild/protoplugin" "1.6.0"
 
-"@bufbuild/protoplugin@1.4.2", "@bufbuild/protoplugin@^1.3.3":
+"@bufbuild/protoplugin@1.6.0", "@bufbuild/protoplugin@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoplugin/-/protoplugin-1.6.0.tgz#ca1ec8557153f0c54f157e61d9559af4b6febba7"
+  integrity sha512-o53ZsvojHQkAPoC9v5sJifY2OfXdRU8DO3QpPoJ+QuvYcfB9Zb3DZkNMQRyfEbF4TVYiaQ0mZzZl1mESDdyCxA==
+  dependencies:
+    "@bufbuild/protobuf" "1.6.0"
+    "@typescript/vfs" "^1.4.0"
+    typescript "4.5.2"
+
+"@bufbuild/protoplugin@^1.3.3":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@bufbuild/protoplugin/-/protoplugin-1.4.2.tgz#abf9b0e6a3dc8b52b1d6699d7a1ce5219fa82322"
   integrity sha512-5IwGC1ZRD2A+KydGXeaSOErwfILLqVtvMH/RkN+cOoHcQd4EYXFStcF7g7aR+yICRDEEjQVi5tQF/qPGBSr9vg==
@@ -114,10 +128,10 @@
   dependencies:
     undici "^5.26.2"
 
-"@connectrpc/connect-query@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-query/-/connect-query-1.1.1.tgz#ebcf767aeba1253d9d0a6c8dbcf76a6c9a1f3604"
-  integrity sha512-6lcoB+2Uy0e5EkUNCgE+AXAxBFehTp6/DCRHIFv0MtQF5o3X5SaZXcHC+vIa78anrSd6J8b7Clnd7M3Rydew5A==
+"@connectrpc/connect-query@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-query/-/connect-query-1.1.2.tgz#75cde965a2c9cc404ee907113d403e055a972382"
+  integrity sha512-QvrTaylGLu+y8ucW6xMn6fNhcCamN2Ai110OzlEsL3QzzmyWzLmFG5pU/OdcKLONXKcXgiyei7lvOAtrv0E8DQ==
   dependencies:
     stable-hash "^0.0.3"
 
@@ -138,6 +152,14 @@
   dependencies:
     "@bufbuild/protobuf" "^1.3.3"
     "@bufbuild/protoplugin" "^1.3.3"
+
+"@connectrpc/protoc-gen-connect-query@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/protoc-gen-connect-query/-/protoc-gen-connect-query-1.1.2.tgz#f88535a73f546e7ca8eb8005ea95635d5951227b"
+  integrity sha512-GSR/zR9bM5OnWyaFFJzlx0lvhiZitru96LfEJ7296OIJzlODV7/D3mO1vLyEErlIggibRrjjFHGApp8J0KzYpA==
+  dependencies:
+    "@bufbuild/protobuf" "^1.6.0"
+    "@bufbuild/protoplugin" "^1.6.0"
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"

@@ -14,10 +14,10 @@
     "@bufbuild/buf": "^1.28.1",
     "@bufbuild/connect-web": "^0.13.0",
     "@bufbuild/protobuf": "^1.5.1",
-    "@bufbuild/protoc-gen-es": "^1.4.2",
+    "@bufbuild/protoc-gen-es": "^1.6.0",
     "@connectrpc/connect": "^1.1.3",
     "@connectrpc/connect-node": "^1.1.3",
-    "@connectrpc/connect-query": "^1.1.1",
+    "@connectrpc/connect-query": "^1.1.2",
     "@connectrpc/connect-web": "^1.2.0",
     "@connectrpc/protoc-gen-connect-es": "^1.1.3",
     "@hookform/resolvers": "^3.3.2",
@@ -50,6 +50,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@connectrpc/protoc-gen-connect-query": "^1.1.2",
     "@types/node": "^20",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18",
