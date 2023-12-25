@@ -38,8 +38,8 @@ const Sidebar: FC<Props> = () => {
         <li className={pathname === "/dashboard/message" ? styles.active : ""}>
           <Link href="/dashboard/message">アプリログイン時通知</Link>
         </li>
-        <li className={pathname === "/dashboard/shop" ? styles.active : ""}>
-          <Link href="/dashboard/shop">店舗管理</Link>
+        <li className={pathname === "/dashboard/store" ? styles.active : ""}>
+          <Link href="/dashboard/store">店舗管理</Link>
         </li>
         <li className={pathname === "/dashboard/coupon" ? styles.active : ""}>
           <Link href="/dashboard/coupon">特別クーポン作成</Link>

@@ -1,5 +1,6 @@
 "use client"
 
+import { JsonValue } from "@bufbuild/protobuf"
 import { useRouter } from "next/navigation"
 import { FormEvent, FormEventHandler, useCallback } from "react"
 
@@ -22,10 +23,12 @@ const SubmitType = {
 } as const
 
 type Props = {
-  data?: MailMagazine
+  data?: JsonValue
 }
 
 export const Form = ({ data }: Props) => {
+  const magazine = data ? MailMagazine.fromJson(data) : undefined
+  const isNew = data === undefined
   const { client } = useGrpc(MailMagazineController)
   const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
@@ -45,39 +48,41 @@ export const Form = ({ data }: Props) => {
               return
             }
 
-            if (
-              data?.MailMagazineStatus ===
-                MailMagazineStatus.MailMagazineDraft &&
-              data?.ID
-            ) {
-              const res = await client.createDraft({
+            if (isNew) {
+              const res = await client.saveDraft({
                 Title: title,
                 Content: content
               })
               alert("保存しました。")
-              router.push(`./${res.ID}}`)
+              router.push(`/dashboard/magazine/${res.ID}`)
               return
             }
             await client.update({
-              ID: data?.ID,
+              ID: magazine?.ID,
               Title: title,
               Content: content
             })
             alert("更新しました。")
+            router.refresh()
             return
           case SubmitType.Delete:
             if (!window.confirm("削除しますか？")) return
-            await client.delete({
-              ID: data?.ID
-            })
-            alert("削除しました。")
+            if (!isNew) {
+              await client.delete({
+                ID: magazine?.ID
+              })
+              alert("削除しました。")
+              return
+            }
+            router.push(`/dashboard/magazine/`)
             return
           case SubmitType.Send:
             if (!window.confirm("送信しますか？")) return
             await client.send({
-              ID: data?.ID
+              ID: magazine?.ID
             })
             alert("送信しました。")
+            router.refresh()
             return
           default:
             throw new Error("invalid submit type")
@@ -86,7 +91,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, data?.ID, data?.MailMagazineStatus, router]
+    [client, isNew, magazine?.ID, router]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -97,7 +102,7 @@ export const Form = ({ data }: Props) => {
         type="text"
         id="title"
         name="title"
-        defaultValue={data?.Title}
+        defaultValue={magazine?.Title}
         className="w-full"
       />
       <Label htmlFor="content" className="required">
@@ -107,7 +112,7 @@ export const Form = ({ data }: Props) => {
         id="content"
         name="content"
         className="w-full min-h-[300px]"
-        defaultValue={data?.Content}
+        defaultValue={magazine?.Content}
       />
       <Label htmlFor="prefectures" className="mt-4">
         都道府県
@@ -116,27 +121,29 @@ export const Form = ({ data }: Props) => {
         送信対象の都道府県を選択してください。未選択の場合は全国に送信されます。
       </div>
       <MultiSelectPref />
-      {data?.SentCount && (
+      {!!magazine?.SentCount && magazine?.SentCount > 0 && (
         <div className="mt-4">
           <Label htmlFor="displayDate">
-            {data?.MailMagazineStatus === MailMagazineStatus.MailMagazineSaved
+            {magazine?.MailMagazineStatus ===
+            MailMagazineStatus.MailMagazineSaved
               ? "送信予定ユーザー数"
               : "送信ユーザー数"}
           </Label>
-          <span className="bold">{data?.SentCount}</span>
+          <span className="bold">{magazine?.SentCount}</span>
         </div>
       )}
-      {data?.UnsentCount && (
+      {!!magazine?.UnsentCount && (
         <div className="mt-4">
           <Label htmlFor="displayDate">未送信ユーザー数</Label>
-          <span className="bold">{data?.UnsentCount}</span>
+          <span className="bold">{magazine?.UnsentCount}</span>
         </div>
       )}
-      {data?.MailMagazineStatus === MailMagazineStatus.MailMagazineDraft || (
+      {magazine?.MailMagazineStatus ===
+        MailMagazineStatus.MailMagazineDraft && (
         <span className="note">送信は保存後に可能になります。</span>
       )}
-      {data?.MailMagazineStatus ===
-        MailMagazineStatus.MailMagazineSentUnCompleted || (
+      {magazine?.MailMagazineStatus ===
+        MailMagazineStatus.MailMagazineSentUnCompleted && (
         <span className="note">
           未送信のユーザーがいます。もう一回「送信」を押すと未送信のユーザーにだけ送信されます。
         </span>
@@ -150,7 +157,10 @@ export const Form = ({ data }: Props) => {
           disabled={
             !(
               data === undefined ||
-              data?.MailMagazineStatus === MailMagazineStatus.MailMagazineDraft
+              magazine?.MailMagazineStatus ===
+                MailMagazineStatus.MailMagazineDraft ||
+              magazine?.MailMagazineStatus ===
+                MailMagazineStatus.MailMagazineSaved
             )
           }
         >
@@ -164,7 +174,10 @@ export const Form = ({ data }: Props) => {
           disabled={
             !(
               data === undefined ||
-              data?.MailMagazineStatus === MailMagazineStatus.MailMagazineDraft
+              magazine?.MailMagazineStatus ===
+                MailMagazineStatus.MailMagazineDraft ||
+              magazine?.MailMagazineStatus ===
+                MailMagazineStatus.MailMagazineSaved
             )
           }
         >
@@ -177,9 +190,9 @@ export const Form = ({ data }: Props) => {
           value={SubmitType.Send}
           disabled={
             !(
-              data?.MailMagazineStatus ===
+              magazine?.MailMagazineStatus ===
                 MailMagazineStatus.MailMagazineSaved ||
-              data?.MailMagazineStatus ===
+              magazine?.MailMagazineStatus ===
                 MailMagazineStatus.MailMagazineSentUnCompleted
             )
           }

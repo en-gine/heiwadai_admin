@@ -21,7 +21,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   }
   return (
     <div className="w-full">
-      <Form data={magazine} />
+      <Form data={magazine?.toJson()} />
     </div>
   )
 }
