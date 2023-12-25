@@ -1,7 +1,7 @@
+import { JsonValue } from "@bufbuild/protobuf"
 import * as React from "react"
 
 import { MessageController } from "@/api/v1/admin/Messages_connect"
-import { MessageResponse } from "@/api/v1/admin/Messages_pb"
 import { PageResponse } from "@/api/v1/shared/Pager_pb"
 import { Pagination } from "@/components/parts/pagination"
 import { fetcher } from "@/lib/fetch"
@@ -17,7 +17,7 @@ const Page = async ({
   const pageParam = searchParams.page
   const currentPage =
     pageParam && Number.isNaN(pageParam) ? Number(pageParam) : 1
-  let messages: MessageResponse[] = []
+  let data: JsonValue
   let pageResponse: PageResponse | undefined
   try {
     const res = await client.getList({
@@ -26,7 +26,7 @@ const Page = async ({
         PerPage: 30
       }
     })
-    messages = res.messages
+    data = res.toJson()
     pageResponse = res.PageResponse
   } catch (error) {
     console.error(error)
@@ -34,7 +34,7 @@ const Page = async ({
   }
   return (
     <div className="w-full">
-      <MessageListTable messages={messages} />
+      <MessageListTable data={data} />
       {pageResponse && <Pagination {...pageResponse} />}
     </div>
   )

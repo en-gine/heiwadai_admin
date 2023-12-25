@@ -1,6 +1,6 @@
 "use client"
 
-import { Timestamp } from "@bufbuild/protobuf"
+import { JsonValue, Timestamp } from "@bufbuild/protobuf"
 import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { FormEvent, FormEventHandler, useCallback } from "react"
@@ -19,11 +19,13 @@ const SubmitType = {
 } as const
 
 type Props = {
-  data?: MessageResponse
+  data?: JsonValue
 }
 
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(MessageController)
+  const message = data ? MessageResponse.fromJson(data) : undefined
+  const isNew = data === undefined
   const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
@@ -43,7 +45,7 @@ export const Form = ({ data }: Props) => {
               alert("タイトルと本文は必須です。")
               return
             }
-            if (!data?.ID) {
+            if (isNew) {
               const res = await client.create({
                 Title: title,
                 DisplayDate: Timestamp.fromDate(displayDate),
@@ -54,7 +56,7 @@ export const Form = ({ data }: Props) => {
               return
             }
             await client.update({
-              ID: data?.ID,
+              ID: message?.ID,
               Title: title,
               Content: content
             })
@@ -62,10 +64,12 @@ export const Form = ({ data }: Props) => {
             return
           case SubmitType.Delete:
             if (!window.confirm("削除しますか？")) return
-            await client.delete({
-              ID: data?.ID
-            })
-            alert("削除しました。")
+            if (!isNew) {
+              await client.delete({
+                ID: message?.ID
+              })
+              alert("削除しました。")
+            }
             router.push(`./`)
             return
           default:
@@ -75,7 +79,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, data?.ID, router]
+    [client, isNew, message?.ID, router]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -86,13 +90,13 @@ export const Form = ({ data }: Props) => {
         type="text"
         id="title"
         name="title"
-        defaultValue={data?.Title}
+        defaultValue={message?.Title}
         className="w-full"
       />
-      {data?.CreateAt && (
+      {message?.CreateAt && (
         <div className="text-right">
           作成日:
-          {dayjs(data.CreateAt as unknown as string).format("YYYY年MM月DD日")}
+          {dayjs(message?.CreateAt.toDate()).format("YYYY年MM月DD日")}
         </div>
       )}
       <Label htmlFor="displayDate" className="required">
@@ -104,8 +108,8 @@ export const Form = ({ data }: Props) => {
         className="w-full"
         type="date"
         defaultValue={
-          data?.DisplayDate
-            ? dayjs(data.CreateAt as unknown as string).format("YYYY-MM-DD")
+          message?.DisplayDate
+            ? dayjs(message.DisplayDate.toDate()).format("YYYY-MM-DD")
             : dayjs().format("YYYY-MM-DD")
         }
       />
@@ -117,7 +121,7 @@ export const Form = ({ data }: Props) => {
         id="content"
         name="content"
         className="w-full min-h-[100px] mt-1"
-        defaultValue={data?.Content}
+        defaultValue={message?.Content}
       />
       <div className="flex gap-20 justify-center mt-7">
         <Button

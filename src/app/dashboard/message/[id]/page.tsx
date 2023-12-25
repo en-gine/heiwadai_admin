@@ -1,7 +1,7 @@
+import { JsonValue } from "@bufbuild/protobuf"
 import * as React from "react"
 
 import { MessageController } from "@/api/v1/admin/Messages_connect"
-import { MessageResponse } from "@/api/v1/admin/Messages_pb"
 import { fetcher } from "@/lib/fetch"
 
 import { Form } from "../_form"
@@ -9,12 +9,12 @@ import { Form } from "../_form"
 const Page = async ({ params }: { params: { id: string } }) => {
   const client = fetcher(MessageController)
   const messageId = params.id
-  let message: MessageResponse | undefined
+  let message: JsonValue = {}
   try {
     const res = await client.getByID({
       ID: messageId
     })
-    message = res
+    message = res.toJson()
   } catch (error) {
     console.error(error)
   }
