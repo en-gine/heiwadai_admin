@@ -9,7 +9,7 @@ export const Pagination = ({
   TotalCount
 }: PageResponse) => (
   <>
-    {TotalCount && <div className="text-right">総数:{TotalCount}件</div>}
+    {!!TotalCount && <div className="text-right">総数:{TotalCount}件</div>}
     <div>
       {[...Array(TotalPage)].map((_, i) => {
         const page = i + 1

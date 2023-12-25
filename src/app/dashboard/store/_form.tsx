@@ -1,6 +1,6 @@
 "use client"
 
-import { Timestamp } from "@bufbuild/protobuf"
+import { JsonValue, Timestamp } from "@bufbuild/protobuf"
 import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { FormEvent, FormEventHandler, useCallback } from "react"
@@ -18,11 +18,13 @@ const SubmitType = {
 } as const
 
 type Props = {
-  data?: Store
+  data?: JsonValue
 }
 
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(MessageController)
+  const store = data ? Store.fromJson(data) : undefined
+
   const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
@@ -42,7 +44,7 @@ export const Form = ({ data }: Props) => {
               alert("タイトルと本文は必須です。")
               return
             }
-            if (!data?.ID) {
+            if (!store?.ID) {
               const res = await client.create({
                 Title: title,
                 DisplayDate: Timestamp.fromDate(displayDate),
@@ -53,7 +55,7 @@ export const Form = ({ data }: Props) => {
               return
             }
             await client.update({
-              ID: data?.ID,
+              ID: store?.ID,
               Title: title,
               Content: content
             })
@@ -62,7 +64,7 @@ export const Form = ({ data }: Props) => {
           case SubmitType.Delete:
             if (!window.confirm("削除しますか？")) return
             await client.delete({
-              ID: data?.ID
+              ID: store?.ID
             })
             alert("削除しました。")
             router.push(`./`)
@@ -74,7 +76,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, data?.ID, router]
+    [client, store?.ID, router]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -86,7 +88,7 @@ export const Form = ({ data }: Props) => {
         id="name"
         name="name"
         required
-        defaultValue={data?.Name}
+        defaultValue={store?.Name}
         className="w-[70%]"
       />
       <Label htmlFor="branch-name">支店名</Label>
@@ -94,7 +96,7 @@ export const Form = ({ data }: Props) => {
         type="text"
         id="branch-name"
         name="branch-name"
-        defaultValue={data?.BranchName}
+        defaultValue={store?.BranchName}
         className="w-[50%]"
       />
 
@@ -106,7 +108,7 @@ export const Form = ({ data }: Props) => {
         name="zip"
         type="zip"
         className="w-[10em]"
-        defaultValue={data?.ZipCode}
+        defaultValue={store?.ZipCode}
       />
 
       <Label htmlFor="address" className="required">
@@ -117,7 +119,7 @@ export const Form = ({ data }: Props) => {
         name="address"
         type="address"
         className="w-full"
-        defaultValue={data?.Address}
+        defaultValue={store?.Address}
       />
       <Label htmlFor="tel" className="required">
         TEL
@@ -127,7 +129,7 @@ export const Form = ({ data }: Props) => {
         name="tel"
         type="tel"
         className="w-[10em]"
-        defaultValue={data?.Tel}
+        defaultValue={store?.Tel}
       />
       <Label htmlFor="url" className="required">
         サイトURL
@@ -137,12 +139,14 @@ export const Form = ({ data }: Props) => {
         name="url"
         type="url"
         className="w-full"
-        defaultValue={data?.SiteURL}
+        defaultValue={store?.SiteURL}
       />
       <Label htmlFor="stamp" className="required">
         スタンプ
       </Label>
-      {data?.StampImageURL && <img src={data.StampImageURL} alt={data?.Name} />}
+      {store?.StampImageURL && (
+        <img src={data.StampImageURL} alt={store?.Name} />
+      )}
       <Input id="stamp" type="file" name="stamp" />
       <div className="flex gap-20 justify-center mt-7">
         <Button
