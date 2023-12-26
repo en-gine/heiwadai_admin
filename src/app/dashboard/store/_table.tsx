@@ -3,7 +3,7 @@
 import { JsonValue } from "@bufbuild/protobuf"
 import Link from "next/link"
 
-import { Store, Stores } from "@/api/v1/shared/Store_pb"
+import { Stores } from "@/api/v1/shared/Store_pb"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -22,7 +22,7 @@ export const StoreListTable = ({ data }: Props) => {
     <>
       <div className="text-right">
         <Button variant="default" className="mb-4">
-          <Link href="./message/new">新規作成</Link>
+          <Link href="./store/new">新規作成</Link>
         </Button>
       </div>
       <Table>
