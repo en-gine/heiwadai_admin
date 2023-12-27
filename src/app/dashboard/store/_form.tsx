@@ -4,6 +4,7 @@
 
 import { JsonValue } from "@bufbuild/protobuf"
 import crypto from "crypto"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { FormEvent, FormEventHandler, useCallback, useState } from "react"
 
@@ -120,7 +121,7 @@ export const Form = ({ data }: Props) => {
                 Address: store?.Address,
                 Tel: store?.Tel,
                 SiteURL: store?.SiteURL,
-                StampImageURL: store?.StampImageURL,
+                StampImage: store?.StampImage,
                 IsActive: store?.IsActive,
                 Stayable: store?.Stayable,
                 QRCode: store?.QRCode,
@@ -146,7 +147,7 @@ export const Form = ({ data }: Props) => {
               Address: "",
               Tel: "",
               SiteURL: "",
-              StampImageURL: "",
+              StampImage: "",
               IsActive: true,
               Stayable: false,
               QRCode: crypto.randomUUID(),
@@ -177,7 +178,7 @@ export const Form = ({ data }: Props) => {
       store?.Address,
       store?.Tel,
       store?.SiteURL,
-      store?.StampImageURL,
+      store?.StampImage,
       store?.IsActive,
       store?.Stayable,
       store?.QRCode,
@@ -256,14 +257,18 @@ export const Form = ({ data }: Props) => {
       <Label htmlFor="stamp" className="required">
         スタンプ
       </Label>
-      {store?.StampImageURL && (
-        <img src={data.StampImageURL} alt={store?.Name} />
+      {store?.StampImage && (
+        <Image
+          src={store.StampImage}
+          alt={store?.Name}
+          width={85}
+          height={85}
+        />
       )}
       <Input id="stamp" type="file" name="stamp" />
       <Label htmlFor="status">ステータス</Label>
       <Select
         name="is_active"
-        defaultValue={String(store?.IsActive)}
         value={String(isActive)}
         onValueChange={(value) => {
           setIsActive(value === "true")
@@ -279,7 +284,6 @@ export const Form = ({ data }: Props) => {
       </Select>
       <Label htmlFor="display-date">宿泊可否</Label>
       <RadioGroup
-        defaultValue={String(isStayable)}
         value={String(isStayable)}
         onValueChange={(value) => {
           setIsStayable(value === "true")
@@ -358,7 +362,6 @@ export const Form = ({ data }: Props) => {
           type="text"
           className="max-w-[50%]"
           disabled
-          defaultValue={store?.QRCode}
           value={qrCode}
         />
         <Button variant="default" onClick={regenQrCode}>
@@ -376,7 +379,6 @@ export const Form = ({ data }: Props) => {
           disabled
           type="text"
           className="max-w-[50%]"
-          defaultValue={store?.UnLimitedQRCode}
           value={unlimitedQrCode}
         />
         <Button

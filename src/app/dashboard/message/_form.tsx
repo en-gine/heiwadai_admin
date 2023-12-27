@@ -52,7 +52,7 @@ export const Form = ({ data }: Props) => {
                 Content: content
               })
               alert("保存しました。")
-              router.push(`./${res.ID}}`)
+              router.push(`./${res.ID}`)
               return
             }
             await client.update({
@@ -61,6 +61,7 @@ export const Form = ({ data }: Props) => {
               Content: content
             })
             alert("更新しました。")
+            router.refresh()
             return
           case SubmitType.Delete:
             if (!window.confirm("削除しますか？")) return
@@ -103,7 +104,7 @@ export const Form = ({ data }: Props) => {
         表示日
       </Label>
       <Input
-        id="dispalyDate"
+        id="displayDate"
         name="displayDate"
         className="w-full"
         type="date"

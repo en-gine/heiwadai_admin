@@ -3,8 +3,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AffectedCountResponse, CouponIDRequest, CreateCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
+import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
+import { Coupon } from "../shared/Coupon_pb.ts";
+import { Pager } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from service server.admin.AdminCouponController
@@ -27,7 +29,7 @@ export const AdminCouponController = {
     createCustomCoupon: {
       name: "CreateCustomCoupon",
       I: CreateCustomCouponRequest,
-      O: Empty,
+      O: Coupon,
       kind: MethodKind.Unary,
     },
     /**
@@ -35,8 +37,26 @@ export const AdminCouponController = {
      */
     saveCustomCoupon: {
       name: "SaveCustomCoupon",
-      I: CouponIDRequest,
+      I: SaveCustomCouponRequest,
       O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AdminCouponController.GetCustomCouponByID
+     */
+    getCustomCouponByID: {
+      name: "GetCustomCouponByID",
+      I: CouponIDRequest,
+      O: Coupon,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AdminCouponController.GetCustomCouponList
+     */
+    getCustomCouponList: {
+      name: "GetCustomCouponList",
+      I: Pager,
+      O: CouponListResponse,
       kind: MethodKind.Unary,
     },
     /**

@@ -4,7 +4,9 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AffectedCountResponse, CouponIDRequest, CreateCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
+import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
+import { Coupon } from "../shared/Coupon_pb.ts";
+import { Pager } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from rpc server.admin.AdminCouponController.GetUserCouponList
@@ -28,7 +30,7 @@ export const createCustomCoupon = {
   name: "CreateCustomCoupon",
   kind: MethodKind.Unary,
   I: CreateCustomCouponRequest,
-  O: Empty,
+  O: Coupon,
   service: {
     typeName: "server.admin.AdminCouponController"
   }
@@ -41,8 +43,36 @@ export const saveCustomCoupon = {
   localName: "saveCustomCoupon",
   name: "SaveCustomCoupon",
   kind: MethodKind.Unary,
-  I: CouponIDRequest,
+  I: SaveCustomCouponRequest,
   O: Empty,
+  service: {
+    typeName: "server.admin.AdminCouponController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminCouponController.GetCustomCouponByID
+ */
+export const getCustomCouponByID = {
+  localName: "getCustomCouponByID",
+  name: "GetCustomCouponByID",
+  kind: MethodKind.Unary,
+  I: CouponIDRequest,
+  O: Coupon,
+  service: {
+    typeName: "server.admin.AdminCouponController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminCouponController.GetCustomCouponList
+ */
+export const getCustomCouponList = {
+  localName: "getCustomCouponList",
+  name: "GetCustomCouponList",
+  kind: MethodKind.Unary,
+  I: Pager,
+  O: CouponListResponse,
   service: {
     typeName: "server.admin.AdminCouponController"
   }

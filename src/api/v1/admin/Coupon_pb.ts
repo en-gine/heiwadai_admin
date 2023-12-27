@@ -5,7 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { UserAttachedCoupon } from "../shared/Coupon_pb.ts";
+import { Coupon, UserAttachedCoupon } from "../shared/Coupon_pb.ts";
+import { PageResponse } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from message server.admin.CouponIDRequest
@@ -106,9 +107,14 @@ export class CreateCustomCouponRequest extends Message<CreateCustomCouponRequest
   IsCombinationable = false;
 
   /**
-   * @generated from field: repeated string Notices = 7;
+   * @generated from field: repeated string Notices = 5;
    */
   Notices: string[] = [];
+
+  /**
+   * @generated from field: repeated string TargetStoresID = 6;
+   */
+  TargetStoresID: string[] = [];
 
   constructor(data?: PartialMessage<CreateCustomCouponRequest>) {
     super();
@@ -122,7 +128,8 @@ export class CreateCustomCouponRequest extends Message<CreateCustomCouponRequest
     { no: 2, name: "DiscountAmount", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "ExpireAt", kind: "message", T: Timestamp },
     { no: 4, name: "IsCombinationable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 6, name: "TargetStoresID", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCustomCouponRequest {
@@ -213,6 +220,122 @@ export class UserAttachedCouponsResponse extends Message<UserAttachedCouponsResp
 
   static equals(a: UserAttachedCouponsResponse | PlainMessage<UserAttachedCouponsResponse> | undefined, b: UserAttachedCouponsResponse | PlainMessage<UserAttachedCouponsResponse> | undefined): boolean {
     return proto3.util.equals(UserAttachedCouponsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.CouponListResponse
+ */
+export class CouponListResponse extends Message<CouponListResponse> {
+  /**
+   * @generated from field: repeated server.shared.Coupon Coupons = 1;
+   */
+  Coupons: Coupon[] = [];
+
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
+  constructor(data?: PartialMessage<CouponListResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.CouponListResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Coupons", kind: "message", T: Coupon, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CouponListResponse {
+    return new CouponListResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CouponListResponse {
+    return new CouponListResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CouponListResponse {
+    return new CouponListResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CouponListResponse | PlainMessage<CouponListResponse> | undefined, b: CouponListResponse | PlainMessage<CouponListResponse> | undefined): boolean {
+    return proto3.util.equals(CouponListResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.SaveCustomCouponRequest
+ */
+export class SaveCustomCouponRequest extends Message<SaveCustomCouponRequest> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  /**
+   * @generated from field: string Name = 2;
+   */
+  Name = "";
+
+  /**
+   * @generated from field: uint32 DiscountAmount = 3;
+   */
+  DiscountAmount = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp ExpireAt = 4;
+   */
+  ExpireAt?: Timestamp;
+
+  /**
+   * @generated from field: bool IsCombinationable = 5;
+   */
+  IsCombinationable = false;
+
+  /**
+   * @generated from field: repeated string Notices = 6;
+   */
+  Notices: string[] = [];
+
+  /**
+   * @generated from field: repeated string TargetStoresID = 7;
+   */
+  TargetStoresID: string[] = [];
+
+  constructor(data?: PartialMessage<SaveCustomCouponRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.SaveCustomCouponRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "DiscountAmount", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "ExpireAt", kind: "message", T: Timestamp },
+    { no: 5, name: "IsCombinationable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 7, name: "TargetStoresID", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveCustomCouponRequest {
+    return new SaveCustomCouponRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveCustomCouponRequest {
+    return new SaveCustomCouponRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveCustomCouponRequest {
+    return new SaveCustomCouponRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SaveCustomCouponRequest | PlainMessage<SaveCustomCouponRequest> | undefined, b: SaveCustomCouponRequest | PlainMessage<SaveCustomCouponRequest> | undefined): boolean {
+    return proto3.util.equals(SaveCustomCouponRequest, a, b);
   }
 }
 

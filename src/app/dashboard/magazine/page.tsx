@@ -1,15 +1,13 @@
 import { JsonValue } from "@bufbuild/protobuf"
+import { unstable_noStore } from "next/cache"
 import * as React from "react"
+import { Suspense } from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
-import {
-  MailMagazine,
-  MailMagazinesResponse
-} from "@/api/v1/admin/MailMagazine_pb"
 import { PageResponse } from "@/api/v1/shared/Pager_pb"
+import { Loading } from "@/components/parts/loading"
 import { Pagination } from "@/components/parts/pagination"
 import { fetcher } from "@/lib/fetch"
-import { AsJSON } from "@/lib/json"
 
 import { MagazineListTable } from "./_table"
 
@@ -26,6 +24,7 @@ const Page = async ({
   let data: JsonValue
   let pageResponse: PageResponse | undefined
   try {
+    unstable_noStore()
     const res = await client.getList({
       Pager: {
         CurrentPage: currentPage,
@@ -41,8 +40,10 @@ const Page = async ({
   }
   return (
     <div className="w-full">
-      <MagazineListTable data={data} />
-      {pageResponse && <Pagination {...pageResponse} />}
+      <Suspense fallback={<Loading />}>
+        <MagazineListTable data={data} />
+        {pageResponse && <Pagination {...pageResponse} />}
+      </Suspense>
     </div>
   )
 }

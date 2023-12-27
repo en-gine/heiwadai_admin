@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache"
 import * as React from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
@@ -11,6 +12,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const magazineId = params.id
   let magazine: MailMagazine | undefined
   try {
+    unstable_noStore()
     const res = await client.getByID({
       ID: magazineId
     })

@@ -1,6 +1,7 @@
 import { ServiceType } from "@bufbuild/protobuf"
 import { createPromiseClient, Interceptor } from "@connectrpc/connect"
 import { createConnectTransport } from "@connectrpc/connect-node"
+import { unstable_noStore } from "next/cache"
 import { cookies } from "next/headers"
 
 import { BASE_URL } from "./env"

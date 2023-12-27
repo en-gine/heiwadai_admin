@@ -3,20 +3,20 @@ import { unstable_noStore } from "next/cache"
 import * as React from "react"
 import { Suspense } from "react"
 
-import { MessageController } from "@/api/v1/admin/Messages_connect"
+import { AdminCouponController } from "@/api/v1/admin/Coupon_connect"
 import { PageResponse } from "@/api/v1/shared/Pager_pb"
 import { Loading } from "@/components/parts/loading"
 import { Pagination } from "@/components/parts/pagination"
 import { fetcher } from "@/lib/fetch"
 
-import { MessageListTable } from "./_table"
+import { CouponListTable } from "./_table"
 
 const Page = async ({
   searchParams
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  const client = fetcher(MessageController)
+  const client = fetcher(AdminCouponController)
   const pageParam = searchParams.page
   const currentPage =
     pageParam && Number.isNaN(pageParam) ? Number(pageParam) : 1
@@ -24,11 +24,9 @@ const Page = async ({
   let pageResponse: PageResponse | undefined
   try {
     unstable_noStore()
-    const res = await client.getList({
-      Pager: {
-        CurrentPage: currentPage,
-        PerPage: 30
-      }
+    const res = await client.getCustomCouponList({
+      CurrentPage: currentPage,
+      PerPage: 30
     })
     data = res.toJson()
     pageResponse = res.PageResponse
@@ -39,7 +37,7 @@ const Page = async ({
   return (
     <div className="w-full">
       <Suspense fallback={<Loading />}>
-        <MessageListTable data={data} />
+        <CouponListTable data={data} />
         {pageResponse && <Pagination {...pageResponse} />}
       </Suspense>
     </div>

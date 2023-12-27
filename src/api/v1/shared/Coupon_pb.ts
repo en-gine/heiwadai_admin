@@ -79,6 +79,13 @@ export class Coupon extends Message<Coupon> {
    */
   TargetStore: Store[] = [];
 
+  /**
+   * time.Time  
+   *
+   * @generated from field: google.protobuf.Timestamp CreateAt = 9;
+   */
+  CreateAt?: Timestamp;
+
   constructor(data?: PartialMessage<Coupon>) {
     super();
     proto3.util.initPartial(data, this);
@@ -95,6 +102,7 @@ export class Coupon extends Message<Coupon> {
     { no: 6, name: "IsCombinationable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 7, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 8, name: "TargetStore", kind: "message", T: Store, repeated: true },
+    { no: 9, name: "CreateAt", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Coupon {
