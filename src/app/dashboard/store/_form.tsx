@@ -291,11 +291,13 @@ export const Form = ({ data }: Props) => {
         className="flex justify-start mt-4"
       >
         <RadioGroupItem value="true" id="stayable-1" />
-        <Label htmlFor="stayable-1" className="mr-4">
+        <Label htmlFor="stayable-1" className="mt-0 mr-4">
           宿泊施設
         </Label>
         <RadioGroupItem value="false" id="stayable-2" />
-        <Label htmlFor="stayable-2">通常店舗</Label>
+        <Label className="mt-0" htmlFor="stayable-2">
+          通常店舗
+        </Label>
       </RadioGroup>
       {isStayable && (
         <Card className="mt-4 p-4">
@@ -393,7 +395,7 @@ export const Form = ({ data }: Props) => {
         </Button>
       </div>
 
-      <div className="flex gap-20 justify-center mt-7">
+      <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
           variant="default"

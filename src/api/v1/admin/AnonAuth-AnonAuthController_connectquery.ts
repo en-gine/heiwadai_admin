@@ -4,25 +4,11 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AdminAuthRequest, AdminRegisterRequest, AnonAuthTokenResponse, ResetPasswordRequest } from "./AnonAuth_pb.ts";
+import { AdminAuthRequest, AnonAuthTokenResponse, ResetPasswordRequest, SetNewPasswordRequest } from "./AnonAuth_pb.ts";
 
 /**
  * トークン不要
  *
- * @generated from rpc server.admin.AnonAuthController.Register
- */
-export const register = {
-  localName: "register",
-  name: "Register",
-  kind: MethodKind.Unary,
-  I: AdminRegisterRequest,
-  O: Empty,
-  service: {
-    typeName: "server.admin.AnonAuthController"
-  }
-} as const;
-
-/**
  * @generated from rpc server.admin.AnonAuthController.SignUp
  */
 export const signUp = {
@@ -58,6 +44,20 @@ export const resetPasswordMail = {
   name: "ResetPasswordMail",
   kind: MethodKind.Unary,
   I: ResetPasswordRequest,
+  O: Empty,
+  service: {
+    typeName: "server.admin.AnonAuthController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AnonAuthController.SetNewPassword
+ */
+export const setNewPassword = {
+  localName: "setNewPassword",
+  name: "SetNewPassword",
+  kind: MethodKind.Unary,
+  I: SetNewPasswordRequest,
   O: Empty,
   service: {
     typeName: "server.admin.AnonAuthController"

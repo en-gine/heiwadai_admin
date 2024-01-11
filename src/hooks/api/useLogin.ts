@@ -40,6 +40,28 @@ const useLogin = () => {
       throw error
     }
   }
-  return { signIn, signOut }
+  const resetPasswordMail = async (email: string) => {
+    try {
+      await client.resetPasswordMail({
+        email
+      })
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  const setNewPassword = async (token: string, newPassword: string) => {
+    try {
+      await client.setNewPassword({
+        accessToken: token,
+        password: newPassword
+      })
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+  return { signIn, signOut, resetPasswordMail, setNewPassword }
 }
 export { useLogin }

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AdminAuthRequest, AdminRegisterRequest, AnonAuthTokenResponse, ResetPasswordRequest } from "./AnonAuth_pb.ts";
+import { AdminAuthRequest, AnonAuthTokenResponse, ResetPasswordRequest, SetNewPasswordRequest } from "./AnonAuth_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -15,15 +15,6 @@ export const AnonAuthController = {
     /**
      * トークン不要
      *
-     * @generated from rpc server.admin.AnonAuthController.Register
-     */
-    register: {
-      name: "Register",
-      I: AdminRegisterRequest,
-      O: Empty,
-      kind: MethodKind.Unary,
-    },
-    /**
      * @generated from rpc server.admin.AnonAuthController.SignUp
      */
     signUp: {
@@ -47,6 +38,15 @@ export const AnonAuthController = {
     resetPasswordMail: {
       name: "ResetPasswordMail",
       I: ResetPasswordRequest,
+      O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AnonAuthController.SetNewPassword
+     */
+    setNewPassword: {
+      name: "SetNewPassword",
+      I: SetNewPasswordRequest,
       O: Empty,
       kind: MethodKind.Unary,
     },

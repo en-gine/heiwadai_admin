@@ -7,6 +7,43 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
+ * @generated from message server.admin.AdminDataRequest
+ */
+export class AdminDataRequest extends Message<AdminDataRequest> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  constructor(data?: PartialMessage<AdminDataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminDataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminDataRequest {
+    return new AdminDataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminDataRequest {
+    return new AdminDataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminDataRequest {
+    return new AdminDataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminDataRequest | PlainMessage<AdminDataRequest> | undefined, b: AdminDataRequest | PlainMessage<AdminDataRequest> | undefined): boolean {
+    return proto3.util.equals(AdminDataRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.AdminUpdateDataRequest
  */
 export class AdminUpdateDataRequest extends Message<AdminUpdateDataRequest> {
@@ -26,12 +63,7 @@ export class AdminUpdateDataRequest extends Message<AdminUpdateDataRequest> {
   IsActive = false;
 
   /**
-   * @generated from field: string Mail = 4;
-   */
-  Mail = "";
-
-  /**
-   * @generated from field: string StoreID = 5;
+   * @generated from field: string StoreID = 4;
    */
   StoreID = "";
 
@@ -46,8 +78,7 @@ export class AdminUpdateDataRequest extends Message<AdminUpdateDataRequest> {
     { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminUpdateDataRequest {
@@ -82,6 +113,8 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
   Name = "";
 
   /**
+   * ログイン可能
+   *
    * @generated from field: bool IsActive = 3;
    */
   IsActive = false;
@@ -96,6 +129,13 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
    */
   StoreID = "";
 
+  /**
+   * メール認証待ち
+   *
+   * @generated from field: bool IsConfirmed = 6;
+   */
+  IsConfirmed = false;
+
   constructor(data?: PartialMessage<AdminDataResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -109,6 +149,7 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
     { no: 3, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "IsConfirmed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminDataResponse {
@@ -125,6 +166,74 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
 
   static equals(a: AdminDataResponse | PlainMessage<AdminDataResponse> | undefined, b: AdminDataResponse | PlainMessage<AdminDataResponse> | undefined): boolean {
     return proto3.util.equals(AdminDataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminListRequest
+ */
+export class AdminListRequest extends Message<AdminListRequest> {
+  constructor(data?: PartialMessage<AdminListRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminListRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminListRequest {
+    return new AdminListRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminListRequest {
+    return new AdminListRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminListRequest {
+    return new AdminListRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminListRequest | PlainMessage<AdminListRequest> | undefined, b: AdminListRequest | PlainMessage<AdminListRequest> | undefined): boolean {
+    return proto3.util.equals(AdminListRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminListResponse
+ */
+export class AdminListResponse extends Message<AdminListResponse> {
+  /**
+   * @generated from field: repeated server.admin.AdminDataResponse Admins = 1;
+   */
+  Admins: AdminDataResponse[] = [];
+
+  constructor(data?: PartialMessage<AdminListResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminListResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Admins", kind: "message", T: AdminDataResponse, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminListResponse {
+    return new AdminListResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminListResponse {
+    return new AdminListResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminListResponse {
+    return new AdminListResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminListResponse | PlainMessage<AdminListResponse> | undefined, b: AdminListResponse | PlainMessage<AdminListResponse> | undefined): boolean {
+    return proto3.util.equals(AdminListResponse, a, b);
   }
 }
 

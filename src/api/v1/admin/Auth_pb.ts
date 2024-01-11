@@ -140,9 +140,9 @@ export class UpdatePasswordRequest extends Message<UpdatePasswordRequest> {
  */
 export class UpdateEmailRequest extends Message<UpdateEmailRequest> {
   /**
-   * @generated from field: string email = 1;
+   * @generated from field: string Mail = 1;
    */
-  email = "";
+  Mail = "";
 
   constructor(data?: PartialMessage<UpdateEmailRequest>) {
     super();
@@ -152,7 +152,7 @@ export class UpdateEmailRequest extends Message<UpdateEmailRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.admin.UpdateEmailRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateEmailRequest {
@@ -169,6 +169,129 @@ export class UpdateEmailRequest extends Message<UpdateEmailRequest> {
 
   static equals(a: UpdateEmailRequest | PlainMessage<UpdateEmailRequest> | undefined, b: UpdateEmailRequest | PlainMessage<UpdateEmailRequest> | undefined): boolean {
     return proto3.util.equals(UpdateEmailRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminRegisterRequest
+ */
+export class AdminRegisterRequest extends Message<AdminRegisterRequest> {
+  /**
+   * @generated from field: string Name = 1;
+   */
+  Name = "";
+
+  /**
+   * @generated from field: string Mail = 2;
+   */
+  Mail = "";
+
+  /**
+   * @generated from field: string BelongStoreID = 4;
+   */
+  BelongStoreID = "";
+
+  constructor(data?: PartialMessage<AdminRegisterRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminRegisterRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "BelongStoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminRegisterRequest {
+    return new AdminRegisterRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminRegisterRequest {
+    return new AdminRegisterRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminRegisterRequest {
+    return new AdminRegisterRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminRegisterRequest | PlainMessage<AdminRegisterRequest> | undefined, b: AdminRegisterRequest | PlainMessage<AdminRegisterRequest> | undefined): boolean {
+    return proto3.util.equals(AdminRegisterRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminRegisterResponse
+ */
+export class AdminRegisterResponse extends Message<AdminRegisterResponse> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  constructor(data?: PartialMessage<AdminRegisterResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminRegisterResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminRegisterResponse {
+    return new AdminRegisterResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminRegisterResponse {
+    return new AdminRegisterResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminRegisterResponse {
+    return new AdminRegisterResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminRegisterResponse | PlainMessage<AdminRegisterResponse> | undefined, b: AdminRegisterResponse | PlainMessage<AdminRegisterResponse> | undefined): boolean {
+    return proto3.util.equals(AdminRegisterResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.ResendInviteRequest
+ */
+export class ResendInviteRequest extends Message<ResendInviteRequest> {
+  /**
+   * @generated from field: string Mail = 1;
+   */
+  Mail = "";
+
+  constructor(data?: PartialMessage<ResendInviteRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.ResendInviteRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ResendInviteRequest | PlainMessage<ResendInviteRequest> | undefined, b: ResendInviteRequest | PlainMessage<ResendInviteRequest> | undefined): boolean {
+    return proto3.util.equals(ResendInviteRequest, a, b);
   }
 }
 

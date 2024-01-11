@@ -3,8 +3,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MethodKind } from "@bufbuild/protobuf";
-import { AdminDataResponse, AdminUpdateDataRequest } from "./AdminData_pb.ts";
+import { Empty, MethodKind } from "@bufbuild/protobuf";
+import { AdminDataRequest, AdminDataResponse, AdminListRequest, AdminListResponse, AdminUpdateDataRequest } from "./AdminData_pb.ts";
+
+/**
+ * @generated from rpc server.admin.AdminDataController.GetByID
+ */
+export const getByID = {
+  localName: "getByID",
+  name: "GetByID",
+  kind: MethodKind.Unary,
+  I: AdminDataRequest,
+  O: AdminDataResponse,
+  service: {
+    typeName: "server.admin.AdminDataController"
+  }
+} as const;
 
 /**
  * @generated from rpc server.admin.AdminDataController.Update
@@ -15,6 +29,34 @@ export const update = {
   kind: MethodKind.Unary,
   I: AdminUpdateDataRequest,
   O: AdminDataResponse,
+  service: {
+    typeName: "server.admin.AdminDataController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminDataController.GetAll
+ */
+export const getAll = {
+  localName: "getAll",
+  name: "GetAll",
+  kind: MethodKind.Unary,
+  I: AdminListRequest,
+  O: AdminListResponse,
+  service: {
+    typeName: "server.admin.AdminDataController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminDataController.Delete
+ */
+export const delete$ = {
+  localName: "delete",
+  name: "Delete",
+  kind: MethodKind.Unary,
+  I: AdminDataRequest,
+  O: Empty,
   service: {
     typeName: "server.admin.AdminDataController"
   }

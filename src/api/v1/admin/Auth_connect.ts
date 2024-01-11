@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AdminAuthTokenResponse, AdminRefreshTokenRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
+import { AdminAuthTokenResponse, AdminRefreshTokenRequest, AdminRegisterRequest, AdminRegisterResponse, ResendInviteRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
 
 /**
  * @generated from service server.admin.AuthController
@@ -47,6 +47,24 @@ export const AuthController = {
     updateEmail: {
       name: "UpdateEmail",
       I: UpdateEmailRequest,
+      O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AuthController.Register
+     */
+    register: {
+      name: "Register",
+      I: AdminRegisterRequest,
+      O: AdminRegisterResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AuthController.ResendInviteMail
+     */
+    resendInviteMail: {
+      name: "ResendInviteMail",
+      I: ResendInviteRequest,
       O: Empty,
       kind: MethodKind.Unary,
     },

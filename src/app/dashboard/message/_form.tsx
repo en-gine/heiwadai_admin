@@ -124,7 +124,7 @@ export const Form = ({ data }: Props) => {
         className="w-full min-h-[100px] mt-1"
         defaultValue={message?.Content}
       />
-      <div className="flex gap-20 justify-center mt-7">
+      <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
           variant="default"

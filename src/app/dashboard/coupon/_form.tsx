@@ -97,45 +97,54 @@ export const Form = ({ data }: Props) => {
       <Label htmlFor="discountAmount" className="required">
         値引額
       </Label>
-      <Input
-        id="discountAmount"
-        name="discountAmount"
-        className="w-full"
-        type="number"
-        defaultValue={coupon?.DiscountAmount}
-      />
-      <div className="float-left">円引き</div>
+      <div className="flex justify-start gap-4">
+        <Input
+          id="discountAmount"
+          name="discountAmount"
+          className="w-auto"
+          type="number"
+          defaultValue={coupon?.DiscountAmount}
+        />
+        <Label className="pt-4 mt-0">円引き</Label>
+      </div>
       <Label htmlFor="expireAt" className="required">
         期限
       </Label>
-      <Input
-        id="expireAt"
-        name="expireAt"
-        className="w-full"
-        type="date"
-        defaultValue={
-          coupon?.ExpireAt
-            ? dayjs(coupon.ExpireAt.toDate()).format("YYYY-MM-DD")
-            : dayjs().format("YYYY-MM-DD")
-        }
-      />
-      <div className="float-left">まで</div>
-      <Label htmlFor="display-date">宿泊可否</Label>
+      <div className="flex justify-start gap-4">
+        <Input
+          id="expireAt"
+          name="expireAt"
+          className="w-auto"
+          type="date"
+          defaultValue={
+            coupon?.ExpireAt
+              ? dayjs(coupon.ExpireAt.toDate()).format("YYYY-MM-DD")
+              : undefined
+          }
+        />
+        <Label className="pt-4 mt-0">まで</Label>
+      </div>
+      <Label htmlFor="display-date" className="mt-4">
+        併用可否
+      </Label>
       <RadioGroup
         required
         defaultValue={coupon?.IsCombinationable ? "true" : "false"}
         name="is-combinationable"
-        className="flex justify-start mt-4"
+        className="flex justify-start mt-4 mb-4"
       >
         <RadioGroupItem value="true" id="is-combinationable-1" />
-        <Label htmlFor="is-combinationable-1" className="mr-4">
+        <Label htmlFor="is-combinationable-1" className="mt-0 mr-4">
           可
         </Label>
         <RadioGroupItem value="false" id="is-combinationable-2" />
-        <Label htmlFor="is-combinationable-2">不可</Label>
+        <Label htmlFor="is-combinationable-2" className="mt-0">
+          不可
+        </Label>
       </RadioGroup>
+      <Label htmlFor="notice">備考</Label>
       <Textarea defaultValue={coupon?.Notices} />
-      <div className="flex gap-20 justify-center mt-7">
+      <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
           variant="default"

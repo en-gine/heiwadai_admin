@@ -20,7 +20,6 @@
     "no-var": "error",
     "no-lonely-if": "error",
     "no-multiple-empty-lines": "error",
-    "no-nested-ternary": "error",
     "prefer-const": "error",
     "prefer-spread": "error",
     "prefer-template": "error",

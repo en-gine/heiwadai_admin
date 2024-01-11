@@ -50,55 +50,6 @@ export class AdminAuthRequest extends Message<AdminAuthRequest> {
 }
 
 /**
- * @generated from message server.admin.AdminRegisterRequest
- */
-export class AdminRegisterRequest extends Message<AdminRegisterRequest> {
-  /**
-   * @generated from field: string Name = 1;
-   */
-  Name = "";
-
-  /**
-   * @generated from field: string Mail = 2;
-   */
-  Mail = "";
-
-  /**
-   * @generated from field: string BelongStoreID = 4;
-   */
-  BelongStoreID = "";
-
-  constructor(data?: PartialMessage<AdminRegisterRequest>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "server.admin.AdminRegisterRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "BelongStoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminRegisterRequest {
-    return new AdminRegisterRequest().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminRegisterRequest {
-    return new AdminRegisterRequest().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminRegisterRequest {
-    return new AdminRegisterRequest().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: AdminRegisterRequest | PlainMessage<AdminRegisterRequest> | undefined, b: AdminRegisterRequest | PlainMessage<AdminRegisterRequest> | undefined): boolean {
-    return proto3.util.equals(AdminRegisterRequest, a, b);
-  }
-}
-
-/**
  * @generated from message server.admin.AnonAuthTokenResponse
  */
 export class AnonAuthTokenResponse extends Message<AnonAuthTokenResponse> {
@@ -144,6 +95,49 @@ export class AnonAuthTokenResponse extends Message<AnonAuthTokenResponse> {
 
   static equals(a: AnonAuthTokenResponse | PlainMessage<AnonAuthTokenResponse> | undefined, b: AnonAuthTokenResponse | PlainMessage<AnonAuthTokenResponse> | undefined): boolean {
     return proto3.util.equals(AnonAuthTokenResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.SetNewPasswordRequest
+ */
+export class SetNewPasswordRequest extends Message<SetNewPasswordRequest> {
+  /**
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password = "";
+
+  constructor(data?: PartialMessage<SetNewPasswordRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.SetNewPasswordRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "password", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetNewPasswordRequest | PlainMessage<SetNewPasswordRequest> | undefined, b: SetNewPasswordRequest | PlainMessage<SetNewPasswordRequest> | undefined): boolean {
+    return proto3.util.equals(SetNewPasswordRequest, a, b);
   }
 }
 

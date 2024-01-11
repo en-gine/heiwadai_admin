@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AdminAuthTokenResponse, AdminRefreshTokenRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
+import { AdminAuthTokenResponse, AdminRefreshTokenRequest, AdminRegisterRequest, AdminRegisterResponse, ResendInviteRequest, UpdateEmailRequest, UpdatePasswordRequest } from "./Auth_pb.ts";
 
 /**
  * トークン必要
@@ -58,6 +58,34 @@ export const updateEmail = {
   name: "UpdateEmail",
   kind: MethodKind.Unary,
   I: UpdateEmailRequest,
+  O: Empty,
+  service: {
+    typeName: "server.admin.AuthController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AuthController.Register
+ */
+export const register = {
+  localName: "register",
+  name: "Register",
+  kind: MethodKind.Unary,
+  I: AdminRegisterRequest,
+  O: AdminRegisterResponse,
+  service: {
+    typeName: "server.admin.AuthController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AuthController.ResendInviteMail
+ */
+export const resendInviteMail = {
+  localName: "resendInviteMail",
+  name: "ResendInviteMail",
+  kind: MethodKind.Unary,
+  I: ResendInviteRequest,
   O: Empty,
   service: {
     typeName: "server.admin.AuthController"
