@@ -17,10 +17,8 @@ const Page = async () => {
   let AdminData: JsonValue
   let storeData: JsonValue
   try {
-    // storeはキャッシュを利かせる
-    const storeRes = await storeClient.getAll({})
-
     unstable_noStore()
+    const storeRes = await storeClient.getAll({})
     const Admins = await client.getAll({})
     AdminData = Admins.toJson()
     storeData = storeRes.toJson()

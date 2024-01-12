@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache"
 import Link from "next/link"
 import * as React from "react"
 
@@ -8,6 +9,7 @@ import { Form } from "../_form"
 
 const Page = async () => {
   const storeClient = fetcher(StoreController)
+  unstable_noStore()
   const storeRes = await storeClient.getAll({})
 
   return (
