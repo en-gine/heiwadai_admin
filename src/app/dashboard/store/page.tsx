@@ -11,7 +11,7 @@ import { StoreListTable } from "./_table"
 
 const Page = async () => {
   const client = fetcher(StoreController)
-  let data: JsonValue
+  let data: JsonValue = {}
   try {
     unstable_noStore()
     const res = await client.getAll({})

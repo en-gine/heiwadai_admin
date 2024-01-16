@@ -4,7 +4,21 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { UserDataResponse, UserDeleteRequest, UserListFilterRequest, UserListResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
+import { UserDataResponse, UserDeleteRequest, UserGetIDRequest, UserListFilterRequest, UserListResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
+
+/**
+ * @generated from rpc server.admin.UserDataController.GetByID
+ */
+export const getByID = {
+  localName: "getByID",
+  name: "GetByID",
+  kind: MethodKind.Unary,
+  I: UserGetIDRequest,
+  O: UserDataResponse,
+  service: {
+    typeName: "server.admin.UserDataController"
+  }
+} as const;
 
 /**
  * @generated from rpc server.admin.UserDataController.Update

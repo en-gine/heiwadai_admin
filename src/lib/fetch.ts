@@ -9,21 +9,11 @@ const authHeader: Interceptor = (next) => async (req) => {
   // リクエストヘッダーにTokenヘッダーを追加
   req.header.set("Authorization", `${getCookie("accessToken")}`)
   req.header.set("X-Refresh-Token", `${getCookie("refreshToken")}`)
-
   const res = await next(req)
   // レスポンスヘッダーからTokenを取得
   res.header.get("AccessToken")
   res.header.get("RefreshToken")
   res.header.get("Expire")
-  // // TokenがあればCookieに保存
-  // if (token) {
-  //   setCookie("accessToken", token, Number(expiresIn))
-  // }
-  // if (refreshToken) {
-  //   setCookie("refreshToken", refreshToken)
-  // }
-
-  // return { ...res, message: JSON.parse(JSON.stringify(res.message)) }
   return res
 }
 
@@ -33,14 +23,6 @@ const transport = createConnectTransport({
   interceptors: [authHeader]
 })
 
-// const setCookie = (key: string, value: string, maxAge?: number) => {
-//   cookies().set(key, value, {
-//     maxAge,
-//     path: "/",
-//     sameSite: "lax",
-//     secure: process.env.NODE_ENV === "production"
-//   })
-// }
 const getCookie = (key: string) => {
   const cookie = cookies().get(key)
   return cookie?.value

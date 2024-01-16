@@ -194,6 +194,43 @@ export class UserListResponse extends Message<UserListResponse> {
 }
 
 /**
+ * @generated from message server.admin.UserGetIDRequest
+ */
+export class UserGetIDRequest extends Message<UserGetIDRequest> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  constructor(data?: PartialMessage<UserGetIDRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.UserGetIDRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserGetIDRequest {
+    return new UserGetIDRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserGetIDRequest {
+    return new UserGetIDRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserGetIDRequest {
+    return new UserGetIDRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserGetIDRequest | PlainMessage<UserGetIDRequest> | undefined, b: UserGetIDRequest | PlainMessage<UserGetIDRequest> | undefined): boolean {
+    return proto3.util.equals(UserGetIDRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.UserDeleteRequest
  */
 export class UserDeleteRequest extends Message<UserDeleteRequest> {

@@ -11,11 +11,7 @@ import { fetcher } from "@/lib/fetch"
 
 import { MagazineListTable } from "./_table"
 
-const Page = async ({
-  searchParams
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
+const Page = async ({ searchParams }: { searchParams: { page: number } }) => {
   const client = fetcher(MailMagazineController)
   const pageParam = searchParams.page
   const currentPage =

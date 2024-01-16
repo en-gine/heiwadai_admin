@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { UserDataResponse, UserDeleteRequest, UserListFilterRequest, UserListResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
+import { UserDataResponse, UserDeleteRequest, UserGetIDRequest, UserListFilterRequest, UserListResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -12,6 +12,15 @@ import { Empty, MethodKind } from "@bufbuild/protobuf";
 export const UserDataController = {
   typeName: "server.admin.UserDataController",
   methods: {
+    /**
+     * @generated from rpc server.admin.UserDataController.GetByID
+     */
+    getByID: {
+      name: "GetByID",
+      I: UserGetIDRequest,
+      O: UserDataResponse,
+      kind: MethodKind.Unary,
+    },
     /**
      * @generated from rpc server.admin.UserDataController.Update
      */

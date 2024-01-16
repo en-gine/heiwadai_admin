@@ -11,11 +11,7 @@ import { fetcher } from "@/lib/fetch"
 
 import { CouponListTable } from "./_table"
 
-const Page = async ({
-  searchParams
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
+const Page = async ({ searchParams }: { searchParams: { page: number } }) => {
   const client = fetcher(AdminCouponController)
   const pageParam = searchParams.page
   const currentPage =

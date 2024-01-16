@@ -16,6 +16,8 @@ const NotoFont = localFont({
   src: "../font/NotoSansJP-VariableFont_wght.ttf",
   variable: "--font-noto"
 })
+export const fetchCache = "default-no-store"
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "平和台ホテルアプリ管理画面",

@@ -201,8 +201,9 @@ export const MultiSelectPref = () => {
 
   return <MultiSelect options={prefs} />
 }
+
 // eslint-disable-next-line complexity
-const getPrefName = (p: Prefecture) => {
+export const getPrefName = (p: Prefecture) => {
   switch (p) {
     case Prefecture.Hokkaido:
       return "北海道"

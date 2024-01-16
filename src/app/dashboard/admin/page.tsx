@@ -14,8 +14,8 @@ const Page = async () => {
   const client = fetcher(AdminDataController)
   const storeClient = fetcher(StoreController)
 
-  let AdminData: JsonValue
-  let storeData: JsonValue
+  let AdminData: JsonValue = {}
+  let storeData: JsonValue = {}
   try {
     unstable_noStore()
     const storeRes = await storeClient.getAll({})
