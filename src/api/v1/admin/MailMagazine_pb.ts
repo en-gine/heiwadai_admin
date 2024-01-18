@@ -426,3 +426,150 @@ export class SendMailMagazineRequest extends Message<SendMailMagazineRequest> {
   }
 }
 
+/**
+ * @generated from message server.admin.UserLogListRequest
+ */
+export class UserLogListRequest extends Message<UserLogListRequest> {
+  /**
+   * @generated from field: string UserID = 1;
+   */
+  UserID = "";
+
+  /**
+   * @generated from field: server.shared.Pager Pager = 2;
+   */
+  Pager?: Pager;
+
+  constructor(data?: PartialMessage<UserLogListRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.UserLogListRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "UserID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Pager", kind: "message", T: Pager },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserLogListRequest {
+    return new UserLogListRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserLogListRequest {
+    return new UserLogListRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserLogListRequest {
+    return new UserLogListRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserLogListRequest | PlainMessage<UserLogListRequest> | undefined, b: UserLogListRequest | PlainMessage<UserLogListRequest> | undefined): boolean {
+    return proto3.util.equals(UserLogListRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.UserMailMagazineLog
+ */
+export class UserMailMagazineLog extends Message<UserMailMagazineLog> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  /**
+   * @generated from field: string MailMagazineID = 2;
+   */
+  MailMagazineID = "";
+
+  /**
+   * @generated from field: string UserID = 3;
+   */
+  UserID = "";
+
+  /**
+   * @generated from field: string Title = 4;
+   */
+  Title = "";
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp SentAt = 5;
+   */
+  SentAt?: Timestamp;
+
+  constructor(data?: PartialMessage<UserMailMagazineLog>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.UserMailMagazineLog";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "MailMagazineID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "UserID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "Title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "SentAt", kind: "message", T: Timestamp, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserMailMagazineLog {
+    return new UserMailMagazineLog().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserMailMagazineLog {
+    return new UserMailMagazineLog().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserMailMagazineLog {
+    return new UserMailMagazineLog().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserMailMagazineLog | PlainMessage<UserMailMagazineLog> | undefined, b: UserMailMagazineLog | PlainMessage<UserMailMagazineLog> | undefined): boolean {
+    return proto3.util.equals(UserMailMagazineLog, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.UserMailMagazineLogResponse
+ */
+export class UserMailMagazineLogResponse extends Message<UserMailMagazineLogResponse> {
+  /**
+   * @generated from field: repeated server.admin.UserMailMagazineLog UserLogs = 1;
+   */
+  UserLogs: UserMailMagazineLog[] = [];
+
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
+  constructor(data?: PartialMessage<UserMailMagazineLogResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.UserMailMagazineLogResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "UserLogs", kind: "message", T: UserMailMagazineLog, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserMailMagazineLogResponse {
+    return new UserMailMagazineLogResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserMailMagazineLogResponse {
+    return new UserMailMagazineLogResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserMailMagazineLogResponse {
+    return new UserMailMagazineLogResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserMailMagazineLogResponse | PlainMessage<UserMailMagazineLogResponse> | undefined, b: UserMailMagazineLogResponse | PlainMessage<UserMailMagazineLogResponse> | undefined): boolean {
+    return proto3.util.equals(UserMailMagazineLogResponse, a, b);
+  }
+}
+

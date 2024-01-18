@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 "use client"
 
 import Link from "next/link"
@@ -6,7 +8,6 @@ import { type FC, useCallback } from "react"
 
 import { useLogin } from "@/hooks/api/useLogin"
 
-import { Command } from "../ui/command"
 import styles from "./sidebar.module.scss"
 
 type Props = { id?: string }
@@ -29,28 +30,52 @@ const Sidebar: FC<Props> = () => {
         <Link href="/dashboard/">TOP</Link>
       </h2>
       <ul>
-        <li className={pathname === "/dashboard/users" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/users") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/users">アプリユーザー一覧</Link>
         </li>
-        <li className={pathname === "/dashboard/magazine" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/magazine") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/magazine">メルマガ配信</Link>
         </li>
-        <li className={pathname === "/dashboard/message" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/message") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/message">アプリログイン時通知</Link>
         </li>
-        <li className={pathname === "/dashboard/store" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/store") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/store">店舗管理</Link>
         </li>
-        <li className={pathname === "/dashboard/coupon" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/coupon") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/coupon">特別クーポン作成</Link>
         </li>
-        <li className={pathname === "/dashboard/admin" ? styles.active : ""}>
+        <li
+          className={
+            pathname.startsWith("/dashboard/admin") ? styles.active : ""
+          }
+        >
           <Link href="/dashboard/admin">管理画面ユーザー管理</Link>
         </li>
-        <li className={pathname === "/dashboard/admin" ? styles.active : ""}>
-          <Command className="cursor-pointer" onClick={handleLogout}>
+        <li>
+          <Link href="#" onClick={handleLogout}>
             ログアウト
-          </Command>
+          </Link>
         </li>
       </ul>
     </nav>

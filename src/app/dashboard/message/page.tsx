@@ -6,7 +6,7 @@ import { Suspense } from "react"
 import { MessageController } from "@/api/v1/admin/Messages_connect"
 import { PageResponse } from "@/api/v1/shared/Pager_pb"
 import { Loading } from "@/components/parts/loading"
-import { Pagination } from "@/components/parts/pagination"
+import { Pagination } from "@/components/parts/pagination.server"
 import { fetcher } from "@/lib/fetch"
 
 import { MessageListTable } from "./_table"

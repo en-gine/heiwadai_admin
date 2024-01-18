@@ -28,7 +28,7 @@ export const CouponListTable = ({ data }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">クーポン名</TableHead>
+            <TableHead>クーポン名</TableHead>
             <TableHead>値引額</TableHead>
             <TableHead>期限</TableHead>
             <TableHead>作成日</TableHead>

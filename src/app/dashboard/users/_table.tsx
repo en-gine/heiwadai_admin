@@ -41,6 +41,14 @@ export const UserListTable = ({ data, searchParam }: Props) => {
     setFilter({})
     router.push(`/dashboard/users`)
   }, [router])
+
+  const handleLog = useCallback(
+    (userId: string) => {
+      router.push(`/dashboard/users/${userId}/log`)
+    },
+    [router]
+  )
+
   return (
     <>
       <div className="w-full">
@@ -64,7 +72,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
           />
           &nbsp;
           <SelectPref
-            value={filter?.Prefecture?.toString()}
+            value={filter?.Prefecture ? filter?.Prefecture?.toString() : ""}
             onValueChange={(value) => {
               setFilter({ ...filter, Prefecture: value })
             }}
@@ -106,6 +114,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
             <TableHead>ふりがな</TableHead>
             <TableHead>都道府県</TableHead>
             <TableHead>最終チェックイン</TableHead>
+            <TableHead>ユーザーログ</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -128,6 +137,13 @@ export const UserListTable = ({ data, searchParam }: Props) => {
               <TableCell className="text-right">
                 {LastCheckinAt &&
                   dayjs(LastCheckinAt?.toDate()).format("YYYY/MM/DD")}
+              </TableCell>
+              <TableCell>
+                {user?.ID && (
+                  <Button variant="outline" onClick={() => handleLog(user?.ID)}>
+                    履歴
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}

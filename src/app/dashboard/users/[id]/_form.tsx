@@ -87,8 +87,8 @@ export const DataCard = ({ data }: Props) => {
         <CardContent>
           <form>
             <div className="grid w-full items-center pt-4">
-              <div className="flex items-center justify-between py-2">
-                <Label htmlFor="lastName" className="required mt-0">
+              <div className="flex items-center justify-start py-2">
+                <Label htmlFor="lastName" className="required mt-0 w-10">
                   姓
                 </Label>
                 <Input
@@ -104,7 +104,7 @@ export const DataCard = ({ data }: Props) => {
                   }
                   className="max-w-xs"
                 />
-                <Label htmlFor="firstName" className="required mt-0">
+                <Label htmlFor="firstName" className="required ml-4 mt-0 w-10">
                   名
                 </Label>
                 <Input
@@ -121,8 +121,8 @@ export const DataCard = ({ data }: Props) => {
                   className="max-w-xs"
                 />
               </div>
-              <div className="flex items-center justify-between py-2">
-                <Label htmlFor="lastNameKana" className="required mt-0">
+              <div className="flex items-center justify-start py-2">
+                <Label htmlFor="lastNameKana" className="required mt-0 w-10">
                   せい
                 </Label>
                 <Input
@@ -138,7 +138,10 @@ export const DataCard = ({ data }: Props) => {
                   }
                   className="max-w-xs"
                 />
-                <Label htmlFor="firstNameKana" className="required mt-0">
+                <Label
+                  htmlFor="firstNameKana"
+                  className="required mt-0 ml-4 w-10"
+                >
                   めい
                 </Label>
                 <Input

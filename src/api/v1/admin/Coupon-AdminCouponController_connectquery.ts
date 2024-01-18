@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
+import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserCouponRequest } from "./Coupon_pb.ts";
 import { Coupon } from "../shared/Coupon_pb.ts";
 import { Pager } from "../shared/Pager_pb.ts";
 
@@ -15,7 +15,7 @@ export const getUserCouponList = {
   localName: "getUserCouponList",
   name: "GetUserCouponList",
   kind: MethodKind.Unary,
-  I: UserIDRequest,
+  I: UserCouponRequest,
   O: UserAttachedCouponsResponse,
   service: {
     typeName: "server.admin.AdminCouponController"

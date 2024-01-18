@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserIDRequest } from "./Coupon_pb.ts";
+import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserCouponRequest } from "./Coupon_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 import { Coupon } from "../shared/Coupon_pb.ts";
 import { Pager } from "../shared/Pager_pb.ts";
@@ -19,7 +19,7 @@ export const AdminCouponController = {
      */
     getUserCouponList: {
       name: "GetUserCouponList",
-      I: UserIDRequest,
+      I: UserCouponRequest,
       O: UserAttachedCouponsResponse,
       kind: MethodKind.Unary,
     },

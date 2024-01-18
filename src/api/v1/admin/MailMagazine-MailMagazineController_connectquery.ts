@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { DeleteMailMagazineRequest, GetMailMagazineListRequest, MailMagazine, MailMagazineIDRequest, MailMagazinesResponse, SaveDraftRequest, SendMailMagazineRequest, UpdateMailMagazineRequest } from "./MailMagazine_pb.ts";
+import { DeleteMailMagazineRequest, GetMailMagazineListRequest, MailMagazine, MailMagazineIDRequest, MailMagazinesResponse, SaveDraftRequest, SendMailMagazineRequest, UpdateMailMagazineRequest, UserLogListRequest, UserMailMagazineLogResponse } from "./MailMagazine_pb.ts";
 
 /**
  * @generated from rpc server.admin.MailMagazineController.GetList
@@ -29,6 +29,20 @@ export const getByID = {
   kind: MethodKind.Unary,
   I: MailMagazineIDRequest,
   O: MailMagazine,
+  service: {
+    typeName: "server.admin.MailMagazineController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.MailMagazineController.GetUserLogList
+ */
+export const getUserLogList = {
+  localName: "getUserLogList",
+  name: "GetUserLogList",
+  kind: MethodKind.Unary,
+  I: UserLogListRequest,
+  O: UserMailMagazineLogResponse,
   service: {
     typeName: "server.admin.MailMagazineController"
   }

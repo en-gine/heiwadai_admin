@@ -5,8 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Pager, PageResponse } from "../shared/Pager_pb.ts";
 import { Coupon, UserAttachedCoupon } from "../shared/Coupon_pb.ts";
-import { PageResponse } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from message server.admin.CouponIDRequest
@@ -46,39 +46,45 @@ export class CouponIDRequest extends Message<CouponIDRequest> {
 }
 
 /**
- * @generated from message server.admin.UserIDRequest
+ * @generated from message server.admin.UserCouponRequest
  */
-export class UserIDRequest extends Message<UserIDRequest> {
+export class UserCouponRequest extends Message<UserCouponRequest> {
   /**
    * @generated from field: string ID = 1;
    */
   ID = "";
 
-  constructor(data?: PartialMessage<UserIDRequest>) {
+  /**
+   * @generated from field: server.shared.Pager Pager = 2;
+   */
+  Pager?: Pager;
+
+  constructor(data?: PartialMessage<UserCouponRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "server.admin.UserIDRequest";
+  static readonly typeName = "server.admin.UserCouponRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Pager", kind: "message", T: Pager },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserIDRequest {
-    return new UserIDRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserCouponRequest {
+    return new UserCouponRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserIDRequest {
-    return new UserIDRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserCouponRequest {
+    return new UserCouponRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserIDRequest {
-    return new UserIDRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserCouponRequest {
+    return new UserCouponRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: UserIDRequest | PlainMessage<UserIDRequest> | undefined, b: UserIDRequest | PlainMessage<UserIDRequest> | undefined): boolean {
-    return proto3.util.equals(UserIDRequest, a, b);
+  static equals(a: UserCouponRequest | PlainMessage<UserCouponRequest> | undefined, b: UserCouponRequest | PlainMessage<UserCouponRequest> | undefined): boolean {
+    return proto3.util.equals(UserCouponRequest, a, b);
   }
 }
 
@@ -195,6 +201,11 @@ export class UserAttachedCouponsResponse extends Message<UserAttachedCouponsResp
    */
   UserAttachedCoupons: UserAttachedCoupon[] = [];
 
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
   constructor(data?: PartialMessage<UserAttachedCouponsResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -204,6 +215,7 @@ export class UserAttachedCouponsResponse extends Message<UserAttachedCouponsResp
   static readonly typeName = "server.admin.UserAttachedCouponsResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "UserAttachedCoupons", kind: "message", T: UserAttachedCoupon, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserAttachedCouponsResponse {
