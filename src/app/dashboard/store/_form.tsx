@@ -3,12 +3,15 @@
 "use client"
 
 import { JsonValue } from "@bufbuild/protobuf"
-import crypto from "crypto"
+import { useMutation } from "@connectrpc/connect-query"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { FormEvent, FormEventHandler, useCallback, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 
 import { StoreController } from "@/api/v1/admin/Store_connect"
+import {
+  register,
+  update
+} from "@/api/v1/admin/Store-StoreController_connectquery"
 import { Store } from "@/api/v1/shared/Store_pb"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -25,8 +28,7 @@ import {
 import { useGrpc } from "@/hooks/api/useGrpc"
 
 const SubmitType = {
-  Save: "save",
-  Delete: "delete"
+  Save: "save"
 } as const
 
 type Props = {
@@ -36,182 +38,142 @@ type Props = {
 export const Form = ({ data }: Props) => {
   const { client } = useGrpc(StoreController)
   const store = data ? Store.fromJson(data) : undefined
-  const [isActive, setIsActive] = useState<boolean>(store?.IsActive || false)
-  const [isStayable, setIsStayable] = useState<boolean>(
-    store?.Stayable || false
+  const defaultStore = useMemo(
+    () => ({
+      ...store
+    }),
+    [store]
   )
-  const router = useRouter()
-  const [qrCode, setQrCode] = useState<string | undefined>(store?.QRCode)
-  const [unlimitedQrCode, setUnlimitedQrCode] = useState<string | undefined>(
-    store?.UnLimitedQRCode
+  const defaultStayableinfo = useMemo(
+    () => ({
+      ...store?.StayableStoreInfo
+    }),
+    [store?.StayableStoreInfo]
   )
+  const isNew = defaultStore?.ID === undefined
 
+  const [updateStore, setUpdateStore] =
+    useState<typeof defaultStore>(defaultStore)
+  const [updateStayableinfo, setUpdateStayableinfo] =
+    useState<typeof defaultStayableinfo>(defaultStayableinfo)
   const regenQrCode = useCallback(async () => {
     try {
-      if (!store?.ID) {
+      if (!defaultStore?.ID) {
         alert("投稿を保存後に再生成してください。")
         return
       }
       const res = await client.regenQRCode({
-        ID: store?.ID
+        ID: defaultStore?.ID
       })
-      setQrCode(res.QRCode)
+      setUpdateStore({ ...updateStore, QRCode: res.QRCode })
     } catch (error) {
       alert(error)
     }
-  }, [client, store?.ID])
+  }, [client, defaultStore?.ID, updateStore])
 
   const regenUnlimitedQrCode = useCallback(async () => {
     try {
-      if (!store?.ID) {
+      if (!defaultStore?.ID) {
         alert("投稿を保存後に再生成してください。")
         return
       }
       const res = await client.regenUnlimitQRCode({
-        ID: store?.ID
+        ID: defaultStore?.ID
       })
-      setUnlimitedQrCode(res.UnlimitQRCode)
+      setUpdateStore({ ...updateStore, UnLimitedQRCode: res.UnlimitQRCode })
     } catch (error) {
       alert(error)
     }
-  }, [client, store?.ID])
-
+  }, [client, defaultStore?.ID, updateStore])
+  const [filename, setFIleName] = useState<string | undefined>(undefined)
   const printQrCode = useCallback(() => {
-    if (!store?.ID) {
+    if (!defaultStore?.ID) {
       alert("投稿を保存後に印刷してください。")
       return
     }
     window.open(
-      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${qrCode}`
+      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.QRCode}`
     )
-  }, [qrCode, store?.ID])
+  }, [defaultStore?.ID, updateStore.QRCode])
+
   const printUnlimitedQrCode = useCallback(() => {
-    if (!store?.ID) {
+    if (!defaultStore?.ID) {
       alert("投稿を保存後に印刷してください。")
       return
     }
 
     window.open(
-      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${unlimitedQrCode}`
+      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.UnLimitedQRCode}`
     )
-  }, [store?.ID, unlimitedQrCode])
+  }, [defaultStore?.ID, updateStore.UnLimitedQRCode])
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
+  const { mutate: mutateUpdate } = useMutation(update)
+  const { mutate: mutateRegister } = useMutation(register)
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const formData = new FormData(event.currentTarget)
-      const { submitter } = event.nativeEvent as SubmitEvent
-      const { value: submitType } = submitter as HTMLButtonElement
-      const title = formData.get("title") as string
-      const content = formData.get("content") as string
-
-      if (!submitType) return
-      try {
-        switch (submitType) {
-          case SubmitType.Save:
-            if (!title || !content) {
-              alert("タイトルと本文は必須です。")
-              return
+      if (isNew) {
+        mutateRegister(
+          {
+            ...updateStore,
+            StayableInfo: {
+              ...updateStayableinfo
             }
-            if (!store?.ID) {
-              const res = await client.register({
-                Name: store?.Name,
-                BranchName: store?.BranchName,
-                ZipCode: store?.ZipCode,
-                Address: store?.Address,
-                Tel: store?.Tel,
-                SiteURL: store?.SiteURL,
-                StampImage: store?.StampImage,
-                IsActive: store?.IsActive,
-                Stayable: store?.Stayable,
-                QRCode: store?.QRCode,
-                UnLimitedQRCode: store?.UnLimitedQRCode,
-                StayableInfo: {
-                  BookingSystemID: store?.StayableStoreInfo?.BookingSystemID,
-                  AccessInfo: store?.StayableStoreInfo?.AccessInfo,
-                  Parking: store?.StayableStoreInfo?.Parking,
-                  RestAPIURL: store?.StayableStoreInfo?.RestAPIURL,
-                  Longitude: store?.StayableStoreInfo?.Longitude,
-                  Latitude: store?.StayableStoreInfo?.Latitude
-                }
-              })
-              alert("保存しました。")
-              router.push(`./${res.ID}}`)
-              return
+          },
+          {
+            onSuccess: () => {
+              alert("更新しました。")
+            },
+            onError: () => {
+              alert("更新に失敗しました。")
             }
-            await client.update({
-              ID: store.ID,
-              Name: title,
-              BranchName: content,
-              ZipCode: "",
-              Address: "",
-              Tel: "",
-              SiteURL: "",
-              StampImage: "",
-              IsActive: true,
-              Stayable: false,
-              QRCode: crypto.randomUUID(),
-              UnLimitedQRCode: crypto.randomUUID(),
-              StayableInfo: {
-                BookingSystemID: "",
-                AccessInfo: "",
-                Parking: "",
-                RestAPIURL: "",
-                Longitude: 0,
-                Latitude: 0
-              }
-            })
-            alert("更新しました。")
-            return
-          default:
-            throw new Error("invalid submit type")
-        }
-      } catch (error) {
-        alert(error)
+          }
+        )
+        return
       }
+      mutateUpdate(
+        {
+          ...updateStore,
+          StayableInfo: {
+            ...updateStayableinfo
+          }
+        },
+        {
+          onSuccess: () => {
+            alert("更新しました。")
+          },
+          onError: () => {
+            alert("更新に失敗しました。")
+          }
+        }
+      )
     },
-    [
-      store?.ID,
-      store?.Name,
-      store?.BranchName,
-      store?.ZipCode,
-      store?.Address,
-      store?.Tel,
-      store?.SiteURL,
-      store?.StampImage,
-      store?.IsActive,
-      store?.Stayable,
-      store?.QRCode,
-      store?.UnLimitedQRCode,
-      store?.StayableStoreInfo?.BookingSystemID,
-      store?.StayableStoreInfo?.AccessInfo,
-      store?.StayableStoreInfo?.Parking,
-      store?.StayableStoreInfo?.RestAPIURL,
-      store?.StayableStoreInfo?.Longitude,
-      store?.StayableStoreInfo?.Latitude,
-      client,
-      router
-    ]
+    [isNew, mutateRegister, mutateUpdate, updateStayableinfo, updateStore]
   )
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <Label htmlFor="name" className="required">
         店舗名
       </Label>
       <Input
         type="text"
         id="name"
-        name="name"
         required
-        defaultValue={store?.Name}
+        value={updateStore?.Name}
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, Name: event.target.value })
+        }}
         className="w-[70%]"
       />
       <Label htmlFor="branch-name">支店名</Label>
       <Input
         type="text"
         id="branch-name"
-        name="branch-name"
-        defaultValue={store?.BranchName}
+        value={updateStore?.BranchName}
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, BranchName: event.target.value })
+        }}
         className="w-[50%]"
       />
       <Label htmlFor="zip" className="required">
@@ -219,59 +181,99 @@ export const Form = ({ data }: Props) => {
       </Label>
       <Input
         id="zip"
-        name="zip"
         type="zip"
         className="w-[10em]"
-        defaultValue={store?.ZipCode}
+        value={updateStore?.ZipCode}
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, ZipCode: event.target.value })
+        }}
       />
       <Label htmlFor="address" className="required">
         住所
       </Label>
       <Input
         id="address"
-        name="address"
         type="address"
         className="w-full"
-        defaultValue={store?.Address}
+        value={updateStore?.Address}
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, Address: event.target.value })
+        }}
       />
       <Label htmlFor="tel" className="required">
         TEL
       </Label>
       <Input
         id="tel"
-        name="tel"
         type="tel"
         className="w-[10em]"
-        defaultValue={store?.Tel}
+        value={updateStore?.Tel}
+        required
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, Tel: event.target.value })
+        }}
       />
       <Label htmlFor="url" className="required">
         サイトURL
       </Label>
       <Input
         id="url"
-        name="url"
         type="url"
         className="w-full"
-        defaultValue={store?.SiteURL}
+        value={updateStore?.SiteURL}
+        required
+        onChange={(event) => {
+          setUpdateStore({ ...updateStore, SiteURL: event.target.value })
+        }}
       />
       <Label htmlFor="stamp" className="required">
         スタンプ
       </Label>
-      {store?.StampImage && (
+      {updateStore.StampImage && (
         <Image
-          src={store.StampImage}
-          alt={store?.Name}
+          src={updateStore.StampImage}
           width={85}
           height={85}
+          alt="スタンプ画像"
         />
       )}
-      <Input id="stamp" type="file" name="stamp" />
+      <Input
+        id="stamp"
+        type="file"
+        name="stamp"
+        required
+        value={filename}
+        accept=".png,.jpg,.jpeg,.gif,.svg"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const { files } = event.currentTarget
+          // ファイルがなければ終了
+          if (!files || files?.length === 0) return
+          // 先頭のファイルを取得
+          const file = files[0]
+          if (file) {
+            setFIleName(file.name)
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+
+            reader.onload = (e) => {
+              const base64 = e?.target?.result
+              if (typeof base64 === "string") {
+                setUpdateStore({ ...updateStore, StampImage: base64 })
+              } else {
+                setUpdateStore({ ...updateStore, StampImage: undefined })
+              }
+            }
+          }
+        }}
+      />
       <Label htmlFor="status">ステータス</Label>
       <Select
-        name="is_active"
-        value={String(isActive)}
+        value={String(updateStore.IsActive)}
         onValueChange={(value) => {
-          setIsActive(value === "true")
+          setUpdateStore({
+            ...updateStore,
+            IsActive: value === "true"
+          })
         }}
       >
         <SelectTrigger>
@@ -284,9 +286,12 @@ export const Form = ({ data }: Props) => {
       </Select>
       <Label htmlFor="display-date">宿泊可否</Label>
       <RadioGroup
-        value={String(isStayable)}
+        value={String(updateStore.Stayable)}
         onValueChange={(value) => {
-          setIsStayable(value === "true")
+          setUpdateStore({
+            ...updateStore,
+            Stayable: value === "true"
+          })
         }}
         className="flex justify-start mt-4"
       >
@@ -299,60 +304,104 @@ export const Form = ({ data }: Props) => {
           通常店舗
         </Label>
       </RadioGroup>
-      {isStayable && (
+      {updateStore?.Stayable && (
         <Card className="mt-4 p-4">
           <Label htmlFor="tl-lincoln">TLリンカーン施設番号</Label>
           <Input
             id="tl-lincoln"
-            name="tl-lincoln"
             type="text"
-            defaultValue={store?.StayableStoreInfo?.BookingSystemID}
+            value={updateStayableinfo.BookingSystemID}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemID: event.target.value
+              })
+            }}
           />
           <Label htmlFor="access-info">アクセス情報</Label>
           <Input
             id="access-info"
-            name="access-info"
             type="text"
             className="w-full"
-            defaultValue={store?.StayableStoreInfo?.AccessInfo}
+            value={updateStayableinfo.AccessInfo}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                AccessInfo: event.target.value
+              })
+            }}
           />
           <Label htmlFor="parking">駐車場情報</Label>
           <Input
             id="parking"
-            name="parking"
             type="text"
             className="w-full"
-            defaultValue={store?.StayableStoreInfo?.Parking}
+            value={updateStayableinfo.Parking}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                Parking: event.target.value
+              })
+            }}
           />
           <Label htmlFor="rest-api-url">お知らせAPIのURL</Label>
           <Input
             id="rest-api-url"
-            name="rest-api-url"
             type="text"
             className="w-full"
-            defaultValue={store?.StayableStoreInfo?.RestAPIURL}
+            value={updateStayableinfo.RestAPIURL}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                RestAPIURL: event.target.value
+              })
+            }}
           />
           <div className="flex gap-10 justify-start mt-7">
             <Label htmlFor="longitude">
               経度
               <Input
                 id="longitude"
-                name="longitude"
-                type="text"
                 className="w-full"
-                defaultValue={store?.StayableStoreInfo?.Longitude}
+                type="number"
+                defaultValue={updateStayableinfo.Longitude}
+                step={0.0000001}
+                onBlur={(event) => {
+                  setUpdateStayableinfo({
+                    ...updateStayableinfo,
+                    Longitude: event.target.value as unknown as number
+                  })
+                }}
               />
             </Label>
             <Label htmlFor="latitude">
               緯度
               <Input
                 id="latitude"
-                name="latitude"
-                type="text"
+                type="number"
                 className="w-full"
-                defaultValue={store?.StayableStoreInfo?.Latitude}
+                step={0.0000001}
+                defaultValue={updateStayableinfo.Latitude}
+                onBlur={(event) => {
+                  setUpdateStayableinfo({
+                    ...updateStayableinfo,
+                    Latitude: event.target.value as unknown as number
+                  })
+                }}
               />
             </Label>
+          </div>
+          <div className="google-map">
+            <p className="note">
+              Googleマップでの表示位置が正しいか確認してください。
+            </p>
+
+            {updateStayableinfo?.Longitude && updateStayableinfo?.Latitude && (
+              <GoogleMapIframeMemo
+                longitude={updateStayableinfo?.Longitude}
+                latitude={updateStayableinfo?.Latitude}
+              />
+            )}
           </div>
         </Card>
       )}
@@ -360,11 +409,10 @@ export const Form = ({ data }: Props) => {
       <div className="flex gap-10 justify-start">
         <Input
           id="qr-code"
-          name="qr-code"
           type="text"
           className="max-w-[50%]"
           disabled
-          value={qrCode}
+          value={updateStore.QRCode}
         />
         <Button variant="default" onClick={regenQrCode}>
           再生成
@@ -377,11 +425,10 @@ export const Form = ({ data }: Props) => {
       <div className="flex gap-10 justify-start">
         <Input
           id="unlimited-qr-code"
-          name="unlimited-qr-code"
           disabled
           type="text"
           className="max-w-[50%]"
-          value={unlimitedQrCode}
+          value={updateStore.UnLimitedQRCode}
         />
         <Button
           variant="default"
@@ -396,23 +443,25 @@ export const Form = ({ data }: Props) => {
       </div>
 
       <div className="flex gap-20 justify-center my-7">
-        <Button
-          type="submit"
-          variant="default"
-          name="submit-type"
-          value={SubmitType.Save}
-        >
+        <Button type="submit" variant="default" value={SubmitType.Save}>
           保存
-        </Button>
-        <Button
-          type="submit"
-          name="submit-type"
-          value={SubmitType.Delete}
-          variant="destructive"
-        >
-          削除
         </Button>
       </div>
     </form>
   )
 }
+const GoogleMapIframe = ({
+  latitude,
+  longitude
+}: {
+  latitude: number
+  longitude: number
+}) => (
+  <iframe
+    title="google-map"
+    width="100%"
+    height="400px"
+    src={`https://maps.google.co.jp/maps?output=embed&q=${latitude},${longitude}&t=m&z=18`}
+  />
+)
+const GoogleMapIframeMemo = React.memo(GoogleMapIframe)

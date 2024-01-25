@@ -45,7 +45,7 @@ export const MultiSelect: React.FC<Props> = (props) => {
         </Select.Trigger>
       </div>
       <Select.Portal>
-        <Select.Content className="overflow-hidden bg-white rounded-md shadow-[0_0.25rem_1.5rem_-0.375rem_rgba(22,23,24,0.35),0_0.25rem_0.625rem_-0.375rem_rgba(22,23,24,0.2)] w-[800px]">
+        <Select.Content className="overflow-hidden bg-white rounded-md shadow-[0_0.25rem_1.5rem_-0.375rem_rgba(22,23,24,0.35),0_0.25rem_0.625rem_-0.375rem_rgba(22,23,24,0.2)]">
           <Select.Viewport>
             {options.map((o) => (
               <Select.Item key={o.value} value={o.value}>

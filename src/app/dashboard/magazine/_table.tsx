@@ -47,11 +47,13 @@ export const MagazineListTable = ({ data }: Props) => {
               </TableCell>
               <TableCell>
                 {magazine.SentAt &&
-                  dayjs(magazine.SentAt.toDate()).format("YYYY/MM/DD")}
+                  dayjs(magazine.SentAt.toDate()).format("YYYY/MM/DD HH:mm:ss")}
               </TableCell>
               <TableCell>
                 {magazine.CreateAt &&
-                  dayjs(magazine.CreateAt.toDate()).format("YYYY/MM/DD")}
+                  dayjs(magazine.CreateAt.toDate()).format(
+                    "YYYY/MM/DD HH:mm:ss"
+                  )}
               </TableCell>
               <TableCell>
                 {getMailMagazineStatusName(magazine.MailMagazineStatus)}

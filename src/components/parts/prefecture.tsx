@@ -67,9 +67,6 @@ export const SelectPref = (props: SelectProps) => (
           <SelectItem value={Prefecture.Akita.toString()}>
             {getPrefName(Prefecture.Akita)}
           </SelectItem>
-          <SelectItem value={Prefecture.Akita.toString()}>
-            {getPrefName(Prefecture.Akita)}
-          </SelectItem>
           <SelectItem value={Prefecture.Yamagata.toString()}>
             {getPrefName(Prefecture.Yamagata)}
           </SelectItem>

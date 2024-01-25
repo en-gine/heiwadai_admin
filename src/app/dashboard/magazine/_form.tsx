@@ -1,15 +1,19 @@
+/* eslint-disable complexity */
+
 "use client"
 
 import { JsonValue } from "@bufbuild/protobuf"
+import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
-import { FormEvent, FormEventHandler, useCallback } from "react"
+import { FormEvent, FormEventHandler, useCallback, useState } from "react"
 
 import { MailMagazineController } from "@/api/v1/admin/MailMagazine_connect"
 import {
   MailMagazine,
   MailMagazineStatus
 } from "@/api/v1/admin/MailMagazine_pb"
-import { MultiSelectPref } from "@/components/parts/prefecture"
+import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
+import { PrefectureMultiSelect } from "@/components/parts/prefectureMultiSelect"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -30,6 +34,9 @@ export const Form = ({ data }: Props) => {
   const magazine = data ? MailMagazine.fromJson(data) : undefined
   const isNew = data === undefined
   const { client } = useGrpc(MailMagazineController)
+  const [prefectures, setPrefectures] = useState<Prefecture[]>(
+    magazine?.TargetPrefecture || []
+  )
   const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
@@ -51,6 +58,7 @@ export const Form = ({ data }: Props) => {
             if (isNew) {
               const res = await client.saveDraft({
                 Title: title,
+                TargetPrefectures: prefectures,
                 Content: content
               })
               alert("保存しました。")
@@ -60,6 +68,7 @@ export const Form = ({ data }: Props) => {
             await client.update({
               ID: magazine?.ID,
               Title: title,
+              TargetPrefectures: prefectures,
               Content: content
             })
             alert("更新しました。")
@@ -91,7 +100,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, isNew, magazine?.ID, router]
+    [client, isNew, magazine?.ID, prefectures, router]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -102,6 +111,10 @@ export const Form = ({ data }: Props) => {
         type="text"
         id="title"
         name="title"
+        readOnly={
+          magazine?.MailMagazineStatus ===
+          MailMagazineStatus.MailMagazineSentCompleted
+        }
         defaultValue={magazine?.Title}
         className="w-full"
       />
@@ -110,6 +123,10 @@ export const Form = ({ data }: Props) => {
       </Label>
       <Textarea
         id="content"
+        readOnly={
+          magazine?.MailMagazineStatus ===
+          MailMagazineStatus.MailMagazineSentCompleted
+        }
         name="content"
         className="w-full min-h-[300px]"
         defaultValue={magazine?.Content}
@@ -120,7 +137,20 @@ export const Form = ({ data }: Props) => {
       <div className="note">
         送信対象の都道府県を選択してください。未選択の場合は全国に送信されます。
       </div>
-      <MultiSelectPref />
+      <PrefectureMultiSelect
+        selectedItems={prefectures || []}
+        readOnly={
+          magazine?.MailMagazineStatus ===
+          MailMagazineStatus.MailMagazineSentCompleted
+        }
+        onSelect={(prefecture) => {
+          if (prefectures?.includes(prefecture)) return
+          setPrefectures((prev) => [...prev, prefecture])
+        }}
+        onRemove={(prefecture) => {
+          setPrefectures((prev) => prev.filter((p) => p !== prefecture))
+        }}
+      />
       {!!magazine?.SentCount && magazine?.SentCount > 0 && (
         <div className="mt-4">
           <Label htmlFor="displayDate">
@@ -136,6 +166,14 @@ export const Form = ({ data }: Props) => {
         <div className="mt-4">
           <Label htmlFor="displayDate">未送信ユーザー数</Label>
           <span className="bold">{magazine?.UnsentCount}</span>
+        </div>
+      )}
+      {magazine?.SentAt && (
+        <div className="mt-4">
+          <Label htmlFor="displayDate">送信日</Label>
+          <span className="bold">
+            {dayjs(magazine.SentAt.toDate()).format("YYYY/MM/DD HH:mm:ss")}
+          </span>
         </div>
       )}
       {magazine?.MailMagazineStatus ===

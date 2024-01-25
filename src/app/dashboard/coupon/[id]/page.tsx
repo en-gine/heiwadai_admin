@@ -1,5 +1,6 @@
 import { JsonValue } from "@bufbuild/protobuf"
 import { unstable_noStore } from "next/cache"
+import Link from "next/link"
 import * as React from "react"
 import { Suspense } from "react"
 
@@ -25,6 +26,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="w-full">
       <Suspense fallback={<Loading />}>
+        <div className="flex justify-between">
+          <Link href="/dashboard/coupon">一覧へ戻る</Link>
+        </div>
         <Form data={coupon} />
       </Suspense>
     </div>

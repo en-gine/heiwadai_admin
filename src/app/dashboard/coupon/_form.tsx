@@ -16,7 +16,7 @@ import { useGrpc } from "@/hooks/api/useGrpc"
 
 const SubmitType = {
   Save: "save",
-  Issue: "delete"
+  Issue: "issue"
 } as const
 
 type Props = {
@@ -39,7 +39,6 @@ export const Form = ({ data }: Props) => {
       const isCombinationable = formData.get("is-conbinationable") as string
       const expireAt = dayjs(formData.get("expireAt") as string).toDate()
       const notice = formData.get("notice") as string
-
       if (!submitType) return
       try {
         switch (submitType) {
@@ -65,6 +64,12 @@ export const Form = ({ data }: Props) => {
               Notices: [notice]
             })
             alert("更新しました。")
+            return
+          case SubmitType.Issue:
+            await client.attachCustomCouponToAllUser({
+              ID: coupon?.ID
+            })
+            alert("発行しました。")
             return
           default:
             throw new Error("invalid submit type")
@@ -130,7 +135,7 @@ export const Form = ({ data }: Props) => {
       <RadioGroup
         required
         defaultValue={coupon?.IsCombinationable ? "true" : "false"}
-        name="is-combinationable"
+        name="is-conbinationable"
         className="flex justify-start mt-4 mb-4"
       >
         <RadioGroupItem value="true" id="is-combinationable-1" />
@@ -143,7 +148,7 @@ export const Form = ({ data }: Props) => {
         </Label>
       </RadioGroup>
       <Label htmlFor="notice">備考</Label>
-      <Textarea defaultValue={coupon?.Notices} />
+      <Textarea name="notice" defaultValue={coupon?.Notices} />
       <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
@@ -158,6 +163,7 @@ export const Form = ({ data }: Props) => {
           name="submit-type"
           value={SubmitType.Issue}
           variant="destructive"
+          disabled={isNew}
         >
           発行
         </Button>
