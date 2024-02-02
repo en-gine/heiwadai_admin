@@ -41,9 +41,9 @@ export class StoreRegisterRequest extends Message<StoreRegisterRequest> {
   SiteURL = "";
 
   /**
-   * @generated from field: string StampImage = 7;
+   * @generated from field: string StampImageData = 7;
    */
-  StampImage = "";
+  StampImageData = "";
 
   /**
    * @generated from field: bool Stayable = 8;
@@ -84,7 +84,7 @@ export class StoreRegisterRequest extends Message<StoreRegisterRequest> {
     { no: 4, name: "Address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "Tel", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "SiteURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "StampImage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "StampImageData", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 8, name: "Stayable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 9, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 10, name: "QRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
@@ -149,9 +149,9 @@ export class StoreUpdateRequest extends Message<StoreUpdateRequest> {
   SiteURL = "";
 
   /**
-   * @generated from field: string StampImage = 8;
+   * @generated from field: string StampImageData = 8;
    */
-  StampImage = "";
+  StampImageData = "";
 
   /**
    * @generated from field: bool Stayable = 9;
@@ -193,7 +193,7 @@ export class StoreUpdateRequest extends Message<StoreUpdateRequest> {
     { no: 5, name: "Address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "Tel", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "SiteURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "StampImage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "StampImageData", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "Stayable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 10, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 11, name: "QRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },

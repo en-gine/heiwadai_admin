@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserCouponRequest } from "./Coupon_pb.ts";
+import { AffectedCountResponse, CouponIDRequest, CouponListResponse, CreateCustomCouponRequest, DefaultNoticesResponse, SaveCustomCouponRequest, UserAttachedCouponsResponse, UserCouponRequest } from "./Coupon_pb.ts";
 import { Coupon } from "../shared/Coupon_pb.ts";
 import { Pager } from "../shared/Pager_pb.ts";
 
@@ -45,6 +45,20 @@ export const saveCustomCoupon = {
   kind: MethodKind.Unary,
   I: SaveCustomCouponRequest,
   O: Empty,
+  service: {
+    typeName: "server.admin.AdminCouponController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminCouponController.GetDefaultNotices
+ */
+export const getDefaultNotices = {
+  localName: "getDefaultNotices",
+  name: "GetDefaultNotices",
+  kind: MethodKind.Unary,
+  I: Empty,
+  O: DefaultNoticesResponse,
   service: {
     typeName: "server.admin.AdminCouponController"
   }

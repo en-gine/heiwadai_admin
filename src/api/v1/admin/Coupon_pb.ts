@@ -236,6 +236,43 @@ export class UserAttachedCouponsResponse extends Message<UserAttachedCouponsResp
 }
 
 /**
+ * @generated from message server.admin.DefaultNoticesResponse
+ */
+export class DefaultNoticesResponse extends Message<DefaultNoticesResponse> {
+  /**
+   * @generated from field: repeated string Notices = 1;
+   */
+  Notices: string[] = [];
+
+  constructor(data?: PartialMessage<DefaultNoticesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.DefaultNoticesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DefaultNoticesResponse {
+    return new DefaultNoticesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DefaultNoticesResponse {
+    return new DefaultNoticesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DefaultNoticesResponse {
+    return new DefaultNoticesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DefaultNoticesResponse | PlainMessage<DefaultNoticesResponse> | undefined, b: DefaultNoticesResponse | PlainMessage<DefaultNoticesResponse> | undefined): boolean {
+    return proto3.util.equals(DefaultNoticesResponse, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.CouponListResponse
  */
 export class CouponListResponse extends Message<CouponListResponse> {

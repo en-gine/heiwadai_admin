@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 "use client"
@@ -56,6 +57,11 @@ export const Form = ({ data }: Props) => {
     useState<typeof defaultStore>(defaultStore)
   const [updateStayableinfo, setUpdateStayableinfo] =
     useState<typeof defaultStayableinfo>(defaultStayableinfo)
+
+  const [stampImageData, setStampImageData] = useState<string | undefined>(
+    undefined
+  )
+
   const regenQrCode = useCallback(async () => {
     try {
       if (!defaultStore?.ID) {
@@ -85,7 +91,7 @@ export const Form = ({ data }: Props) => {
       alert(error)
     }
   }, [client, defaultStore?.ID, updateStore])
-  const [filename, setFIleName] = useState<string | undefined>(undefined)
+
   const printQrCode = useCallback(() => {
     if (!defaultStore?.ID) {
       alert("投稿を保存後に印刷してください。")
@@ -112,20 +118,27 @@ export const Form = ({ data }: Props) => {
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
+      if (!updateStore.StampImageURL && !stampImageData) {
+        alert("スタンプ画像を選択してください。")
+        return
+      }
       if (isNew) {
         mutateRegister(
           {
             ...updateStore,
+            StampImageData: stampImageData,
             StayableInfo: {
               ...updateStayableinfo
             }
           },
           {
-            onSuccess: () => {
-              alert("更新しました。")
+            onSuccess: (res) => {
+              alert("登録しました。")
+              window.location.href = `/dashboard/store/${res.ID}`
             },
-            onError: () => {
-              alert("更新に失敗しました。")
+            onError: (e) => {
+              alert("登録に失敗しました。")
+              console.error(e)
             }
           }
         )
@@ -134,6 +147,7 @@ export const Form = ({ data }: Props) => {
       mutateUpdate(
         {
           ...updateStore,
+          StampImageData: stampImageData,
           StayableInfo: {
             ...updateStayableinfo
           }
@@ -142,13 +156,21 @@ export const Form = ({ data }: Props) => {
           onSuccess: () => {
             alert("更新しました。")
           },
-          onError: () => {
+          onError: (e) => {
             alert("更新に失敗しました。")
+            console.error(e)
           }
         }
       )
     },
-    [isNew, mutateRegister, mutateUpdate, updateStayableinfo, updateStore]
+    [
+      isNew,
+      mutateRegister,
+      mutateUpdate,
+      stampImageData,
+      updateStayableinfo,
+      updateStore
+    ]
   )
 
   return (
@@ -229,20 +251,30 @@ export const Form = ({ data }: Props) => {
       <Label htmlFor="stamp" className="required">
         スタンプ
       </Label>
-      {updateStore.StampImage && (
-        <Image
-          src={updateStore.StampImage}
-          width={85}
-          height={85}
-          alt="スタンプ画像"
-        />
+      {updateStore.StampImageURL && (
+        <div className="flex items-start">
+          <Image
+            src={updateStore.StampImageURL}
+            width={85}
+            height={85}
+            alt="スタンプ画像"
+          />
+          <button
+            className="cursor-pointer"
+            type="button"
+            onClick={() => {
+              setUpdateStore({ ...updateStore, StampImageURL: undefined })
+              setStampImageData(undefined)
+            }}
+          >
+            ✖️
+          </button>
+        </div>
       )}
       <Input
         id="stamp"
         type="file"
         name="stamp"
-        required
-        value={filename}
         accept=".png,.jpg,.jpeg,.gif,.svg"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const { files } = event.currentTarget
@@ -251,39 +283,47 @@ export const Form = ({ data }: Props) => {
           // 先頭のファイルを取得
           const file = files[0]
           if (file) {
-            setFIleName(file.name)
             const reader = new FileReader()
             reader.readAsDataURL(file)
 
             reader.onload = (e) => {
               const base64 = e?.target?.result
               if (typeof base64 === "string") {
-                setUpdateStore({ ...updateStore, StampImage: base64 })
-              } else {
-                setUpdateStore({ ...updateStore, StampImage: undefined })
+                setStampImageData(base64)
+                setUpdateStore({
+                  ...updateStore,
+                  StampImageURL: base64
+                })
               }
             }
           }
         }}
       />
-      <Label htmlFor="status">ステータス</Label>
-      <Select
-        value={String(updateStore.IsActive)}
-        onValueChange={(value) => {
-          setUpdateStore({
-            ...updateStore,
-            IsActive: value === "true"
-          })
-        }}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="表示/非表示" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="true">表示</SelectItem>
-          <SelectItem value="false">非表示</SelectItem>
-        </SelectContent>
-      </Select>
+      {!isNew && (
+        <>
+          <Label htmlFor="status">表示ステータス</Label>
+          <p className="note">※使わなくなった時はこちらで非表示にできます。</p>
+          <Select
+            value={String(updateStore.IsActive)}
+            defaultValue="true"
+            onValueChange={(value) => {
+              setUpdateStore({
+                ...updateStore,
+                IsActive: value === "true"
+              })
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="表示/非表示" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="true">表示</SelectItem>
+              <SelectItem value="false">非表示</SelectItem>
+            </SelectContent>
+          </Select>
+        </>
+      )}
+
       <Label htmlFor="display-date">宿泊可否</Label>
       <RadioGroup
         value={String(updateStore.Stayable)}
@@ -323,6 +363,7 @@ export const Form = ({ data }: Props) => {
             id="access-info"
             type="text"
             className="w-full"
+            placeholder="〇〇駅より徒歩△分"
             value={updateStayableinfo.AccessInfo}
             onChange={(event) => {
               setUpdateStayableinfo({
@@ -336,6 +377,7 @@ export const Form = ({ data }: Props) => {
             id="parking"
             type="text"
             className="w-full"
+            placeholder="〇台(要予約)"
             value={updateStayableinfo.Parking}
             onChange={(event) => {
               setUpdateStayableinfo({
@@ -358,22 +400,6 @@ export const Form = ({ data }: Props) => {
             }}
           />
           <div className="flex gap-10 justify-start mt-7">
-            <Label htmlFor="longitude">
-              経度
-              <Input
-                id="longitude"
-                className="w-full"
-                type="number"
-                defaultValue={updateStayableinfo.Longitude}
-                step={0.0000001}
-                onBlur={(event) => {
-                  setUpdateStayableinfo({
-                    ...updateStayableinfo,
-                    Longitude: event.target.value as unknown as number
-                  })
-                }}
-              />
-            </Label>
             <Label htmlFor="latitude">
               緯度
               <Input
@@ -381,11 +407,27 @@ export const Form = ({ data }: Props) => {
                 type="number"
                 className="w-full"
                 step={0.0000001}
-                defaultValue={updateStayableinfo.Latitude}
-                onBlur={(event) => {
+                value={updateStayableinfo.Latitude}
+                onChange={(event) => {
                   setUpdateStayableinfo({
                     ...updateStayableinfo,
-                    Latitude: event.target.value as unknown as number
+                    Latitude: Number(event.target.value)
+                  })
+                }}
+              />
+            </Label>
+            <Label htmlFor="longitude">
+              経度
+              <Input
+                id="longitude"
+                className="w-full"
+                type="number"
+                value={updateStayableinfo.Longitude}
+                step={0.0000001}
+                onChange={(event) => {
+                  setUpdateStayableinfo({
+                    ...updateStayableinfo,
+                    Longitude: Number(event.target.value)
                   })
                 }}
               />
@@ -406,41 +448,47 @@ export const Form = ({ data }: Props) => {
         </Card>
       )}
       <Label htmlFor="qr-code">チェックインQR生成</Label>
-      <div className="flex gap-10 justify-start">
-        <Input
-          id="qr-code"
-          type="text"
-          className="max-w-[50%]"
-          disabled
-          value={updateStore.QRCode}
-        />
-        <Button variant="default" onClick={regenQrCode}>
-          再生成
-        </Button>
-        <Button variant="secondary" onClick={printQrCode}>
-          QRコード印刷
-        </Button>
-      </div>
-      <Label htmlFor="unlimited-qr-code">制限なしQR生成</Label>
-      <div className="flex gap-10 justify-start">
-        <Input
-          id="unlimited-qr-code"
-          disabled
-          type="text"
-          className="max-w-[50%]"
-          value={updateStore.UnLimitedQRCode}
-        />
-        <Button
-          variant="default"
-          className="bg-green-500 hover:bg-green-400"
-          onClick={regenUnlimitedQrCode}
-        >
-          再生成
-        </Button>
-        <Button variant="secondary" onClick={printUnlimitedQrCode}>
-          制限なしQR印刷
-        </Button>
-      </div>
+      {isNew ? (
+        <p>※保存後にQR出力できるようになります。</p>
+      ) : (
+        <>
+          <div className="flex gap-10 justify-start">
+            <Input
+              id="qr-code"
+              type="text"
+              className="max-w-[50%]"
+              disabled
+              value={updateStore.QRCode}
+            />
+            <Button variant="default" onClick={regenQrCode}>
+              再生成
+            </Button>
+            <Button variant="secondary" onClick={printQrCode}>
+              QRコード印刷
+            </Button>
+          </div>
+          <Label htmlFor="unlimited-qr-code">制限なしQR生成</Label>
+          <div className="flex gap-10 justify-start">
+            <Input
+              id="unlimited-qr-code"
+              disabled
+              type="text"
+              className="max-w-[50%]"
+              value={updateStore.UnLimitedQRCode}
+            />
+            <Button
+              variant="default"
+              className="bg-green-500 hover:bg-green-400"
+              onClick={regenUnlimitedQrCode}
+            >
+              再生成
+            </Button>
+            <Button variant="secondary" onClick={printUnlimitedQrCode}>
+              制限なしQR印刷
+            </Button>
+          </div>
+        </>
+      )}
 
       <div className="flex gap-20 justify-center my-7">
         <Button type="submit" variant="default" value={SubmitType.Save}>

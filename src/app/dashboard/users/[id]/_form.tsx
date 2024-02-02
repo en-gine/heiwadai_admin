@@ -55,8 +55,9 @@ export const DataCard = ({ data }: Props) => {
         onSuccess: () => {
           alert("更新しました。")
         },
-        onError: () => {
+        onError: (e) => {
           alert("更新に失敗しました。")
+          console.error(e)
         }
       }
     )
@@ -72,6 +73,7 @@ export const DataCard = ({ data }: Props) => {
       {
         onSuccess: () => {
           alert("削除しました。")
+          window.location.href = "/dashboard/users"
         },
         onError: (e) => {
           alert("削除に失敗しました。")

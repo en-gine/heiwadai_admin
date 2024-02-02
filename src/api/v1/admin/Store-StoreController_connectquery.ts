@@ -36,6 +36,20 @@ export const getAll = {
 } as const;
 
 /**
+ * @generated from rpc server.admin.StoreController.GetActiveAll
+ */
+export const getActiveAll = {
+  localName: "getActiveAll",
+  name: "GetActiveAll",
+  kind: MethodKind.Unary,
+  I: Empty,
+  O: Stores,
+  service: {
+    typeName: "server.admin.StoreController"
+  }
+} as const;
+
+/**
  * @generated from rpc server.admin.StoreController.Register
  */
 export const register = {

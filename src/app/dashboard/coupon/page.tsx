@@ -25,6 +25,7 @@ const Page = async ({ searchParams }: { searchParams: { page: number } }) => {
       PerPage: 30
     })
     data = res.toJson()
+
     pageResponse = res.PageResponse
   } catch (error) {
     console.error(error)

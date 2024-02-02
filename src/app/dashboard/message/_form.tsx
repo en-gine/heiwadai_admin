@@ -134,6 +134,7 @@ export const Form = ({ data }: Props) => {
           保存
         </Button>
         <Button
+          disabled={isNew}
           type="submit"
           name="submit-type"
           value={SubmitType.Delete}

@@ -32,6 +32,15 @@ export const StoreController = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc server.admin.StoreController.GetActiveAll
+     */
+    getActiveAll: {
+      name: "GetActiveAll",
+      I: Empty,
+      O: Stores,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc server.admin.StoreController.Register
      */
     register: {

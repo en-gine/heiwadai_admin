@@ -1,84 +1,139 @@
 "use client"
 
 import { JsonValue, Timestamp } from "@bufbuild/protobuf"
+import { useMutation } from "@connectrpc/connect-query"
 import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
-import { FormEvent, FormEventHandler, useCallback } from "react"
+import { FormEvent, useCallback, useMemo, useState } from "react"
 
-import { AdminCouponController } from "@/api/v1/admin/Coupon_connect"
+import {
+  attachCustomCouponToAllUser,
+  createCustomCoupon,
+  saveCustomCoupon
+} from "@/api/v1/admin/Coupon-AdminCouponController_connectquery"
 import { Coupon } from "@/api/v1/shared/Coupon_pb"
+import { StoreMultiSelect } from "@/components/parts/storeMultiSelect"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
-import { useGrpc } from "@/hooks/api/useGrpc"
 
 const SubmitType = {
   Save: "save",
   Issue: "issue"
 } as const
 
+export type Notice = {
+  id: number
+  notice: string
+}
 type Props = {
   data?: JsonValue
+  defaultNotices: Notice[]
 }
 
-export const Form = ({ data }: Props) => {
-  const { client } = useGrpc(AdminCouponController)
-  const coupon = data ? Coupon.fromJson(data) : undefined
+export const Form = ({ data, defaultNotices }: Props) => {
+  const defaultData = data ? Coupon.fromJson(data) : undefined
+
+  const defaultCoupon = useMemo(
+    () => ({
+      ...defaultData,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      TargetStoresID: defaultData?.TargetStore?.map((store) => store.ID)
+    }),
+    [defaultData]
+  )
   const isNew = data === undefined
   const router = useRouter()
-  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+  const { mutate: save } = useMutation(saveCustomCoupon)
+  const { mutate: create } = useMutation(createCustomCoupon)
+  const { mutate: issue } = useMutation(attachCustomCouponToAllUser)
+
+  const [updateCoupon, setUpdateCoupon] =
+    useState<typeof defaultCoupon>(defaultCoupon)
+
+  const [updateNotices, updateSetNotices] =
+    useState<typeof defaultNotices>(defaultNotices)
+
+  const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const formData = new FormData(event.currentTarget)
-      const { submitter } = event.nativeEvent as SubmitEvent
-      const { value: submitType } = submitter as HTMLButtonElement
-      const name = formData.get("name") as string
-      const discountAmount = formData.get("discountAmount") as string
-      const isCombinationable = formData.get("is-conbinationable") as string
-      const expireAt = dayjs(formData.get("expireAt") as string).toDate()
-      const notice = formData.get("notice") as string
-      if (!submitType) return
-      try {
-        switch (submitType) {
-          case SubmitType.Save:
-            if (isNew) {
-              const res = await client.createCustomCoupon({
-                Name: name,
-                DiscountAmount: Number(discountAmount),
-                IsCombinationable: isCombinationable === "true",
-                ExpireAt: Timestamp.fromDate(expireAt),
-                Notices: [notice]
-              })
-              alert("保存しました。")
-              router.push(`./${res.ID}}`)
-              return
+      if (isNew) {
+        create(
+          {
+            Name: updateCoupon.Name,
+            DiscountAmount: updateCoupon.DiscountAmount,
+            ExpireAt: updateCoupon.ExpireAt,
+            IsCombinationable: updateCoupon.IsCombinationable,
+            Notices: updateNotices.map((notice) => notice.notice),
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            TargetStoresID: updateCoupon.TargetStoresID
+          },
+          {
+            onSuccess: (res) => {
+              router.push(`/dashboard/coupon/${res.ID}`)
+            },
+            onError: (err) => {
+              alert("エラーが発生しました")
+              console.error(err)
             }
-            await client.saveCustomCoupon({
-              ID: coupon?.ID,
-              Name: name,
-              DiscountAmount: Number(discountAmount),
-              IsCombinationable: isCombinationable === "true",
-              ExpireAt: Timestamp.fromDate(expireAt),
-              Notices: [notice]
-            })
-            alert("更新しました。")
-            return
-          case SubmitType.Issue:
-            await client.attachCustomCouponToAllUser({
-              ID: coupon?.ID
-            })
-            alert("発行しました。")
-            return
-          default:
-            throw new Error("invalid submit type")
-        }
-      } catch (error) {
-        alert(error)
+          }
+        )
+      }
+      if (event.currentTarget.submitType.value === SubmitType.Save) {
+        save(
+          {
+            ID: updateCoupon.ID,
+            Name: updateCoupon.Name,
+            DiscountAmount: updateCoupon.DiscountAmount,
+            ExpireAt: updateCoupon.ExpireAt,
+            IsCombinationable: updateCoupon.IsCombinationable,
+            Notices: updateNotices.map((notice) => notice.notice),
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            TargetStoresID: updateCoupon.TargetStoresID
+          },
+          {
+            onSuccess: () => {
+              alert("保存しました")
+            },
+            onError: (err) => {
+              alert("エラーが発生しました")
+              console.error(err)
+            }
+          }
+        )
+      }
+      if (event.currentTarget.submitType.value === SubmitType.Issue) {
+        issue(
+          {
+            ID: updateCoupon.ID
+          },
+          {
+            onSuccess: () => {
+              alert("発行しました")
+            },
+            onError: (err) => {
+              alert("エラーが発生しました")
+              console.error(err)
+            }
+          }
+        )
       }
     },
-    [client, isNew, coupon?.ID, router]
+    [
+      isNew,
+      create,
+      updateCoupon.Name,
+      updateCoupon.DiscountAmount,
+      updateCoupon.ExpireAt,
+      updateCoupon.IsCombinationable,
+      updateCoupon.TargetStoresID,
+      updateCoupon.ID,
+      updateNotices,
+      router,
+      save,
+      issue
+    ]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -90,13 +145,18 @@ export const Form = ({ data }: Props) => {
         id="name"
         name="name"
         maxLength={10}
-        defaultValue={coupon?.Name}
+        value={updateCoupon?.Name}
         className="w-full"
+        onChange={(e) => {
+          setUpdateCoupon({ ...updateCoupon, Name: e.target.value })
+        }}
       />
-      {coupon?.CreateAt && (
+      {defaultCoupon?.CreateAt && (
         <div className="text-right">
           作成日:
-          {dayjs(coupon?.CreateAt.toDate()).format("YYYY年MM月DD日 HH:mm")}
+          {dayjs(defaultCoupon?.CreateAt.toDate()).format(
+            "YYYY年MM月DD日 HH:mm"
+          )}
         </div>
       )}
       <Label htmlFor="discountAmount" className="required">
@@ -108,7 +168,15 @@ export const Form = ({ data }: Props) => {
           name="discountAmount"
           className="w-auto"
           type="number"
-          defaultValue={coupon?.DiscountAmount}
+          value={updateCoupon.DiscountAmount}
+          onChange={(e) => {
+            setUpdateCoupon({
+              ...updateCoupon,
+              DiscountAmount: e.target.value
+                ? Number(e.target.value)
+                : undefined
+            })
+          }}
         />
         <Label className="pt-4 mt-0">円引き</Label>
       </div>
@@ -121,20 +189,57 @@ export const Form = ({ data }: Props) => {
           name="expireAt"
           className="w-auto"
           type="date"
-          defaultValue={
-            coupon?.ExpireAt
-              ? dayjs(coupon.ExpireAt.toDate()).format("YYYY-MM-DD")
+          value={
+            updateCoupon?.ExpireAt
+              ? dayjs(updateCoupon.ExpireAt.toDate()).format("YYYY-MM-DD")
               : undefined
           }
+          onChange={(e) => {
+            setUpdateCoupon({
+              ...updateCoupon,
+              ExpireAt: e.target.value
+                ? Timestamp.fromDate(dayjs(e.target.value).toDate())
+                : undefined
+            })
+          }}
         />
         <Label className="pt-4 mt-0">まで</Label>
       </div>
+      <Label htmlFor="target-store" className="required">
+        対象店舗
+      </Label>
+      <StoreMultiSelect
+        selectedItems={
+          updateCoupon?.TargetStore?.map((store) => store.ID) ?? []
+        }
+        onSelect={(select) => {
+          setUpdateCoupon({
+            ...updateCoupon,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            TargetStoresID: [...(updateCoupon?.TargetStoresID ?? []), select]
+          })
+        }}
+        onRemove={(removeId) => {
+          setUpdateCoupon({
+            ...updateCoupon,
+            TargetStore: updateCoupon?.TargetStore?.filter(
+              (store) => store.ID !== removeId
+            )
+          })
+        }}
+      />
       <Label htmlFor="display-date" className="mt-4">
         併用可否
       </Label>
       <RadioGroup
         required
-        defaultValue={coupon?.IsCombinationable ? "true" : "false"}
+        value={updateCoupon?.IsCombinationable ? "true" : "false"}
+        onValueChange={(value) => {
+          setUpdateCoupon({
+            ...updateCoupon,
+            IsCombinationable: value === "true"
+          })
+        }}
         name="is-conbinationable"
         className="flex justify-start mt-4 mb-4"
       >
@@ -148,7 +253,19 @@ export const Form = ({ data }: Props) => {
         </Label>
       </RadioGroup>
       <Label htmlFor="notice">備考</Label>
-      <Textarea name="notice" defaultValue={coupon?.Notices} />
+      {updateNotices?.map(({ id, notice }) => (
+        <Input
+          key={`${id}`}
+          value={notice}
+          onChange={(e) => {
+            updateSetNotices(
+              updateNotices.map((item) =>
+                item.id === id ? { ...item, notice: e.target.value } : item
+              )
+            )
+          }}
+        />
+      ))}
       <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
