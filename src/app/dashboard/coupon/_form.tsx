@@ -4,24 +4,19 @@ import { JsonValue, Timestamp } from "@bufbuild/protobuf"
 import { useMutation } from "@connectrpc/connect-query"
 import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
-import { FormEvent, useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
 import {
   attachCustomCouponToAllUser,
   createCustomCoupon,
   saveCustomCoupon
 } from "@/api/v1/admin/Coupon-AdminCouponController_connectquery"
-import { Coupon } from "@/api/v1/shared/Coupon_pb"
-import { StoreMultiSelect } from "@/components/parts/storeMultiSelect"
+import { CouponStatus, CustomCoupon } from "@/api/v1/shared/Coupon_pb"
+import { StoreMultiSelect } from "@/components/parts/multiSelectStore"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
-const SubmitType = {
-  Save: "save",
-  Issue: "issue"
-} as const
 
 export type Notice = {
   id: number
@@ -29,13 +24,15 @@ export type Notice = {
 }
 type Props = {
   data?: JsonValue
-  defaultNotices: Notice[]
 }
 
-export const Form = ({ data, defaultNotices }: Props) => {
-  const defaultData = data ? Coupon.fromJson(data) : undefined
+export const Form = ({ data }: Props) => {
+  const defaultData = data ? CustomCoupon.fromJson(data) : undefined
+  const isDraft = defaultData?.Status === CouponStatus.COUPON_DRAFT
+  const isIssued = defaultData?.Status === CouponStatus.COUPON_ISSUED
 
-  const defaultCoupon = useMemo(
+  // targetStoreを除外（更新はTargetStoresIDで行うため）
+  const { TargetStore, ...defaultCoupon } = useMemo(
     () => ({
       ...defaultData,
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,7 +40,15 @@ export const Form = ({ data, defaultNotices }: Props) => {
     }),
     [defaultData]
   )
-  const isNew = data === undefined
+  const defaultNotices = useMemo(() => {
+    if (defaultData) {
+      return defaultData.Notices.map((notice, index) => ({
+        id: index,
+        notice
+      }))
+    }
+    return [{ id: 0, notice: "" }]
+  }, [defaultData])
   const router = useRouter()
   const { mutate: save } = useMutation(saveCustomCoupon)
   const { mutate: create } = useMutation(createCustomCoupon)
@@ -55,88 +60,95 @@ export const Form = ({ data, defaultNotices }: Props) => {
   const [updateNotices, updateSetNotices] =
     useState<typeof defaultNotices>(defaultNotices)
 
-  const handleSubmit = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      if (isNew) {
-        create(
-          {
-            Name: updateCoupon.Name,
-            DiscountAmount: updateCoupon.DiscountAmount,
-            ExpireAt: updateCoupon.ExpireAt,
-            IsCombinationable: updateCoupon.IsCombinationable,
-            Notices: updateNotices.map((notice) => notice.notice),
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            TargetStoresID: updateCoupon.TargetStoresID
+  const handleSave = useCallback(() => {
+    const notices = updateNotices
+      .filter((notice) => notice.notice !== "")
+      .map((notice) => notice.notice)
+    if (updateCoupon.Status === CouponStatus.COUPON_DRAFT) {
+      create(
+        {
+          Name: updateCoupon.Name,
+          DiscountAmount: updateCoupon.DiscountAmount,
+          ExpireAt: updateCoupon.ExpireAt,
+          IsCombinationable: updateCoupon.IsCombinationable,
+          Notices: notices,
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          TargetStoresID: updateCoupon.TargetStoresID
+        },
+        {
+          onSuccess: (res) => {
+            router.push(`/dashboard/coupon/${res.ID}`)
           },
-          {
-            onSuccess: (res) => {
-              router.push(`/dashboard/coupon/${res.ID}`)
-            },
-            onError: (err) => {
-              alert("エラーが発生しました")
-              console.error(err)
-            }
+          onError: (err) => {
+            alert(`エラーが発生しました\n${err}`)
+            console.error(err)
           }
-        )
-      }
-      if (event.currentTarget.submitType.value === SubmitType.Save) {
-        save(
-          {
-            ID: updateCoupon.ID,
-            Name: updateCoupon.Name,
-            DiscountAmount: updateCoupon.DiscountAmount,
-            ExpireAt: updateCoupon.ExpireAt,
-            IsCombinationable: updateCoupon.IsCombinationable,
-            Notices: updateNotices.map((notice) => notice.notice),
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            TargetStoresID: updateCoupon.TargetStoresID
+        }
+      )
+    } else {
+      save(
+        {
+          ID: updateCoupon.ID,
+          Name: updateCoupon.Name,
+          DiscountAmount: updateCoupon.DiscountAmount,
+          ExpireAt: updateCoupon.ExpireAt,
+          IsCombinationable: updateCoupon.IsCombinationable,
+          Notices: notices,
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          TargetStoresID: updateCoupon.TargetStoresID
+        },
+        {
+          onSuccess: () => {
+            alert("保存しました")
+            router.refresh()
           },
-          {
-            onSuccess: () => {
-              alert("保存しました")
-            },
-            onError: (err) => {
-              alert("エラーが発生しました")
-              console.error(err)
-            }
+          onError: (err) => {
+            alert(`エラーが発生しました\n${err}`)
+            console.error(err)
           }
-        )
+        }
+      )
+    }
+  }, [
+    updateNotices,
+    updateCoupon.Status,
+    updateCoupon.Name,
+    updateCoupon.DiscountAmount,
+    updateCoupon.ExpireAt,
+    updateCoupon.IsCombinationable,
+    updateCoupon.TargetStoresID,
+    updateCoupon.ID,
+    create,
+    router,
+    save
+  ])
+  const handleIssue = useCallback(() => {
+    if (
+      !window.confirm(
+        "現在のアプリユーザーに対してクーポンを発行します\n発行後クーポン内容は変更できなくなります。"
+      )
+    ) {
+      return
+    }
+
+    issue(
+      {
+        ID: updateCoupon.ID
+      },
+      {
+        onSuccess: () => {
+          alert("発行しました")
+          router.refresh()
+        },
+        onError: (err) => {
+          alert(`エラーが発生しました\n${err}`)
+          console.error(err)
+        }
       }
-      if (event.currentTarget.submitType.value === SubmitType.Issue) {
-        issue(
-          {
-            ID: updateCoupon.ID
-          },
-          {
-            onSuccess: () => {
-              alert("発行しました")
-            },
-            onError: (err) => {
-              alert("エラーが発生しました")
-              console.error(err)
-            }
-          }
-        )
-      }
-    },
-    [
-      isNew,
-      create,
-      updateCoupon.Name,
-      updateCoupon.DiscountAmount,
-      updateCoupon.ExpireAt,
-      updateCoupon.IsCombinationable,
-      updateCoupon.TargetStoresID,
-      updateCoupon.ID,
-      updateNotices,
-      router,
-      save,
-      issue
-    ]
-  )
+    )
+  }, [issue, router, updateCoupon.ID])
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <Label htmlFor="name" className="required">
         クーポン名
       </Label>
@@ -146,6 +158,7 @@ export const Form = ({ data, defaultNotices }: Props) => {
         name="name"
         maxLength={10}
         value={updateCoupon?.Name}
+        readOnly={updateCoupon.Status === CouponStatus.COUPON_ISSUED}
         className="w-full"
         onChange={(e) => {
           setUpdateCoupon({ ...updateCoupon, Name: e.target.value })
@@ -159,6 +172,7 @@ export const Form = ({ data, defaultNotices }: Props) => {
           )}
         </div>
       )}
+
       <Label htmlFor="discountAmount" className="required">
         値引額
       </Label>
@@ -168,6 +182,7 @@ export const Form = ({ data, defaultNotices }: Props) => {
           name="discountAmount"
           className="w-auto"
           type="number"
+          readOnly={isIssued}
           value={updateCoupon.DiscountAmount}
           onChange={(e) => {
             setUpdateCoupon({
@@ -188,6 +203,7 @@ export const Form = ({ data, defaultNotices }: Props) => {
           id="expireAt"
           name="expireAt"
           className="w-auto"
+          readOnly={isIssued}
           type="date"
           value={
             updateCoupon?.ExpireAt
@@ -205,12 +221,21 @@ export const Form = ({ data, defaultNotices }: Props) => {
         />
         <Label className="pt-4 mt-0">まで</Label>
       </div>
+
       <Label htmlFor="target-store" className="required">
         対象店舗
       </Label>
+      {isDraft && (
+        <p className="note">
+          ※新規作成時には全店舗選択されています。
+          <br />
+          適宜対象店舗を取捨選択してください。
+        </p>
+      )}
       <StoreMultiSelect
+        readOnly={isIssued}
         selectedItems={
-          updateCoupon?.TargetStore?.map((store) => store.ID) ?? []
+          updateCoupon?.TargetStoresID?.map((storeId) => storeId) ?? []
         }
         onSelect={(select) => {
           setUpdateCoupon({
@@ -222,8 +247,9 @@ export const Form = ({ data, defaultNotices }: Props) => {
         onRemove={(removeId) => {
           setUpdateCoupon({
             ...updateCoupon,
-            TargetStore: updateCoupon?.TargetStore?.filter(
-              (store) => store.ID !== removeId
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            TargetStoresID: updateCoupon?.TargetStoresID?.filter(
+              (id) => id !== removeId
             )
           })
         }}
@@ -233,6 +259,7 @@ export const Form = ({ data, defaultNotices }: Props) => {
       </Label>
       <RadioGroup
         required
+        disabled={isIssued}
         value={updateCoupon?.IsCombinationable ? "true" : "false"}
         onValueChange={(value) => {
           setUpdateCoupon({
@@ -252,39 +279,72 @@ export const Form = ({ data, defaultNotices }: Props) => {
           不可
         </Label>
       </RadioGroup>
-      <Label htmlFor="notice">備考</Label>
+      <Label htmlFor="notice">クーポン備考</Label>
+      <p className="note">行として追加／削除してください。</p>
       {updateNotices?.map(({ id, notice }) => (
-        <Input
-          key={`${id}`}
-          value={notice}
-          onChange={(e) => {
-            updateSetNotices(
-              updateNotices.map((item) =>
-                item.id === id ? { ...item, notice: e.target.value } : item
+        <div key={`${id}`} className="relative">
+          <button
+            className="cursor-pointer absolute top-2 right-2"
+            type="button"
+            onClick={() => {
+              updateSetNotices(updateNotices.filter((item) => item.id !== id))
+            }}
+          >
+            ✖️
+          </button>
+          <Input
+            value={notice}
+            readOnly={isIssued}
+            className="mb-1"
+            onChange={(e) => {
+              updateSetNotices(
+                updateNotices.map((item) =>
+                  item.id === id ? { ...item, notice: e.target.value } : item
+                )
               )
-            )
-          }}
-        />
+            }}
+          />
+        </div>
       ))}
+      <Button
+        type="button"
+        variant="outline"
+        className="bg-blue-400"
+        disabled={isIssued}
+        onClick={() => {
+          updateSetNotices([
+            ...updateNotices,
+            {
+              id:
+                updateNotices.length > 0
+                  ? updateNotices[updateNotices.length - 1].id + 1
+                  : 0,
+              notice: ""
+            }
+          ])
+        }}
+      >
+        備考行追加
+      </Button>
       <div className="flex gap-20 justify-center my-7">
         <Button
           type="submit"
           variant="default"
           name="submit-type"
-          value={SubmitType.Save}
+          onClick={handleSave}
         >
-          保存
+          {isDraft ? "保存" : "更新"}
         </Button>
         <Button
           type="submit"
           name="submit-type"
-          value={SubmitType.Issue}
+          onClick={handleIssue}
           variant="destructive"
-          disabled={isNew}
+          disabled={isDraft || isIssued}
         >
           発行
         </Button>
       </div>
-    </form>
+    </>
   )
 }

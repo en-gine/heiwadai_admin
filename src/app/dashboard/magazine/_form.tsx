@@ -13,7 +13,7 @@ import {
   MailMagazineStatus
 } from "@/api/v1/admin/MailMagazine_pb"
 import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
-import { PrefectureMultiSelect } from "@/components/parts/prefectureMultiSelect"
+import { PrefectureMultiSelect } from "@/components/parts/multiSelectPrefecture"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -144,7 +144,6 @@ export const Form = ({ data }: Props) => {
           MailMagazineStatus.MailMagazineSentCompleted
         }
         onSelect={(prefecture) => {
-          if (prefectures?.includes(prefecture)) return
           setPrefectures((prev) => [...prev, prefecture])
         }}
         onRemove={(prefecture) => {

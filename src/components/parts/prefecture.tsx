@@ -11,8 +11,6 @@ import {
   SelectValue
 } from "@/components/ui/select"
 
-import { MultiSelect } from "../ui/multi-select"
-
 export const SelectPref = (props: SelectProps) => (
   <Select {...props}>
     <SelectTrigger>
@@ -189,15 +187,6 @@ export const SelectPref = (props: SelectProps) => (
     </SelectContent>
   </Select>
 )
-
-export const MultiSelectPref = () => {
-  const prefs = Object.keys(Prefecture).map((key) => ({
-    value: Prefecture[key as keyof typeof Prefecture].toString(),
-    label: getPrefName(Prefecture[key as keyof typeof Prefecture])
-  }))
-
-  return <MultiSelect options={prefs} />
-}
 
 // eslint-disable-next-line complexity
 export const getPrefName = (p: Prefecture) => {

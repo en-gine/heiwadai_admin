@@ -34,6 +34,32 @@ proto3.util.setEnumType(CouponType, "server.shared.CouponType", [
 ]);
 
 /**
+ * @generated from enum server.shared.CouponStatus
+ */
+export enum CouponStatus {
+  /**
+   * @generated from enum value: COUPON_DRAFT = 0;
+   */
+  COUPON_DRAFT = 0,
+
+  /**
+   * @generated from enum value: COUPON_SAVED = 1;
+   */
+  COUPON_SAVED = 1,
+
+  /**
+   * @generated from enum value: COUPON_ISSUED = 2;
+   */
+  COUPON_ISSUED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CouponStatus)
+proto3.util.setEnumType(CouponStatus, "server.shared.CouponStatus", [
+  { no: 0, name: "COUPON_DRAFT" },
+  { no: 1, name: "COUPON_SAVED" },
+  { no: 2, name: "COUPON_ISSUED" },
+]);
+
+/**
  * @generated from message server.shared.Coupon
  */
 export class Coupon extends Message<Coupon> {
@@ -119,6 +145,101 @@ export class Coupon extends Message<Coupon> {
 
   static equals(a: Coupon | PlainMessage<Coupon> | undefined, b: Coupon | PlainMessage<Coupon> | undefined): boolean {
     return proto3.util.equals(Coupon, a, b);
+  }
+}
+
+/**
+ * @generated from message server.shared.CustomCoupon
+ */
+export class CustomCoupon extends Message<CustomCoupon> {
+  /**
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  /**
+   * @generated from field: string Name = 2;
+   */
+  Name = "";
+
+  /**
+   * @generated from field: server.shared.CouponType CouponType = 3;
+   */
+  CouponType = CouponType.COUPON_STANDARD;
+
+  /**
+   * @generated from field: uint32 DiscountAmount = 4;
+   */
+  DiscountAmount = 0;
+
+  /**
+   * time.Time
+   *
+   * @generated from field: google.protobuf.Timestamp ExpireAt = 5;
+   */
+  ExpireAt?: Timestamp;
+
+  /**
+   * @generated from field: bool IsCombinationable = 6;
+   */
+  IsCombinationable = false;
+
+  /**
+   * @generated from field: repeated string Notices = 7;
+   */
+  Notices: string[] = [];
+
+  /**
+   * @generated from field: repeated server.shared.Store TargetStore = 8;
+   */
+  TargetStore: Store[] = [];
+
+  /**
+   * @generated from field: server.shared.CouponStatus Status = 9;
+   */
+  Status = CouponStatus.COUPON_DRAFT;
+
+  /**
+   * time.Time  
+   *
+   * @generated from field: google.protobuf.Timestamp CreateAt = 10;
+   */
+  CreateAt?: Timestamp;
+
+  constructor(data?: PartialMessage<CustomCoupon>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.shared.CustomCoupon";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "CouponType", kind: "enum", T: proto3.getEnumType(CouponType) },
+    { no: 4, name: "DiscountAmount", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "ExpireAt", kind: "message", T: Timestamp },
+    { no: 6, name: "IsCombinationable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 8, name: "TargetStore", kind: "message", T: Store, repeated: true },
+    { no: 9, name: "Status", kind: "enum", T: proto3.getEnumType(CouponStatus) },
+    { no: 10, name: "CreateAt", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CustomCoupon {
+    return new CustomCoupon().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CustomCoupon {
+    return new CustomCoupon().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CustomCoupon {
+    return new CustomCoupon().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CustomCoupon | PlainMessage<CustomCoupon> | undefined, b: CustomCoupon | PlainMessage<CustomCoupon> | undefined): boolean {
+    return proto3.util.equals(CustomCoupon, a, b);
   }
 }
 

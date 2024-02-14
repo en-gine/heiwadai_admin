@@ -45,15 +45,24 @@ export const StoreMultiSelect = ({
   return (
     <div className="mb-4">
       <UnOverridableDiv className="block break-words w-full min-w-0 my-4">
-        {selectedItems.map((item) => (
-          <Chip key={item} onDelete={() => onRemove(item)} readOnly={readOnly}>
-            {stores?.find((store) => store.ID === item)?.Name}
-          </Chip>
-        ))}
+        {selectedItems.map((item) => {
+          const store = stores?.find((str) => str.ID === item)
+          return (
+            <Chip
+              key={item}
+              onDelete={() => onRemove(item)}
+              readOnly={readOnly}
+            >
+              {store?.Name}
+              {store?.BranchName}
+            </Chip>
+          )
+        })}
       </UnOverridableDiv>
       {!readOnly && (
         <Select
           onValueChange={(val) => {
+            if (selectedItems?.includes(val as unknown as Store["ID"])) return
             onSelect(val as unknown as Store["ID"])
           }}
         >

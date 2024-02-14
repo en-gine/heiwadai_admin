@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { getMailMagazineStatusName } from "@/lib/enum"
+import { getMailMagazineStatusName } from "@/types/MailMagazineStatus"
 
 export type Props = { data: JsonValue }
 export const MagazineListTable = ({ data }: Props) => {

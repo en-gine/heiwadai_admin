@@ -6,7 +6,7 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { Pager, PageResponse } from "../shared/Pager_pb.ts";
-import { Coupon, UserAttachedCoupon } from "../shared/Coupon_pb.ts";
+import { CustomCoupon, UserAttachedCoupon } from "../shared/Coupon_pb.ts";
 
 /**
  * @generated from message server.admin.CouponIDRequest
@@ -236,39 +236,39 @@ export class UserAttachedCouponsResponse extends Message<UserAttachedCouponsResp
 }
 
 /**
- * @generated from message server.admin.DefaultNoticesResponse
+ * @generated from message server.admin.DefaultCouponResponse
  */
-export class DefaultNoticesResponse extends Message<DefaultNoticesResponse> {
+export class DefaultCouponResponse extends Message<DefaultCouponResponse> {
   /**
-   * @generated from field: repeated string Notices = 1;
+   * @generated from field: server.shared.CustomCoupon Coupon = 1;
    */
-  Notices: string[] = [];
+  Coupon?: CustomCoupon;
 
-  constructor(data?: PartialMessage<DefaultNoticesResponse>) {
+  constructor(data?: PartialMessage<DefaultCouponResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "server.admin.DefaultNoticesResponse";
+  static readonly typeName = "server.admin.DefaultCouponResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "Notices", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: "Coupon", kind: "message", T: CustomCoupon },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DefaultNoticesResponse {
-    return new DefaultNoticesResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DefaultCouponResponse {
+    return new DefaultCouponResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DefaultNoticesResponse {
-    return new DefaultNoticesResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DefaultCouponResponse {
+    return new DefaultCouponResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DefaultNoticesResponse {
-    return new DefaultNoticesResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DefaultCouponResponse {
+    return new DefaultCouponResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: DefaultNoticesResponse | PlainMessage<DefaultNoticesResponse> | undefined, b: DefaultNoticesResponse | PlainMessage<DefaultNoticesResponse> | undefined): boolean {
-    return proto3.util.equals(DefaultNoticesResponse, a, b);
+  static equals(a: DefaultCouponResponse | PlainMessage<DefaultCouponResponse> | undefined, b: DefaultCouponResponse | PlainMessage<DefaultCouponResponse> | undefined): boolean {
+    return proto3.util.equals(DefaultCouponResponse, a, b);
   }
 }
 
@@ -277,9 +277,9 @@ export class DefaultNoticesResponse extends Message<DefaultNoticesResponse> {
  */
 export class CouponListResponse extends Message<CouponListResponse> {
   /**
-   * @generated from field: repeated server.shared.Coupon Coupons = 1;
+   * @generated from field: repeated server.shared.CustomCoupon Coupons = 1;
    */
-  Coupons: Coupon[] = [];
+  Coupons: CustomCoupon[] = [];
 
   /**
    * @generated from field: server.shared.PageResponse PageResponse = 2;
@@ -294,7 +294,7 @@ export class CouponListResponse extends Message<CouponListResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.admin.CouponListResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "Coupons", kind: "message", T: Coupon, repeated: true },
+    { no: 1, name: "Coupons", kind: "message", T: CustomCoupon, repeated: true },
     { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
   ]);
 

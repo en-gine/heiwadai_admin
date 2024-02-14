@@ -19,7 +19,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     })
     magazine = res
   } catch (error) {
-    alert("エラーが発生しました。")
+    alert(`エラーが発生しました\n${error}`)
     console.error(error)
   }
   return (

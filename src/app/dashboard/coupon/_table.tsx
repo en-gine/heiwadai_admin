@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
+import { getCouponStatusName } from "@/types/CouponStatus"
 
 export type Props = { data: JsonValue }
 export const CouponListTable = ({ data }: Props) => {
@@ -32,6 +33,7 @@ export const CouponListTable = ({ data }: Props) => {
             <TableHead>値引額</TableHead>
             <TableHead>期限</TableHead>
             <TableHead>作成日</TableHead>
+            <TableHead>ステータス</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -49,6 +51,7 @@ export const CouponListTable = ({ data }: Props) => {
               <TableCell>
                 {dayjs(cpn.CreateAt?.toDate()).format("YYYY/MM/DD HH:mm")}
               </TableCell>
+              <TableCell>{getCouponStatusName(cpn.Status)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

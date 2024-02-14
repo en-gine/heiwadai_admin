@@ -40,6 +40,7 @@ export const PrefectureMultiSelect = ({
     {!readOnly && (
       <SelectPref
         onValueChange={(val) => {
+          if (selectedItems?.includes(val as unknown as Prefecture)) return
           onSelect(val as unknown as Prefecture)
         }}
       />
