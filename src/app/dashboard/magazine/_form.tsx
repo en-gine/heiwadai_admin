@@ -202,7 +202,7 @@ export const Form = ({ data }: Props) => {
             )
           }
         >
-          保存
+          {isNew ? "保存" : "更新"}
         </Button>
         <Button
           type="submit"

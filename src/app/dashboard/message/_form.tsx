@@ -131,7 +131,7 @@ export const Form = ({ data }: Props) => {
           name="submit-type"
           value={SubmitType.Save}
         >
-          保存
+          {isNew ? "保存" : "更新"}
         </Button>
         <Button
           disabled={isNew}

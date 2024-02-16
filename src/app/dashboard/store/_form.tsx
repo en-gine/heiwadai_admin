@@ -492,7 +492,7 @@ export const Form = ({ data }: Props) => {
 
       <div className="flex gap-20 justify-center my-7">
         <Button type="submit" variant="default" value={SubmitType.Save}>
-          保存
+          {isNew ? "保存" : "更新"}
         </Button>
       </div>
     </form>
