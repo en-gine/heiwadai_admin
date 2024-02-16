@@ -23,7 +23,9 @@ const Page = async () => {
 
   try {
     unstable_noStore()
-    const res = await client.getAllRecent({})
+    const res = await client.getAllRecent({
+      limit: 30
+    })
 
     data = res.toJson()
   } catch (error) {

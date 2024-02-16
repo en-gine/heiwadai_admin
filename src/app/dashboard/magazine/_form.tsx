@@ -81,12 +81,16 @@ export const Form = ({ data }: Props) => {
                 ID: magazine?.ID
               })
               alert("削除しました。")
-              return
             }
             router.push(`/dashboard/magazine/`)
             return
           case SubmitType.Send:
-            if (!window.confirm("送信しますか？")) return
+            if (
+              !window.confirm(
+                `${magazine?.UnsentCount}件に一括送信します。\n送信後は内容を変更できません。\n送信しますか？`
+              )
+            )
+              return
             await client.send({
               ID: magazine?.ID
             })
@@ -175,10 +179,7 @@ export const Form = ({ data }: Props) => {
           </span>
         </div>
       )}
-      {magazine?.MailMagazineStatus ===
-        MailMagazineStatus.MailMagazineDraft && (
-        <span className="note">送信は保存後に可能になります。</span>
-      )}
+      {isNew && <span className="note">送信は保存後に可能になります。</span>}
       {magazine?.MailMagazineStatus ===
         MailMagazineStatus.MailMagazineSentUnCompleted && (
         <span className="note">
@@ -193,11 +194,11 @@ export const Form = ({ data }: Props) => {
           value={SubmitType.Save}
           disabled={
             !(
-              data === undefined ||
+              isNew ||
               magazine?.MailMagazineStatus ===
-                MailMagazineStatus.MailMagazineDraft ||
+                MailMagazineStatus.MailMagazineSaved ||
               magazine?.MailMagazineStatus ===
-                MailMagazineStatus.MailMagazineSaved
+                MailMagazineStatus.MailMagazineSentUnCompleted
             )
           }
         >
@@ -210,9 +211,7 @@ export const Form = ({ data }: Props) => {
           variant="destructive"
           disabled={
             !(
-              data === undefined ||
-              magazine?.MailMagazineStatus ===
-                MailMagazineStatus.MailMagazineDraft ||
+              isNew ||
               magazine?.MailMagazineStatus ===
                 MailMagazineStatus.MailMagazineSaved
             )

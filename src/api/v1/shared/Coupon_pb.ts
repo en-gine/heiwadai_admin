@@ -43,9 +43,9 @@ export enum CouponStatus {
   COUPON_DRAFT = 0,
 
   /**
-   * @generated from enum value: COUPON_SAVED = 1;
+   * @generated from enum value: COUPON_CREATED = 1;
    */
-  COUPON_SAVED = 1,
+  COUPON_CREATED = 1,
 
   /**
    * @generated from enum value: COUPON_ISSUED = 2;
@@ -55,7 +55,7 @@ export enum CouponStatus {
 // Retrieve enum metadata with: proto3.getEnumType(CouponStatus)
 proto3.util.setEnumType(CouponStatus, "server.shared.CouponStatus", [
   { no: 0, name: "COUPON_DRAFT" },
-  { no: 1, name: "COUPON_SAVED" },
+  { no: 1, name: "COUPON_CREATED" },
   { no: 2, name: "COUPON_ISSUED" },
 ]);
 
@@ -206,6 +206,18 @@ export class CustomCoupon extends Message<CustomCoupon> {
    */
   CreateAt?: Timestamp;
 
+  /**
+   * @generated from field: optional uint32 IssueCount = 11;
+   */
+  IssueCount?: number;
+
+  /**
+   * time.Time  
+   *
+   * @generated from field: optional google.protobuf.Timestamp IssueAt = 12;
+   */
+  IssueAt?: Timestamp;
+
   constructor(data?: PartialMessage<CustomCoupon>) {
     super();
     proto3.util.initPartial(data, this);
@@ -224,6 +236,8 @@ export class CustomCoupon extends Message<CustomCoupon> {
     { no: 8, name: "TargetStore", kind: "message", T: Store, repeated: true },
     { no: 9, name: "Status", kind: "enum", T: proto3.getEnumType(CouponStatus) },
     { no: 10, name: "CreateAt", kind: "message", T: Timestamp },
+    { no: 11, name: "IssueCount", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 12, name: "IssueAt", kind: "message", T: Timestamp, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CustomCoupon {

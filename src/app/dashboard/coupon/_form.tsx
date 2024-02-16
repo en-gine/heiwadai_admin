@@ -64,7 +64,7 @@ export const Form = ({ data }: Props) => {
     const notices = updateNotices
       .filter((notice) => notice.notice !== "")
       .map((notice) => notice.notice)
-    if (updateCoupon.Status === CouponStatus.COUPON_DRAFT) {
+    if (isDraft) {
       create(
         {
           Name: updateCoupon.Name,
@@ -111,14 +111,14 @@ export const Form = ({ data }: Props) => {
     }
   }, [
     updateNotices,
-    updateCoupon.Status,
+    isDraft,
+    create,
     updateCoupon.Name,
     updateCoupon.DiscountAmount,
     updateCoupon.ExpireAt,
     updateCoupon.IsCombinationable,
     updateCoupon.TargetStoresID,
     updateCoupon.ID,
-    create,
     router,
     save
   ])
@@ -166,10 +166,24 @@ export const Form = ({ data }: Props) => {
       />
       {defaultCoupon?.CreateAt && (
         <div className="text-right">
-          作成日:
+          <Label className="mr-2">作成日:</Label>
           {dayjs(defaultCoupon?.CreateAt.toDate()).format(
             "YYYY年MM月DD日 HH:mm"
           )}
+        </div>
+      )}
+      {defaultCoupon?.IssueAt && (
+        <div>
+          <Label className="mr-2">発行日:</Label>
+          {dayjs(defaultCoupon?.IssueAt.toDate()).format(
+            "YYYY年MM月DD日 HH:mm"
+          )}
+        </div>
+      )}
+      {!!defaultCoupon?.IssueCount && defaultCoupon?.IssueCount > 0 && (
+        <div>
+          <Label className="mr-2">発行ユーザー数:</Label>
+          {defaultCoupon?.IssueCount.toLocaleString()}人
         </div>
       )}
 
@@ -283,15 +297,18 @@ export const Form = ({ data }: Props) => {
       <p className="note">行として追加／削除してください。</p>
       {updateNotices?.map(({ id, notice }) => (
         <div key={`${id}`} className="relative">
-          <button
-            className="cursor-pointer absolute top-2 right-2"
-            type="button"
-            onClick={() => {
-              updateSetNotices(updateNotices.filter((item) => item.id !== id))
-            }}
-          >
-            ✖️
-          </button>
+          {!isIssued && (
+            <button
+              className="cursor-pointer absolute top-2 right-2"
+              type="button"
+              disabled={isIssued}
+              onClick={() => {
+                updateSetNotices(updateNotices.filter((item) => item.id !== id))
+              }}
+            >
+              ✖️
+            </button>
+          )}
           <Input
             value={notice}
             readOnly={isIssued}
@@ -331,6 +348,7 @@ export const Form = ({ data }: Props) => {
           type="submit"
           variant="default"
           name="submit-type"
+          disabled={isIssued}
           onClick={handleSave}
         >
           {isDraft ? "保存" : "更新"}
