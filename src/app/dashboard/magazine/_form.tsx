@@ -104,7 +104,7 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, isNew, magazine?.ID, prefectures, router]
+    [client, isNew, magazine?.ID, magazine?.UnsentCount, prefectures, router]
   )
   return (
     <form onSubmit={handleSubmit}>
