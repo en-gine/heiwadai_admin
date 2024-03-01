@@ -129,6 +129,13 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
    */
   StoreID = "";
 
+  /**
+   * メール認証待ち
+   *
+   * @generated from field: bool IsConfirmed = 6;
+   */
+  IsConfirmed = false;
+
   constructor(data?: PartialMessage<AdminDataResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -142,6 +149,7 @@ export class AdminDataResponse extends Message<AdminDataResponse> {
     { no: 3, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "IsConfirmed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminDataResponse {
