@@ -38,6 +38,7 @@ export const Form = ({ data }: Props) => {
     magazine?.TargetPrefecture || []
   )
   const router = useRouter()
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault()
@@ -86,6 +87,17 @@ export const Form = ({ data }: Props) => {
             return
           case SubmitType.Send:
             if (
+              title !== magazine?.Title ||
+              content !== magazine?.Content ||
+              JSON.stringify(prefectures) !==
+                JSON.stringify(magazine?.TargetPrefecture)
+            ) {
+              alert(
+                "データが変更されています。一度保存してから送信してください。"
+              )
+              return
+            }
+            if (
               !window.confirm(
                 `${magazine?.UnsentCount}件に一括送信します。\n送信後は内容を変更できません。\n送信しますか？`
               )
@@ -104,7 +116,17 @@ export const Form = ({ data }: Props) => {
         alert(error)
       }
     },
-    [client, isNew, magazine?.ID, magazine?.UnsentCount, prefectures, router]
+    [
+      client,
+      isNew,
+      magazine?.Content,
+      magazine?.ID,
+      magazine?.TargetPrefecture,
+      magazine?.Title,
+      magazine?.UnsentCount,
+      prefectures,
+      router
+    ]
   )
   return (
     <form onSubmit={handleSubmit}>
@@ -183,10 +205,16 @@ export const Form = ({ data }: Props) => {
       {magazine?.MailMagazineStatus ===
         MailMagazineStatus.MailMagazineSentUnCompleted && (
         <span className="note">
-          未送信のユーザーがいます。もう一回「送信」を押すと未送信のユーザーにだけ送信されます。
+          ※未送信のユーザーがいます。もう一回「送信」を押すと未送信のユーザーにだけ送信されます。
         </span>
       )}
-      <div className="flex gap-20 justify-center">
+      {!isNew && (
+        <span className="note">
+          ※データを更新した場合は送信前に一度保存してください。
+        </span>
+      )}
+
+      <div className="flex gap-20 justify-center mt-4">
         <Button
           type="submit"
           variant="default"

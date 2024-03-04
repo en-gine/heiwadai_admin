@@ -134,7 +134,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
               <TableCell>
                 {user?.Prefecture && getPrefName(user?.Prefecture)}
               </TableCell>
-              <TableCell className="text-right">
+              <TableCell>
                 {LastCheckinAt &&
                   dayjs(LastCheckinAt?.toDate()).format("YYYY/MM/DD")}
               </TableCell>
