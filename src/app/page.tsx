@@ -50,7 +50,6 @@ const CardWithForm = () => {
         router.push("/dashboard")
       } catch (error) {
         alert("ログインに失敗しました")
-      } finally {
         setLoginLoading(false)
       }
     },
@@ -63,10 +62,13 @@ const CardWithForm = () => {
         <CardHeader>
           <CardTitle>平和台ホテルアプリ管理画面</CardTitle>
         </CardHeader>
-        {loginLoading ? (
-          <Loading />
-        ) : (
-          <CardContent>
+        <CardContent>
+          {loginLoading ? (
+            <div className="min-h-[180px]">
+              <h3 className="text-center my-4">認証中....</h3>
+              <Loading />
+            </div>
+          ) : (
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Email</Label>
@@ -82,10 +84,12 @@ const CardWithForm = () => {
                 />
               </div>
             </div>
-          </CardContent>
-        )}
+          )}
+        </CardContent>
         <CardFooter className="flex justify-between">
-          <Button type="submit">ログイン</Button>
+          <Button type="submit" disabled={loginLoading}>
+            ログイン
+          </Button>
           {/* <Link href="/reset" className="note">
             パスワードを忘れた方はこちら
           </Link> */}
