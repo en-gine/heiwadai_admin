@@ -253,7 +253,7 @@ export const Form = ({ data }: Props) => {
       </Label>
       {updateStore.StampImageURL && (
         <div className="flex items-start">
-          <Image
+          <img
             src={updateStore.StampImageURL}
             width={85}
             height={85}
@@ -302,7 +302,9 @@ export const Form = ({ data }: Props) => {
       {!isNew && (
         <>
           <Label htmlFor="status">表示ステータス</Label>
-          <p className="note">※使わなくなった時はこちらで非表示にできます。</p>
+          <p className="note">
+            ※マスタデータを使わなくなった時はこちらで非表示にできます。
+          </p>
           <Select
             value={String(updateStore.IsActive)}
             defaultValue="true"

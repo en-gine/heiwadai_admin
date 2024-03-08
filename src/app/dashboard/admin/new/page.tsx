@@ -15,7 +15,7 @@ const Page = async () => {
   return (
     <div className="w-full">
       <div className="flex justify-between">
-        <Link href="/dashboard/message">一覧へ戻る</Link>
+        <Link href="/dashboard/admin">一覧へ戻る</Link>
       </div>
       <Form storeData={storeRes.toJson()} />
     </div>

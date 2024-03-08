@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AdminDataRequest, AdminDataResponse, AdminListRequest, AdminListResponse, AdminUpdateDataRequest } from "./AdminData_pb.ts";
+import { AdminDataRequest, AdminDataResponse, AdminListRequest, AdminListResponse, AdminLoginLogListResponse, AdminLoginLogRequest, AdminUpdateDataRequest } from "./AdminData_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -46,6 +46,15 @@ export const AdminDataController = {
       name: "Delete",
       I: AdminDataRequest,
       O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.admin.AdminDataController.GetLoginLogList
+     */
+    getLoginLogList: {
+      name: "GetLoginLogList",
+      I: AdminLoginLogRequest,
+      O: AdminLoginLogListResponse,
       kind: MethodKind.Unary,
     },
   }

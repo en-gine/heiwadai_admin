@@ -57,13 +57,14 @@ export const CouponTable = ({ userId }: Props) => {
               </TableCell>
               <TableCell className="font-medium">
                 {dayjs(userCoupon.Coupon?.ExpireAt?.toDate()).format(
-                  "YYYY/MM/DD HH:mm:ss"
+                  "YYYY/MM/DD"
                 )}
               </TableCell>
               <TableCell className="font-medium">
-                {dayjs(userCoupon.UsedAt?.toDate()).format(
-                  "YYYY/MM/DD HH:mm:ss"
-                )}
+                {userCoupon.UsedAt &&
+                  dayjs(userCoupon.UsedAt?.toDate()).format(
+                    "YYYY/MM/DD HH:mm:ss"
+                  )}
               </TableCell>
             </TableRow>
           ))}

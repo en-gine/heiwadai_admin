@@ -203,7 +203,7 @@ export const DataCard = ({ data }: Props) => {
               </div>
             </div>
           </form>
-          <Card className="w-[650px] mt-4">
+          <Card className=" mt-4">
             <CardHeader>
               <CardTitle>ご住所</CardTitle>
             </CardHeader>
@@ -258,7 +258,7 @@ export const DataCard = ({ data }: Props) => {
               />
             </CardContent>
           </Card>
-          <Card className="w-[650px] mt-4">
+          <Card className="mt-4">
             <CardHeader>
               <CardTitle>ご連絡先</CardTitle>
             </CardHeader>

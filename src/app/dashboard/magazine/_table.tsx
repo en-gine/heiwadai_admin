@@ -30,7 +30,7 @@ export const MagazineListTable = ({ data }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">タイトル</TableHead>
+            <TableHead className="min-w-20">タイトル</TableHead>
             <TableHead>送信日時</TableHead>
             <TableHead>作成日時</TableHead>
             <TableHead>ステータス</TableHead>

@@ -96,14 +96,14 @@ export class AnonTokenResponse extends Message<AnonTokenResponse> {
   accessToken = "";
 
   /**
-   * @generated from field: int64 expiresIn = 2;
-   */
-  expiresIn = protoInt64.zero;
-
-  /**
-   * @generated from field: string refreshToken = 3;
+   * @generated from field: string refreshToken = 2;
    */
   refreshToken = "";
+
+  /**
+   * @generated from field: int64 expiresIn = 3;
+   */
+  expiresIn = protoInt64.zero;
 
   constructor(data?: PartialMessage<AnonTokenResponse>) {
     super();
@@ -114,8 +114,8 @@ export class AnonTokenResponse extends Message<AnonTokenResponse> {
   static readonly typeName = "server.user.AnonTokenResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "expiresIn", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 3, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "refreshToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "expiresIn", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnonTokenResponse {

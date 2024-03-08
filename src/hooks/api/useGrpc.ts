@@ -18,7 +18,7 @@ const setAuthHeader: Interceptor = (next) => async (req) => {
   // レスポンスヘッダーからTokenを取得
   const token = res.header.get("AccessToken")
   const refreshToken = res.header.get("RefreshToken")
-  const expiresIn = res.header.get("Expire")
+  const expiresIn = res.header.get("ExpiresIn")
   // TokenがあればCookieに保存
   if (token) {
     storeToken("accessToken", token, Number(expiresIn))

@@ -33,7 +33,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <div className="w-full">
       <Suspense fallback={<Loading />}>
         <div className="flex justify-between">
-          <Link href="/dashboard/message">一覧へ戻る</Link>
+          <Link href="/dashboard/admin">一覧へ戻る</Link>
         </div>
         <Form adminData={admin} storeData={store} />
       </Suspense>

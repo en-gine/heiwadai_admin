@@ -13,7 +13,7 @@ const authHeader: Interceptor = (next) => async (req) => {
   // レスポンスヘッダーからTokenを取得
   res.header.get("AccessToken")
   res.header.get("RefreshToken")
-  res.header.get("Expire")
+  res.header.get("ExpiresIn")
   return res
 }
 

@@ -4,7 +4,8 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Pager, PageResponse } from "../shared/Pager_pb.ts";
 
 /**
  * @generated from message server.admin.AdminDataRequest
@@ -234,6 +235,147 @@ export class AdminListResponse extends Message<AdminListResponse> {
 
   static equals(a: AdminListResponse | PlainMessage<AdminListResponse> | undefined, b: AdminListResponse | PlainMessage<AdminListResponse> | undefined): boolean {
     return proto3.util.equals(AdminListResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminLoginLog
+ */
+export class AdminLoginLog extends Message<AdminLoginLog> {
+  /**
+   * @generated from field: string UserID = 1;
+   */
+  UserID = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp LoginAt = 2;
+   */
+  LoginAt?: Timestamp;
+
+  /**
+   * @generated from field: string IP = 3;
+   */
+  IP = "";
+
+  /**
+   * @generated from field: string UserAgent = 4;
+   */
+  UserAgent = "";
+
+  constructor(data?: PartialMessage<AdminLoginLog>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminLoginLog";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "UserID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "LoginAt", kind: "message", T: Timestamp },
+    { no: 3, name: "IP", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "UserAgent", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminLoginLog {
+    return new AdminLoginLog().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminLoginLog {
+    return new AdminLoginLog().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminLoginLog {
+    return new AdminLoginLog().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminLoginLog | PlainMessage<AdminLoginLog> | undefined, b: AdminLoginLog | PlainMessage<AdminLoginLog> | undefined): boolean {
+    return proto3.util.equals(AdminLoginLog, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminLoginLogRequest
+ */
+export class AdminLoginLogRequest extends Message<AdminLoginLogRequest> {
+  /**
+   * @generated from field: string UserID = 1;
+   */
+  UserID = "";
+
+  /**
+   * @generated from field: server.shared.Pager Pager = 2;
+   */
+  Pager?: Pager;
+
+  constructor(data?: PartialMessage<AdminLoginLogRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminLoginLogRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "UserID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Pager", kind: "message", T: Pager },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminLoginLogRequest {
+    return new AdminLoginLogRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminLoginLogRequest {
+    return new AdminLoginLogRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminLoginLogRequest {
+    return new AdminLoginLogRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminLoginLogRequest | PlainMessage<AdminLoginLogRequest> | undefined, b: AdminLoginLogRequest | PlainMessage<AdminLoginLogRequest> | undefined): boolean {
+    return proto3.util.equals(AdminLoginLogRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.AdminLoginLogListResponse
+ */
+export class AdminLoginLogListResponse extends Message<AdminLoginLogListResponse> {
+  /**
+   * @generated from field: repeated server.admin.AdminLoginLog LoginLogs = 1;
+   */
+  LoginLogs: AdminLoginLog[] = [];
+
+  /**
+   * @generated from field: server.shared.PageResponse PageResponse = 2;
+   */
+  PageResponse?: PageResponse;
+
+  constructor(data?: PartialMessage<AdminLoginLogListResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.AdminLoginLogListResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "LoginLogs", kind: "message", T: AdminLoginLog, repeated: true },
+    { no: 2, name: "PageResponse", kind: "message", T: PageResponse },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AdminLoginLogListResponse {
+    return new AdminLoginLogListResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AdminLoginLogListResponse {
+    return new AdminLoginLogListResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AdminLoginLogListResponse {
+    return new AdminLoginLogListResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AdminLoginLogListResponse | PlainMessage<AdminLoginLogListResponse> | undefined, b: AdminLoginLogListResponse | PlainMessage<AdminLoginLogListResponse> | undefined): boolean {
+    return proto3.util.equals(AdminLoginLogListResponse, a, b);
   }
 }
 

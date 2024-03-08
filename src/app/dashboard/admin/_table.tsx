@@ -2,6 +2,8 @@
 
 import { JsonValue } from "@bufbuild/protobuf"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useCallback } from "react"
 
 import { AdminListResponse } from "@/api/v1/admin/AdminData_pb"
 import { Stores } from "@/api/v1/shared/Store_pb"
@@ -19,6 +21,13 @@ export type Props = { adminData: JsonValue; storeData: JsonValue }
 export const AdminListTable = ({ adminData, storeData }: Props) => {
   const { Admins } = AdminListResponse.fromJson(adminData)
   const { Stores: stores } = Stores.fromJson(storeData)
+  const router = useRouter()
+  const handleLog = useCallback(
+    (adminId: string) => {
+      router.push(`/dashboard/admin/${adminId}/log`)
+    },
+    [router]
+  )
   return (
     <>
       <div className="text-right">
@@ -29,7 +38,7 @@ export const AdminListTable = ({ adminData, storeData }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">名前</TableHead>
+            <TableHead className="min-w-20">名前</TableHead>
             <TableHead>メール</TableHead>
             <TableHead>ログイン</TableHead>
             <TableHead>所属</TableHead>
@@ -56,6 +65,16 @@ export const AdminListTable = ({ adminData, storeData }: Props) => {
               <TableCell>
                 {stores.find((store) => store.ID === admin.StoreID)?.Name}
                 {stores.find((store) => store.ID === admin.StoreID)?.BranchName}
+              </TableCell>
+              <TableCell>
+                {admin?.ID && (
+                  <Button
+                    variant="outline"
+                    onClick={() => handleLog(admin?.ID)}
+                  >
+                    ログイン履歴
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}

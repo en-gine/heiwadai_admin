@@ -28,7 +28,7 @@ export const MessageListTable = ({ data }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">タイトル</TableHead>
+            <TableHead className="min-w-20">タイトル</TableHead>
             <TableHead>内容</TableHead>
             <TableHead>表示日時</TableHead>
             <TableHead>作成日時</TableHead>

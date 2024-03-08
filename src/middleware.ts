@@ -11,6 +11,7 @@ export const middleware = async (request: NextRequest) => {
   try {
     const prevPath = request.headers.get("next-url")
     if (prevPath === "/") return NextResponse.next() // ログインページからの遷移時は処理をスキップ
+    if (request.nextUrl.pathname === "/") return NextResponse.next() // ログインページへの遷移時はログアウトのため処理をスキップ
 
     const accessToken = request.cookies.get("accessToken")
     const refreshToken = request.cookies.get("refreshToken")
@@ -34,6 +35,7 @@ export const middleware = async (request: NextRequest) => {
     if (data.accessToken) {
       request.cookies.set("accessToken", data.accessToken)
       request.cookies.set("refreshToken", data.refreshToken)
+      // request.cookies.set("expireIn", data.expiresIn.toString())
     } else {
       throw new Error("refresh token is invalid")
     }

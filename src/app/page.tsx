@@ -73,9 +73,9 @@ const CardWithForm = () => {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button type="submit">ログイン</Button>
-          <Link href="/reset" className="note">
+          {/* <Link href="/reset" className="note">
             パスワードを忘れた方はこちら
-          </Link>
+          </Link> */}
         </CardFooter>
       </form>
     </Card>

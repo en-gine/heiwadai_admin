@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AdminDataRequest, AdminDataResponse, AdminListRequest, AdminListResponse, AdminUpdateDataRequest } from "./AdminData_pb.ts";
+import { AdminDataRequest, AdminDataResponse, AdminListRequest, AdminListResponse, AdminLoginLogListResponse, AdminLoginLogRequest, AdminUpdateDataRequest } from "./AdminData_pb.ts";
 
 /**
  * @generated from rpc server.admin.AdminDataController.GetByID
@@ -57,6 +57,20 @@ export const delete$ = {
   kind: MethodKind.Unary,
   I: AdminDataRequest,
   O: Empty,
+  service: {
+    typeName: "server.admin.AdminDataController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.admin.AdminDataController.GetLoginLogList
+ */
+export const getLoginLogList = {
+  localName: "getLoginLogList",
+  name: "GetLoginLogList",
+  kind: MethodKind.Unary,
+  I: AdminLoginLogRequest,
+  O: AdminLoginLogListResponse,
   service: {
     typeName: "server.admin.AdminDataController"
   }
