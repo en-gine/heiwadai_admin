@@ -5,7 +5,6 @@
 
 import { JsonValue } from "@bufbuild/protobuf"
 import { useMutation } from "@connectrpc/connect-query"
-import Image from "next/image"
 import React, { useCallback, useMemo, useState } from "react"
 
 import { StoreController } from "@/api/v1/admin/Store_connect"
