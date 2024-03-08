@@ -1,8 +1,9 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { FormEvent, useCallback, useRef } from "react"
+import { FormEvent, useCallback, useRef, useState } from "react"
 
+import { Loading } from "@/components/parts/loading"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -27,6 +28,7 @@ export default HomePage
 const CardWithForm = () => {
   const { signIn } = useLogin()
   const router = useRouter()
+  const [loginLoading, setLoginLoading] = useState(false)
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
@@ -40,6 +42,7 @@ const CardWithForm = () => {
         return
       }
       try {
+        setLoginLoading(true)
         await signIn({
           email,
           password
@@ -47,6 +50,8 @@ const CardWithForm = () => {
         router.push("/dashboard")
       } catch (error) {
         alert("ログインに失敗しました")
+      } finally {
+        setLoginLoading(false)
       }
     },
     [router, signIn]
@@ -58,18 +63,27 @@ const CardWithForm = () => {
         <CardHeader>
           <CardTitle>平和台ホテルアプリ管理画面</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Email</Label>
-              <Input id="email" type="email" ref={emailRef} required />
+        {loginLoading ? (
+          <Loading />
+        ) : (
+          <CardContent>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="name">Email</Label>
+                <Input id="email" type="email" ref={emailRef} required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  ref={passwordRef}
+                  required
+                />
+              </div>
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" ref={passwordRef} required />
-            </div>
-          </div>
-        </CardContent>
+          </CardContent>
+        )}
         <CardFooter className="flex justify-between">
           <Button type="submit">ログイン</Button>
           {/* <Link href="/reset" className="note">
