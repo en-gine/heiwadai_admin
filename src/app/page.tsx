@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FormEvent, useCallback, useRef, useState } from "react"
 
@@ -90,9 +91,9 @@ const CardWithForm = () => {
           <Button type="submit" disabled={loginLoading}>
             ログイン
           </Button>
-          {/* <Link href="/reset" className="note">
+          <Link href="/reset" className="note">
             パスワードを忘れた方はこちら
-          </Link> */}
+          </Link>
         </CardFooter>
       </form>
     </Card>

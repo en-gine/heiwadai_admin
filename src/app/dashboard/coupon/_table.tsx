@@ -40,7 +40,7 @@ export const CouponListTable = ({ data }: Props) => {
           {Coupons.map((cpn) => (
             <TableRow key={cpn.ID}>
               <TableCell className="font-medium">
-                <Link href={`./coupon/${cpn.ID}`}>{cpn.Name}</Link>
+                <Link href={`./coupon/${cpn.ID}`}>{cpn.Name}クーポン</Link>
               </TableCell>
               <TableCell>
                 {cpn.DiscountAmount?.toLocaleString()}円引き

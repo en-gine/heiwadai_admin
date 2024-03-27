@@ -150,20 +150,23 @@ export const Form = ({ data }: Props) => {
   return (
     <>
       <Label htmlFor="name" className="required">
-        クーポン名
+        クーポン名（最大6文字程度）
       </Label>
-      <Input
-        type="text"
-        id="name"
-        name="name"
-        maxLength={10}
-        value={updateCoupon?.Name}
-        readOnly={updateCoupon.Status === CouponStatus.COUPON_ISSUED}
-        className="w-full"
-        onChange={(e) => {
-          setUpdateCoupon({ ...updateCoupon, Name: e.target.value })
-        }}
-      />
+      <div className="flex justify-start gap-4">
+        <Input
+          type="text"
+          id="name"
+          name="name"
+          maxLength={6}
+          value={updateCoupon?.Name}
+          readOnly={updateCoupon.Status === CouponStatus.COUPON_ISSUED}
+          className="w-auto"
+          onChange={(e) => {
+            setUpdateCoupon({ ...updateCoupon, Name: e.target.value })
+          }}
+        />
+        <Label className="pt-4 mt-0">クーポン</Label>
+      </div>
       {defaultCoupon?.CreateAt && (
         <div className="text-right">
           <Label className="mr-2">作成日:</Label>

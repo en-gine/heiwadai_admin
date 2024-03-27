@@ -48,7 +48,7 @@ export const CouponTable = ({ userId }: Props) => {
           {UserAttachedCoupons?.map((userCoupon) => (
             <TableRow key={userCoupon.Coupon?.ID}>
               <TableCell className="font-medium">
-                {userCoupon.Coupon?.Name}
+                {userCoupon.Coupon?.Name}クーポン
               </TableCell>
               <TableCell className="font-medium">
                 {dayjs(userCoupon.Coupon?.CreateAt?.toDate()).format(

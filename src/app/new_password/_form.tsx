@@ -1,7 +1,8 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { FormEvent, useCallback, useRef } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,8 +19,20 @@ import { useLogin } from "@/hooks/api/useLogin"
 export const CardWithForm = () => {
   const { setNewPassword } = useLogin()
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const token = searchParams.get("access_token")
+
+  const [accessToken, setAccessToken] = useState<string | null>(null)
+  const [paramError, setParamError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.substring(1)
+      const params = new URLSearchParams(hash)
+
+      setAccessToken(params.get("access_token"))
+      setParamError(params.get("error"))
+    }
+  }, [])
+
   const passwordRef = useRef<HTMLInputElement>(null)
 
   const handleSetNewPassword = useCallback(
@@ -30,21 +43,21 @@ export const CardWithForm = () => {
         alert("パスワードを入力してください")
         return
       }
-      if (token === null || token === "") {
+      if (accessToken === null || accessToken === "") {
         alert("アクセストークンがありません。\n処理を中止します。")
         router.push("/")
         return null
       }
       try {
-        await setNewPassword(token, password)
+        await setNewPassword(accessToken, password)
         alert("設定しました。\nログインしてください。")
         router.push("/")
-      } catch (error) {
-        console.error(error)
+      } catch (e) {
+        console.error(e)
         alert("設定に失敗しました。")
       }
     },
-    [router, setNewPassword, token]
+    [router, setNewPassword, accessToken]
   )
 
   return (
@@ -55,10 +68,21 @@ export const CardWithForm = () => {
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
-            {!token && (
-              <span className="text-red-500">
-                ※トークンが確認出来ません。改めて認証メールからアクセスしてください。
-              </span>
+            {paramError && (
+              <>
+                <span className="text-red-500">
+                  ※有効期限が切れたか、エラーが発生しました。最初から手続きしてください。
+                </span>
+                <Link href="/">←戻る</Link>
+              </>
+            )}
+            {!accessToken && !paramError && (
+              <>
+                <span className="text-red-500">
+                  ※トークンが確認出来ません。改めて認証メールからアクセスしてください。
+                </span>
+                <Link href="/">←戻る</Link>
+              </>
             )}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
