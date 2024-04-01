@@ -91,26 +91,35 @@ export const Form = ({ data }: Props) => {
     }
   }, [client, defaultStore?.ID, updateStore])
 
-  const printQrCode = useCallback(() => {
-    if (!defaultStore?.ID) {
-      alert("投稿を保存後に印刷してください。")
-      return
-    }
-    window.open(
-      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.QRCode}`
-    )
-  }, [defaultStore?.ID, updateStore.QRCode])
+  const printQrCode = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      if (!defaultStore?.ID) {
+        alert("投稿を保存後に印刷してください。")
+        return false
+      }
+      window.open(
+        `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.QRCode}`
+      )
+      return false
+    },
+    [defaultStore?.ID, updateStore.QRCode]
+  )
 
-  const printUnlimitedQrCode = useCallback(() => {
-    if (!defaultStore?.ID) {
-      alert("投稿を保存後に印刷してください。")
-      return
-    }
+  const printUnlimitedQrCode = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      if (!defaultStore?.ID) {
+        alert("投稿を保存後に印刷してください。")
+        return
+      }
 
-    window.open(
-      `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.UnLimitedQRCode}`
-    )
-  }, [defaultStore?.ID, updateStore.UnLimitedQRCode])
+      window.open(
+        `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.UnLimitedQRCode}`
+      )
+    },
+    [defaultStore?.ID, updateStore.UnLimitedQRCode]
+  )
 
   const { mutate: mutateUpdate } = useMutation(update)
   const { mutate: mutateRegister } = useMutation(register)
