@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { SoreIDRequest } from "./Store_pb.ts";
+import { StoreIDRequest } from "./Store_pb.ts";
 import { StayableStore, StayableStores, Store, Stores } from "../shared/Store_pb.ts";
 
 /**
@@ -16,7 +16,7 @@ export const getByID = {
   localName: "getByID",
   name: "GetByID",
   kind: MethodKind.Unary,
-  I: SoreIDRequest,
+  I: StoreIDRequest,
   O: Store,
   service: {
     typeName: "server.user.StoreController"
@@ -64,7 +64,7 @@ export const getStayableByID = {
   localName: "getStayableByID",
   name: "GetStayableByID",
   kind: MethodKind.Unary,
-  I: SoreIDRequest,
+  I: StoreIDRequest,
   O: StayableStore,
   service: {
     typeName: "server.user.StoreController"

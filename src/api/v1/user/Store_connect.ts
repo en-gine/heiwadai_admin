@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { SoreIDRequest } from "./Store_pb.ts";
+import { StoreIDRequest } from "./Store_pb.ts";
 import { StayableStore, StayableStores, Store, Stores } from "../shared/Store_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
@@ -20,7 +20,7 @@ export const StoreController = {
      */
     getByID: {
       name: "GetByID",
-      I: SoreIDRequest,
+      I: StoreIDRequest,
       O: Store,
       kind: MethodKind.Unary,
     },
@@ -53,7 +53,7 @@ export const StoreController = {
      */
     getStayableByID: {
       name: "GetStayableByID",
-      I: SoreIDRequest,
+      I: StoreIDRequest,
       O: StayableStore,
       kind: MethodKind.Unary,
     },

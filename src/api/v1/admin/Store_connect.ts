@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { QRResponse, SoreIDRequest, StoreRegisterRequest, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
+import { QRResponse, StoreIDRequest, StoreRegisterRequest, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
 import { Store, Stores } from "../shared/Store_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 
@@ -18,7 +18,7 @@ export const StoreController = {
      */
     getByID: {
       name: "GetByID",
-      I: SoreIDRequest,
+      I: StoreIDRequest,
       O: Store,
       kind: MethodKind.Unary,
     },
@@ -63,7 +63,7 @@ export const StoreController = {
      */
     regenQRCode: {
       name: "RegenQRCode",
-      I: SoreIDRequest,
+      I: StoreIDRequest,
       O: QRResponse,
       kind: MethodKind.Unary,
     },
@@ -72,7 +72,7 @@ export const StoreController = {
      */
     regenUnlimitQRCode: {
       name: "RegenUnlimitQRCode",
-      I: SoreIDRequest,
+      I: StoreIDRequest,
       O: UnlimitQRResponse,
       kind: MethodKind.Unary,
     },

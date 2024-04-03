@@ -50,39 +50,39 @@ export class UserAuthRequest extends Message<UserAuthRequest> {
 }
 
 /**
- * @generated from message server.user.ResetPasswordRequest
+ * @generated from message server.user.UserMailRequest
  */
-export class ResetPasswordRequest extends Message<ResetPasswordRequest> {
+export class UserMailRequest extends Message<UserMailRequest> {
   /**
    * @generated from field: string email = 1;
    */
   email = "";
 
-  constructor(data?: PartialMessage<ResetPasswordRequest>) {
+  constructor(data?: PartialMessage<UserMailRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "server.user.ResetPasswordRequest";
+  static readonly typeName = "server.user.UserMailRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ResetPasswordRequest {
-    return new ResetPasswordRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserMailRequest {
+    return new UserMailRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ResetPasswordRequest {
-    return new ResetPasswordRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserMailRequest {
+    return new UserMailRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ResetPasswordRequest {
-    return new ResetPasswordRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserMailRequest {
+    return new UserMailRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ResetPasswordRequest | PlainMessage<ResetPasswordRequest> | undefined, b: ResetPasswordRequest | PlainMessage<ResetPasswordRequest> | undefined): boolean {
-    return proto3.util.equals(ResetPasswordRequest, a, b);
+  static equals(a: UserMailRequest | PlainMessage<UserMailRequest> | undefined, b: UserMailRequest | PlainMessage<UserMailRequest> | undefined): boolean {
+    return proto3.util.equals(UserMailRequest, a, b);
   }
 }
 
@@ -132,6 +132,80 @@ export class AnonTokenResponse extends Message<AnonTokenResponse> {
 
   static equals(a: AnonTokenResponse | PlainMessage<AnonTokenResponse> | undefined, b: AnonTokenResponse | PlainMessage<AnonTokenResponse> | undefined): boolean {
     return proto3.util.equals(AnonTokenResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.ResendInviteRequest
+ */
+export class ResendInviteRequest extends Message<ResendInviteRequest> {
+  /**
+   * @generated from field: string Mail = 1;
+   */
+  Mail = "";
+
+  constructor(data?: PartialMessage<ResendInviteRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.ResendInviteRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Mail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ResendInviteRequest {
+    return new ResendInviteRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ResendInviteRequest | PlainMessage<ResendInviteRequest> | undefined, b: ResendInviteRequest | PlainMessage<ResendInviteRequest> | undefined): boolean {
+    return proto3.util.equals(ResendInviteRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.IsUnderRegisterResponse
+ */
+export class IsUnderRegisterResponse extends Message<IsUnderRegisterResponse> {
+  /**
+   * @generated from field: bool isUnderRegister = 1;
+   */
+  isUnderRegister = false;
+
+  constructor(data?: PartialMessage<IsUnderRegisterResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.IsUnderRegisterResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "isUnderRegister", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IsUnderRegisterResponse {
+    return new IsUnderRegisterResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IsUnderRegisterResponse {
+    return new IsUnderRegisterResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IsUnderRegisterResponse {
+    return new IsUnderRegisterResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IsUnderRegisterResponse | PlainMessage<IsUnderRegisterResponse> | undefined, b: IsUnderRegisterResponse | PlainMessage<IsUnderRegisterResponse> | undefined): boolean {
+    return proto3.util.equals(IsUnderRegisterResponse, a, b);
   }
 }
 

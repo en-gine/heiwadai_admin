@@ -5,7 +5,7 @@
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 import { UserRegisterRequest } from "./UserData_pb.ts";
-import { AnonTokenResponse, ResetPasswordRequest, UserAuthRequest } from "./AnonAuth_pb.ts";
+import { AnonTokenResponse, IsUnderRegisterResponse, UserAuthRequest, UserMailRequest } from "./AnonAuth_pb.ts";
 
 /**
  * 初回ユーザー登録
@@ -64,7 +64,55 @@ export const resetPasswordMail = {
   localName: "resetPasswordMail",
   name: "ResetPasswordMail",
   kind: MethodKind.Unary,
-  I: ResetPasswordRequest,
+  I: UserMailRequest,
+  O: Empty,
+  service: {
+    typeName: "server.user.AnonAuthController"
+  }
+} as const;
+
+/**
+ * メールアドレスによる再招待
+ *
+ * @generated from rpc server.user.AnonAuthController.IsUnderRegister
+ */
+export const isUnderRegister = {
+  localName: "isUnderRegister",
+  name: "IsUnderRegister",
+  kind: MethodKind.Unary,
+  I: UserMailRequest,
+  O: IsUnderRegisterResponse,
+  service: {
+    typeName: "server.user.AnonAuthController"
+  }
+} as const;
+
+/**
+ * 登録して途中離脱したユーザーの再招待
+ *
+ * @generated from rpc server.user.AnonAuthController.ResendInviteMail
+ */
+export const resendInviteMail = {
+  localName: "resendInviteMail",
+  name: "ResendInviteMail",
+  kind: MethodKind.Unary,
+  I: UserMailRequest,
+  O: Empty,
+  service: {
+    typeName: "server.user.AnonAuthController"
+  }
+} as const;
+
+/**
+ * 登録して途中離脱したユーザーの削除
+ *
+ * @generated from rpc server.user.AnonAuthController.DeleteUnderRegisterUser
+ */
+export const deleteUnderRegisterUser = {
+  localName: "deleteUnderRegisterUser",
+  name: "DeleteUnderRegisterUser",
+  kind: MethodKind.Unary,
+  I: UserMailRequest,
   O: Empty,
   service: {
     typeName: "server.user.AnonAuthController"

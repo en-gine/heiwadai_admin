@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { BookIDRequest, BookResponse, BooksResponse, ReserveRequest } from "./Book_pb.ts";
+import { BookIDRequest, BookResponse, BooksResponse, PlanSearchRequest, PlansResponse, ReserveRequest } from "./Book_pb.ts";
 
 /**
  * @generated from service server.user.BookController
@@ -54,6 +54,24 @@ export const BookController = {
       name: "Reserve",
       I: ReserveRequest,
       O: Empty,
+      kind: MethodKind.Unary,
+    },
+  }
+} as const;
+
+/**
+ * @generated from service server.user.PlanController
+ */
+export const PlanController = {
+  typeName: "server.user.PlanController",
+  methods: {
+    /**
+     * @generated from rpc server.user.PlanController.Search
+     */
+    search: {
+      name: "Search",
+      I: PlanSearchRequest,
+      O: PlansResponse,
       kind: MethodKind.Unary,
     },
   }

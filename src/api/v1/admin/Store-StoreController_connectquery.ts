@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { QRResponse, SoreIDRequest, StoreRegisterRequest, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
+import { QRResponse, StoreIDRequest, StoreRegisterRequest, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
 import { Store, Stores } from "../shared/Store_pb.ts";
 
 /**
@@ -14,7 +14,7 @@ export const getByID = {
   localName: "getByID",
   name: "GetByID",
   kind: MethodKind.Unary,
-  I: SoreIDRequest,
+  I: StoreIDRequest,
   O: Store,
   service: {
     typeName: "server.admin.StoreController"
@@ -84,7 +84,7 @@ export const regenQRCode = {
   localName: "regenQRCode",
   name: "RegenQRCode",
   kind: MethodKind.Unary,
-  I: SoreIDRequest,
+  I: StoreIDRequest,
   O: QRResponse,
   service: {
     typeName: "server.admin.StoreController"
@@ -98,7 +98,7 @@ export const regenUnlimitQRCode = {
   localName: "regenUnlimitQRCode",
   name: "RegenUnlimitQRCode",
   kind: MethodKind.Unary,
-  I: SoreIDRequest,
+  I: StoreIDRequest,
   O: UnlimitQRResponse,
   service: {
     typeName: "server.admin.StoreController"
