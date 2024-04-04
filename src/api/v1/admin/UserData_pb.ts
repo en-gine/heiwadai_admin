@@ -14,17 +14,22 @@ import { Prefecture } from "../shared/Prefecture_pb.ts";
  */
 export class UserUpdateDataRequest extends Message<UserUpdateDataRequest> {
   /**
-   * @generated from field: server.user.UserUpdateDataRequest User = 1;
+   * @generated from field: string UserID = 1;
+   */
+  UserID = "";
+
+  /**
+   * @generated from field: server.user.UserUpdateDataRequest User = 2;
    */
   User?: UserUpdateDataRequest$1;
 
   /**
-   * @generated from field: string InnerNote = 2;
+   * @generated from field: string InnerNote = 3;
    */
   InnerNote = "";
 
   /**
-   * @generated from field: bool IsBlackCustomer = 3;
+   * @generated from field: bool IsBlackCustomer = 4;
    */
   IsBlackCustomer = false;
 
@@ -36,9 +41,10 @@ export class UserUpdateDataRequest extends Message<UserUpdateDataRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.admin.UserUpdateDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "User", kind: "message", T: UserUpdateDataRequest$1 },
-    { no: 2, name: "InnerNote", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "IsBlackCustomer", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "UserID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "User", kind: "message", T: UserUpdateDataRequest$1 },
+    { no: 3, name: "InnerNote", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "IsBlackCustomer", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserUpdateDataRequest {

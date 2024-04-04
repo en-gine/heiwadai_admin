@@ -47,6 +47,8 @@ export const DataCard = ({ data }: Props) => {
   const handleUpdate = useCallback(() => {
     mutateUpdate(
       {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        UserID: updateUser.ID,
         User: updateUser,
         InnerNote: updateUser.innerNote,
         IsBlackCustomer: updateUser.isBlackCustomer

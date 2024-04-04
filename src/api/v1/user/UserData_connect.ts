@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { UserDataResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
-import { MethodKind } from "@bufbuild/protobuf";
+import { Empty, MethodKind } from "@bufbuild/protobuf";
 
 /**
  * @generated from service server.user.UserDataController
@@ -20,6 +20,15 @@ export const UserDataController = {
     update: {
       name: "Update",
       I: UserUpdateDataRequest,
+      O: UserDataResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.user.UserDataController.GetUser
+     */
+    getUser: {
+      name: "GetUser",
+      I: Empty,
       O: UserDataResponse,
       kind: MethodKind.Unary,
     },

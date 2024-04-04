@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { MethodKind } from "@bufbuild/protobuf";
+import { Empty, MethodKind } from "@bufbuild/protobuf";
 import { UserDataResponse, UserUpdateDataRequest } from "./UserData_pb.ts";
 
 /**
@@ -16,6 +16,20 @@ export const update = {
   name: "Update",
   kind: MethodKind.Unary,
   I: UserUpdateDataRequest,
+  O: UserDataResponse,
+  service: {
+    typeName: "server.user.UserDataController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.user.UserDataController.GetUser
+ */
+export const getUser = {
+  localName: "getUser",
+  name: "GetUser",
+  kind: MethodKind.Unary,
+  I: Empty,
   O: UserDataResponse,
   service: {
     typeName: "server.user.UserDataController"
