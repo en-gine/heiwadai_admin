@@ -31,7 +31,9 @@ export const CardWithForm = () => {
       }
       try {
         await resetPasswordMail(mail)
-        alert("リセットメールをご指定のアドレスに送信しました。")
+        alert(
+          "リセットメールをご指定のアドレスに送信しました。\nメールに記載のリンクより設定してください。"
+        )
         router.push("/")
       } catch (error) {
         console.error(error)

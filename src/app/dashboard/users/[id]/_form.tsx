@@ -282,6 +282,8 @@ export const DataCard = ({ data }: Props) => {
               <Label htmlFor="mail">メールアドレス</Label>
               <Input
                 id="mail"
+                readOnly
+                aria-disabled
                 placeholder="メールアドレス"
                 defaultValue={updateUser.Mail}
                 type="email"

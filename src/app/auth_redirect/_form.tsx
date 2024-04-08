@@ -54,7 +54,9 @@ export const CardWithForm = () => {
         router.push("/")
       } catch (e) {
         console.error(e)
-        alert("設定に失敗しました。")
+        if (e instanceof Error) {
+          alert(`設定に失敗しました。\n${e.message}`)
+        }
       }
     },
     [router, setNewPassword, accessToken]
