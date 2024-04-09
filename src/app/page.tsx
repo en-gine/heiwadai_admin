@@ -50,7 +50,14 @@ const CardWithForm = () => {
         })
         router.push("/dashboard")
       } catch (error) {
-        alert("ログインに失敗しました")
+        if (error instanceof Error) {
+          alert(
+            `ログインに失敗しました\n${error.message.replace(
+              "ConnectError: ",
+              ""
+            )}`
+          )
+        }
         setLoginLoading(false)
       }
     },
