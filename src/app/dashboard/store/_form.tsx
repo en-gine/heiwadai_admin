@@ -98,9 +98,7 @@ export const Form = ({ data }: Props) => {
         alert("投稿を保存後に印刷してください。")
         return false
       }
-      window.open(
-        `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.QRCode}`
-      )
+      window.open(`https://quickchart.io/qr?text=${updateStore.QRCode}`)
       return false
     },
     [defaultStore?.ID, updateStore.QRCode]
@@ -115,7 +113,7 @@ export const Form = ({ data }: Props) => {
       }
 
       window.open(
-        `https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=${updateStore.UnLimitedQRCode}`
+        `https://quickchart.io/qr?text=${updateStore.UnLimitedQRCode}`
       )
     },
     [defaultStore?.ID, updateStore.UnLimitedQRCode]
