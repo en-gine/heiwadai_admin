@@ -21,6 +21,11 @@ export const CouponListTable = ({ data }: Props) => {
   const { Coupons } = CouponListResponse.fromJson(data)
   return (
     <>
+      <p className="text-sm">
+        特別クーポンを発行することができます。
+        <br />
+        下書き保存後に発行することができます。（一度発行した場合は編集／削除できません。）
+      </p>
       <div className="text-right">
         <Button variant="default" className="mb-4">
           <Link href="./coupon/new">新規作成</Link>

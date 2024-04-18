@@ -22,6 +22,11 @@ export const MagazineListTable = ({ data }: Props) => {
   const magazines = res?.MailMagazines
   return (
     <>
+      <p className="text-sm">
+        メルマガが許可されたアプリユーザーにメールマガジンを送信することができます。
+        <br />
+        記事の下書き保存後に送信することができます。（一度送信した場合は編集／削除できません。）
+      </p>
       <div className="text-right">
         <Button variant="default" className="mb-4">
           <Link href="./magazine/new/">新規作成</Link>

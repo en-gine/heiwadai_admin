@@ -30,6 +30,11 @@ export const AdminListTable = ({ adminData, storeData }: Props) => {
   )
   return (
     <>
+      <p className="text-sm">
+        管理画面にログインできるユーザーを作成／管理できます。
+        <br />
+        新規作成にはメールアドレスの認証が必要です。
+      </p>
       <div className="text-right">
         <Button variant="default" className="mb-4">
           <Link href="./admin/new">新規作成</Link>

@@ -20,6 +20,14 @@ export const MessageListTable = ({ data }: Props) => {
   const { messages } = MessagesResponse.fromJson(data)
   return (
     <>
+      <p className="text-sm">
+        ユーザーがアプリにログインした時にメッセージを表示することができます。
+        <br />
+        この一覧に表示されているメッセージは必ず1度はユーザーのログイン後に表示されます。
+        <br />
+        通知が不要になった場合は削除してください。
+      </p>
+
       <div className="text-right">
         <Button variant="default" className="mb-4">
           <Link href="./message/new">新規作成</Link>

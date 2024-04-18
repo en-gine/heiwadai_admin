@@ -52,6 +52,11 @@ export const UserListTable = ({ data, searchParam }: Props) => {
   return (
     <>
       <div className="w-full">
+        <p className="text-sm">
+          アプリユーザーの一覧です。
+          <br />
+          ユーザー情報の確認／編集、履歴の閲覧（ログイン、チェックイン、クーポン、メルマガ受信）ができます。
+        </p>
         <div className="flex items-center py-4">
           <Input
             placeholder="姓"
