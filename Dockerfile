@@ -6,6 +6,7 @@ COPY yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY . .
 ARG NEXT_PUBLIC_BASE_URL
+RUN echo "NEXT_PUBLIC_BASE_URL variable: $NEXT_PUBLIC_BASE_URL"
 RUN touch .env.production \
   && echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> .env.production \
   && cat .env.production
