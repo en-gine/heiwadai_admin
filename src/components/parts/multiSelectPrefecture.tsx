@@ -23,6 +23,17 @@ type Props = {
   onRemove: (select: Prefecture) => void
 }
 
+export const KyushuRegion: Prefecture[] = [
+  Prefecture.Fukuoka,
+  Prefecture.Saga,
+  Prefecture.Nagasaki,
+  Prefecture.Kumamoto,
+  Prefecture.Oita,
+  Prefecture.Miyazaki,
+  Prefecture.Kagoshima,
+  Prefecture.Okinawa
+]
+
 export const PrefectureMultiSelect = ({
   selectedItems,
   readOnly,
