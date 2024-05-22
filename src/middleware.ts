@@ -26,6 +26,7 @@ export const middleware = async (request: NextRequest) => {
         }
       ]
     })
+
     const client = createPromiseClient(AuthController, transport)
     const data = await client.refresh({
       accessToken: accessToken?.value,
@@ -46,7 +47,14 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  const response = NextResponse.next()
+  response.headers.set(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate"
+  )
+  response.headers.set("Pragma", "no-cache")
+  response.headers.set("Expires", "0")
+  return response
 }
 export const config = {
   matcher: "/dashboard/:path*"

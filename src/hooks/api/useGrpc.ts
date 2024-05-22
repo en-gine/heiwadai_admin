@@ -27,6 +27,14 @@ const setAuthHeader: Interceptor = (next) => async (req) => {
     storeToken("refreshToken", refreshToken)
   }
 
+  // キャッシュ無効化
+  res.header.set(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate"
+  )
+  res.header.set("Pragma", "no-cache")
+  res.header.set("Expires", "0")
+
   return res
 }
 
