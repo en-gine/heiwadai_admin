@@ -1,4 +1,4 @@
-import { createPromiseClient } from "@connectrpc/connect"
+import { ConnectError, createPromiseClient } from "@connectrpc/connect"
 import { createConnectTransport } from "@connectrpc/connect-web"
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
@@ -44,7 +44,12 @@ export const middleware = async (request: NextRequest) => {
     console.error(error)
     const url = request.nextUrl.clone()
     url.pathname = "/" // ログインページへのパス
-    return NextResponse.redirect(url)
+    if (error instanceof ConnectError) {
+      if (error.cause !== undefined) {
+        // 空のレスポンスでエラーが発生した時にログアウトされる問題を防ぐ
+        return NextResponse.redirect(url)
+      }
+    }
   }
 
   const response = NextResponse.next()
