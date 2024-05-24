@@ -1,6 +1,7 @@
 import { AnonAuthController } from "@/api/v1/admin/AnonAuth_connect"
 import { AuthController } from "@/api/v1/admin/Auth_connect"
 import { disposeToken, storeToken, useGrpc } from "@/hooks/api/useGrpc"
+import { encrypt } from "@/lib/encrypt"
 
 const useLogin = () => {
   const { client } = useGrpc(AnonAuthController)
@@ -12,10 +13,12 @@ const useLogin = () => {
     email: string
     password: string
   }) => {
+    const encryptedPass = await encrypt(password)
+
     try {
       const message = await client.signIn({
         email,
-        password
+        password: encryptedPass
       })
       if (message.accessToken) {
         storeToken(
@@ -53,9 +56,11 @@ const useLogin = () => {
 
   const setNewPassword = async (token: string, newPassword: string) => {
     try {
+      const encryptedPass = await encrypt(newPassword)
+
       await client.setNewPassword({
         accessToken: token,
-        password: newPassword
+        password: encryptedPass
       })
     } catch (error) {
       console.error(error)
