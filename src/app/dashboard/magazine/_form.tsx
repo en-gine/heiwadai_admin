@@ -13,10 +13,7 @@ import {
   MailMagazineStatus
 } from "@/api/v1/admin/MailMagazine_pb"
 import { Prefecture } from "@/api/v1/shared/Prefecture_pb"
-import {
-  KyushuRegion,
-  PrefectureMultiSelect
-} from "@/components/parts/multiSelectPrefecture"
+import { PrefectureMultiSelect } from "@/components/parts/multiSelectPrefecture"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -165,14 +162,6 @@ export const Form = ({ data }: Props) => {
       </Label>
       <div className="note">
         送信対象の都道府県を選択してください。未選択の場合は全国に送信されます。
-        {isNew && (
-          <Button
-            variant="secondary"
-            onClick={() => setPrefectures(KyushuRegion)}
-          >
-            九州一括選択
-          </Button>
-        )}
       </div>
       <PrefectureMultiSelect
         selectedItems={prefectures || []}

@@ -23,38 +23,38 @@ type Props = {
   onRemove: (select: Prefecture) => void
 }
 
-export const KyushuRegion: Prefecture[] = [
-  Prefecture.Fukuoka,
-  Prefecture.Saga,
-  Prefecture.Nagasaki,
-  Prefecture.Kumamoto,
-  Prefecture.Oita,
-  Prefecture.Miyazaki,
-  Prefecture.Kagoshima,
-  Prefecture.Okinawa
-]
-
 export const PrefectureMultiSelect = ({
   selectedItems,
   readOnly,
   onSelect,
   onRemove
-}: Props) => (
-  <div className="mb-4">
-    <UnOverridableDiv className="block break-words w-full min-w-0 my-4">
-      {selectedItems.map((item) => (
-        <Chip key={item} onDelete={() => onRemove(item)} readOnly={readOnly}>
-          {getPrefName(Number(item))}
-        </Chip>
-      ))}
-    </UnOverridableDiv>
-    {!readOnly && (
-      <SelectPref
-        onValueChange={(val) => {
-          if (selectedItems?.includes(val as unknown as Prefecture)) return
-          onSelect(val as unknown as Prefecture)
-        }}
-      />
-    )}
-  </div>
-)
+}: Props) => {
+  const handleSelectRegion = (keys: number[]) => {
+    keys.forEach((key: number) => {
+      if (!selectedItems.includes(key)) {
+        onSelect(key)
+      }
+    })
+  }
+  const handleValueChange = (key: number) => {
+    if (selectedItems?.includes(key)) return
+    onSelect(key)
+  }
+  return (
+    <div className="mb-4">
+      {!readOnly && (
+        <SelectPref
+          onValueChange={handleValueChange}
+          onSelectRegion={handleSelectRegion}
+        />
+      )}
+      <UnOverridableDiv className="block break-words w-full min-w-0 my-4">
+        {selectedItems.map((item) => (
+          <Chip key={item} onDelete={() => onRemove(item)} readOnly={readOnly}>
+            {getPrefName(item)}
+          </Chip>
+        ))}
+      </UnOverridableDiv>
+    </div>
+  )
+}
