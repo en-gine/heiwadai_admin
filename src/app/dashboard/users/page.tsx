@@ -16,7 +16,7 @@ export type SearchFilterProps = {
   FirstName?: string
   LastNameKana?: string
   FirstNameKana?: string
-  Prefecture?: string
+  Prefecture?: number
 }
 const Page = async ({
   searchParams
