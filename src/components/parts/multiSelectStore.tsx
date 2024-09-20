@@ -1,8 +1,8 @@
 import { useQuery } from "@connectrpc/connect-query"
 import React from "react"
 
-import { getActiveAll } from "@/api/v1/admin/Store-StoreController_connectquery"
 import { type Store } from "@/api/v1/admin/Store_pb"
+import { getActiveAll } from "@/api/v1/admin/Store-StoreController_connectquery"
 import {
   Select,
   SelectContent,
