@@ -5,7 +5,7 @@
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
 import { UserRegisterRequest } from "./UserData_pb.ts";
-import { AnonTokenResponse, IsUnderRegisterResponse, UserAuthRequest, UserMailRequest } from "./AnonAuth_pb.ts";
+import { AnonTokenResponse, IsUnderRegisterResponse, SetNewPasswordRequest, SignUpRequest, TokenRequest, UserAuthRequest, UserMailRequest, UserMailResponse } from "./AnonAuth_pb.ts";
 
 /**
  * 初回ユーザー登録
@@ -32,7 +32,7 @@ export const signUp = {
   localName: "signUp",
   name: "SignUp",
   kind: MethodKind.Unary,
-  I: UserAuthRequest,
+  I: SignUpRequest,
   O: Empty,
   service: {
     typeName: "server.user.AnonAuthController"
@@ -66,6 +66,38 @@ export const resetPasswordMail = {
   kind: MethodKind.Unary,
   I: UserMailRequest,
   O: Empty,
+  service: {
+    typeName: "server.user.AnonAuthController"
+  }
+} as const;
+
+/**
+ * パスワードリセット(メールリダイレクトからのトークンと共に設定)
+ *
+ * @generated from rpc server.user.AnonAuthController.SetNewPassword
+ */
+export const setNewPassword = {
+  localName: "setNewPassword",
+  name: "SetNewPassword",
+  kind: MethodKind.Unary,
+  I: SetNewPasswordRequest,
+  O: Empty,
+  service: {
+    typeName: "server.user.AnonAuthController"
+  }
+} as const;
+
+/**
+ * トークンを元にユーザーメール取得（パスワード再設定の画面に使用）
+ *
+ * @generated from rpc server.user.AnonAuthController.GetUserMailByToken
+ */
+export const getUserMailByToken = {
+  localName: "getUserMailByToken",
+  name: "GetUserMailByToken",
+  kind: MethodKind.Unary,
+  I: TokenRequest,
+  O: UserMailResponse,
   service: {
     typeName: "server.user.AnonAuthController"
   }

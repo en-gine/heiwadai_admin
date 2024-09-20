@@ -3,7 +3,7 @@
 import { JsonValue } from "@bufbuild/protobuf"
 import Link from "next/link"
 
-import { Stores } from "@/api/v1/shared/Store_pb"
+import { Stores } from "@/api/v1/admin/Store_pb"
 import { Button } from "@/components/ui/button"
 import {
   Table,

@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { BookIDRequest, BookResponse, BooksResponse, ReserveRequest } from "./Book_pb.ts";
+import { BookIDRequest, BookMentenanceInfoResponse, BookResponse, BooksResponse, ReserveRequest } from "./Book_pb.ts";
 
 /**
  * 現在の自身の予約状況
@@ -65,6 +65,22 @@ export const reserve = {
   kind: MethodKind.Unary,
   I: ReserveRequest,
   O: Empty,
+  service: {
+    typeName: "server.user.BookController"
+  }
+} as const;
+
+/**
+ * 現在メンテナンス中かどうか
+ *
+ * @generated from rpc server.user.BookController.GetMentenanceInfo
+ */
+export const getMentenanceInfo = {
+  localName: "getMentenanceInfo",
+  name: "GetMentenanceInfo",
+  kind: MethodKind.Unary,
+  I: Empty,
+  O: BookMentenanceInfoResponse,
   service: {
     typeName: "server.user.BookController"
   }

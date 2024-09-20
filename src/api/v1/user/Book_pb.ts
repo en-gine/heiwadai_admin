@@ -8,6 +8,32 @@ import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { Prefecture } from "../shared/Prefecture_pb.ts";
 
 /**
+ * @generated from enum server.user.PricePerCategory
+ */
+export enum PricePerCategory {
+  /**
+   * @generated from enum value: PricePerNight = 0;
+   */
+  PricePerNight = 0,
+
+  /**
+   * @generated from enum value: PricePerPerson = 1;
+   */
+  PricePerPerson = 1,
+
+  /**
+   * @generated from enum value: PricePerNightAndPerson = 2;
+   */
+  PricePerNightAndPerson = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PricePerCategory)
+proto3.util.setEnumType(PricePerCategory, "server.user.PricePerCategory", [
+  { no: 0, name: "PricePerNight" },
+  { no: 1, name: "PricePerPerson" },
+  { no: 2, name: "PricePerNightAndPerson" },
+]);
+
+/**
  * @generated from enum server.user.MealType
  */
 export enum MealType {
@@ -32,43 +58,45 @@ proto3.util.setEnumType(MealType, "server.user.MealType", [
  */
 export enum RoomType {
   /**
-   * @generated from enum value: RoomTypeSingle = 0;
+   * @generated from enum value: RoomTypeUnknown = 0;
    */
-  RoomTypeSingle = 0,
+  RoomTypeUnknown = 0,
 
   /**
-   * @generated from enum value: RoomTypeSemiDouble = 1;
+   * 予約システムの都合で１から
+   *
+   * @generated from enum value: RoomTypeSingle = 1;
    */
-  RoomTypeSemiDouble = 1,
+  RoomTypeSingle = 1,
 
   /**
-   * @generated from enum value: RoomTypeDouble = 2;
+   * @generated from enum value: RoomTypeSemiDouble = 2;
    */
-  RoomTypeDouble = 2,
+  RoomTypeSemiDouble = 2,
 
   /**
-   * @generated from enum value: RoomTypeTwin = 3;
+   * @generated from enum value: RoomTypeDouble = 3;
    */
-  RoomTypeTwin = 3,
+  RoomTypeDouble = 3,
 
   /**
-   * @generated from enum value: RoomTypeFourth = 4;
+   * @generated from enum value: RoomTypeTwin = 4;
    */
-  RoomTypeFourth = 4,
+  RoomTypeTwin = 4,
 
   /**
-   * @generated from enum value: RoomTypeUnknown = 5;
+   * @generated from enum value: RoomTypeFourth = 5;
    */
-  RoomTypeUnknown = 5,
+  RoomTypeFourth = 5,
 }
 // Retrieve enum metadata with: proto3.getEnumType(RoomType)
 proto3.util.setEnumType(RoomType, "server.user.RoomType", [
-  { no: 0, name: "RoomTypeSingle" },
-  { no: 1, name: "RoomTypeSemiDouble" },
-  { no: 2, name: "RoomTypeDouble" },
-  { no: 3, name: "RoomTypeTwin" },
-  { no: 4, name: "RoomTypeFourth" },
-  { no: 5, name: "RoomTypeUnknown" },
+  { no: 0, name: "RoomTypeUnknown" },
+  { no: 1, name: "RoomTypeSingle" },
+  { no: 2, name: "RoomTypeSemiDouble" },
+  { no: 3, name: "RoomTypeDouble" },
+  { no: 4, name: "RoomTypeTwin" },
+  { no: 5, name: "RoomTypeFourth" },
 ]);
 
 /**
@@ -154,6 +182,11 @@ export class BookResponse extends Message<BookResponse> {
   Plan?: DisplayPlan;
 
   /**
+   * @generated from field: repeated server.user.PlanStayDateInfo PlanStayDateInfos = 11;
+   */
+  PlanStayDateInfos: PlanStayDateInfo[] = [];
+
+  /**
    * @generated from field: string Note = 12;
    */
   Note = "";
@@ -176,6 +209,7 @@ export class BookResponse extends Message<BookResponse> {
     { no: 8, name: "TotalCost", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 9, name: "GuestData", kind: "message", T: GuestData },
     { no: 10, name: "Plan", kind: "message", T: DisplayPlan },
+    { no: 11, name: "PlanStayDateInfos", kind: "message", T: PlanStayDateInfo, repeated: true },
     { no: 12, name: "Note", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
@@ -330,7 +364,7 @@ export class RequestPlan extends Message<RequestPlan> {
   /**
    * @generated from field: server.user.RoomType RoomType = 5;
    */
-  RoomType = RoomType.RoomTypeSingle;
+  RoomType = RoomType.RoomTypeUnknown;
 
   /**
    * @generated from field: repeated server.user.MealType MealTypes = 6;
@@ -352,6 +386,16 @@ export class RequestPlan extends Message<RequestPlan> {
    */
   StoreID = "";
 
+  /**
+   * @generated from field: string TlBookingRoomTypeCode = 10;
+   */
+  TlBookingRoomTypeCode = "";
+
+  /**
+   * @generated from field: string TlBookingRoomTypeName = 11;
+   */
+  TlBookingRoomTypeName = "";
+
   constructor(data?: PartialMessage<RequestPlan>) {
     super();
     proto3.util.initPartial(data, this);
@@ -369,6 +413,8 @@ export class RequestPlan extends Message<RequestPlan> {
     { no: 7, name: "SmokeType", kind: "enum", T: proto3.getEnumType(SmokeType) },
     { no: 8, name: "OverView", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "TlBookingRoomTypeCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "TlBookingRoomTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RequestPlan {
@@ -413,39 +459,68 @@ export class DisplayPlan extends Message<DisplayPlan> {
   ImageURL = "";
 
   /**
-   * @generated from field: string RoomTypeName = 5;
+   * @generated from field: server.user.RoomType RoomType = 5;
+   */
+  RoomType = RoomType.RoomTypeUnknown;
+
+  /**
+   * @generated from field: string RoomTypeName = 6;
    */
   RoomTypeName = "";
 
   /**
-   * @generated from field: string MealTypeName = 6;
+   * @generated from field: repeated server.user.MealType MealTypes = 7;
+   */
+  MealTypes: MealType[] = [];
+
+  /**
+   * @generated from field: string MealTypeName = 8;
    */
   MealTypeName = "";
 
   /**
-   * @generated from field: string SmokeTypeName = 7;
+   * @generated from field: server.user.SmokeType SmokeType = 9;
+   */
+  SmokeType = SmokeType.SmokeTypeNonSmoking;
+
+  /**
+   * @generated from field: string SmokeTypeName = 10;
    */
   SmokeTypeName = "";
 
   /**
-   * @generated from field: string OverView = 8;
+   * @generated from field: string OverView = 11;
    */
   OverView = "";
 
   /**
-   * @generated from field: string StoreID = 9;
+   * @generated from field: string StoreID = 12;
    */
   StoreID = "";
 
   /**
-   * @generated from field: string StoreName = 10;
+   * @generated from field: string StoreName = 13;
    */
   StoreName = "";
 
   /**
-   * @generated from field: optional string StoreBranchName = 11;
+   * @generated from field: optional string StoreBranchName = 14;
    */
   StoreBranchName?: string;
+
+  /**
+   * 予約システムの部屋タイプコード 詳細取得時に使用
+   *
+   * @generated from field: string TlBookingRoomTypeCode = 15;
+   */
+  TlBookingRoomTypeCode = "";
+
+  /**
+   * 予約システムの部屋タイプコード 詳細取得時に使用
+   *
+   * @generated from field: string TlBookingRoomTypeName = 16;
+   */
+  TlBookingRoomTypeName = "";
 
   constructor(data?: PartialMessage<DisplayPlan>) {
     super();
@@ -459,13 +534,18 @@ export class DisplayPlan extends Message<DisplayPlan> {
     { no: 2, name: "Title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "Price", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "ImageURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "RoomTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "MealTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "SmokeTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "OverView", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 9, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 10, name: "StoreName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 11, name: "StoreBranchName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "RoomType", kind: "enum", T: proto3.getEnumType(RoomType) },
+    { no: 6, name: "RoomTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "MealTypes", kind: "enum", T: proto3.getEnumType(MealType), repeated: true },
+    { no: 8, name: "MealTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "SmokeType", kind: "enum", T: proto3.getEnumType(SmokeType) },
+    { no: 10, name: "SmokeTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "OverView", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "StoreName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 14, name: "StoreBranchName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 15, name: "TlBookingRoomTypeCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 16, name: "TlBookingRoomTypeName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisplayPlan {
@@ -482,6 +562,108 @@ export class DisplayPlan extends Message<DisplayPlan> {
 
   static equals(a: DisplayPlan | PlainMessage<DisplayPlan> | undefined, b: DisplayPlan | PlainMessage<DisplayPlan> | undefined): boolean {
     return proto3.util.equals(DisplayPlan, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.DisplayPlanWithSearchResultOption
+ */
+export class DisplayPlanWithSearchResultOption extends Message<DisplayPlanWithSearchResultOption> {
+  /**
+   * @generated from field: server.user.DisplayPlan Plan = 1;
+   */
+  Plan?: DisplayPlan;
+
+  /**
+   * 最低価格
+   *
+   * @generated from field: uint32 MinimumPrice = 2;
+   */
+  MinimumPrice = 0;
+
+  /**
+   * 何当たりの価格か
+   *
+   * @generated from field: server.user.PricePerCategory PricePerCategory = 3;
+   */
+  PricePerCategory = PricePerCategory.PricePerNight;
+
+  /**
+   * @generated from field: string PricePerCategoryName = 4;
+   */
+  PricePerCategoryName = "";
+
+  constructor(data?: PartialMessage<DisplayPlanWithSearchResultOption>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.DisplayPlanWithSearchResultOption";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Plan", kind: "message", T: DisplayPlan },
+    { no: 2, name: "MinimumPrice", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "PricePerCategory", kind: "enum", T: proto3.getEnumType(PricePerCategory) },
+    { no: 4, name: "PricePerCategoryName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisplayPlanWithSearchResultOption {
+    return new DisplayPlanWithSearchResultOption().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisplayPlanWithSearchResultOption {
+    return new DisplayPlanWithSearchResultOption().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisplayPlanWithSearchResultOption {
+    return new DisplayPlanWithSearchResultOption().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisplayPlanWithSearchResultOption | PlainMessage<DisplayPlanWithSearchResultOption> | undefined, b: DisplayPlanWithSearchResultOption | PlainMessage<DisplayPlanWithSearchResultOption> | undefined): boolean {
+    return proto3.util.equals(DisplayPlanWithSearchResultOption, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.PlanStayDateInfo
+ */
+export class PlanStayDateInfo extends Message<PlanStayDateInfo> {
+  /**
+   * @generated from field: google.protobuf.Timestamp StayDate = 1;
+   */
+  StayDate?: Timestamp;
+
+  /**
+   * @generated from field: uint32 StayDateTotalPrice = 2;
+   */
+  StayDateTotalPrice = 0;
+
+  constructor(data?: PartialMessage<PlanStayDateInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.PlanStayDateInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "StayDate", kind: "message", T: Timestamp },
+    { no: 2, name: "StayDateTotalPrice", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlanStayDateInfo {
+    return new PlanStayDateInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlanStayDateInfo {
+    return new PlanStayDateInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlanStayDateInfo {
+    return new PlanStayDateInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlanStayDateInfo | PlainMessage<PlanStayDateInfo> | undefined, b: PlanStayDateInfo | PlainMessage<PlanStayDateInfo> | undefined): boolean {
+    return proto3.util.equals(PlanStayDateInfo, a, b);
   }
 }
 
@@ -530,6 +712,8 @@ export class ReserveRequest extends Message<ReserveRequest> {
   GuestData?: GuestData;
 
   /**
+   * プランデータをそのままDBに入れるので必須
+   *
    * @generated from field: server.user.RequestPlan RequestPlan = 9;
    */
   RequestPlan?: RequestPlan;
@@ -538,6 +722,11 @@ export class ReserveRequest extends Message<ReserveRequest> {
    * @generated from field: optional string Note = 11;
    */
   Note?: string;
+
+  /**
+   * @generated from field: repeated server.user.PlanStayDateInfo PlanStayDateInfos = 12;
+   */
+  PlanStayDateInfos: PlanStayDateInfo[] = [];
 
   constructor(data?: PartialMessage<ReserveRequest>) {
     super();
@@ -557,6 +746,7 @@ export class ReserveRequest extends Message<ReserveRequest> {
     { no: 8, name: "GuestData", kind: "message", T: GuestData },
     { no: 9, name: "RequestPlan", kind: "message", T: RequestPlan },
     { no: 11, name: "Note", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 12, name: "PlanStayDateInfos", kind: "message", T: PlanStayDateInfo, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReserveRequest {
@@ -647,6 +837,43 @@ export class BooksResponse extends Message<BooksResponse> {
 
   static equals(a: BooksResponse | PlainMessage<BooksResponse> | undefined, b: BooksResponse | PlainMessage<BooksResponse> | undefined): boolean {
     return proto3.util.equals(BooksResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.SearchPlanResponse
+ */
+export class SearchPlanResponse extends Message<SearchPlanResponse> {
+  /**
+   * @generated from field: repeated server.user.DisplayPlanWithSearchResultOption Plans = 1;
+   */
+  Plans: DisplayPlanWithSearchResultOption[] = [];
+
+  constructor(data?: PartialMessage<SearchPlanResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.SearchPlanResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Plans", kind: "message", T: DisplayPlanWithSearchResultOption, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchPlanResponse {
+    return new SearchPlanResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchPlanResponse {
+    return new SearchPlanResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchPlanResponse {
+    return new SearchPlanResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchPlanResponse | PlainMessage<SearchPlanResponse> | undefined, b: SearchPlanResponse | PlainMessage<SearchPlanResponse> | undefined): boolean {
+    return proto3.util.equals(SearchPlanResponse, a, b);
   }
 }
 
@@ -775,6 +1002,171 @@ export class PlanSearchRequest extends Message<PlanSearchRequest> {
 
   static equals(a: PlanSearchRequest | PlainMessage<PlanSearchRequest> | undefined, b: PlanSearchRequest | PlainMessage<PlanSearchRequest> | undefined): boolean {
     return proto3.util.equals(PlanSearchRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.PlanDetailRequest
+ */
+export class PlanDetailRequest extends Message<PlanDetailRequest> {
+  /**
+   * @generated from field: string PlanID = 1;
+   */
+  PlanID = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp StayFrom = 2;
+   */
+  StayFrom?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp StayTo = 3;
+   */
+  StayTo?: Timestamp;
+
+  /**
+   * @generated from field: uint32 Adult = 4;
+   */
+  Adult = 0;
+
+  /**
+   * @generated from field: uint32 Child = 5;
+   */
+  Child = 0;
+
+  /**
+   * @generated from field: uint32 RoomCount = 6;
+   */
+  RoomCount = 0;
+
+  /**
+   * @generated from field: string StayStoreID = 7;
+   */
+  StayStoreID = "";
+
+  /**
+   * @generated from field: string TlBookingRoomTypeCode = 8;
+   */
+  TlBookingRoomTypeCode = "";
+
+  constructor(data?: PartialMessage<PlanDetailRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.PlanDetailRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "PlanID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "StayFrom", kind: "message", T: Timestamp },
+    { no: 3, name: "StayTo", kind: "message", T: Timestamp },
+    { no: 4, name: "Adult", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "Child", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "RoomCount", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "StayStoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "TlBookingRoomTypeCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlanDetailRequest {
+    return new PlanDetailRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlanDetailRequest {
+    return new PlanDetailRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlanDetailRequest {
+    return new PlanDetailRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlanDetailRequest | PlainMessage<PlanDetailRequest> | undefined, b: PlanDetailRequest | PlainMessage<PlanDetailRequest> | undefined): boolean {
+    return proto3.util.equals(PlanDetailRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.PlanStayDetailResponse
+ */
+export class PlanStayDetailResponse extends Message<PlanStayDetailResponse> {
+  /**
+   * @generated from field: server.user.DisplayPlan Plan = 1;
+   */
+  Plan?: DisplayPlan;
+
+  /**
+   * @generated from field: repeated server.user.PlanStayDateInfo PlanStayDateInfos = 2;
+   */
+  PlanStayDateInfos: PlanStayDateInfo[] = [];
+
+  constructor(data?: PartialMessage<PlanStayDetailResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.PlanStayDetailResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Plan", kind: "message", T: DisplayPlan },
+    { no: 2, name: "PlanStayDateInfos", kind: "message", T: PlanStayDateInfo, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlanStayDetailResponse {
+    return new PlanStayDetailResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlanStayDetailResponse {
+    return new PlanStayDetailResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlanStayDetailResponse {
+    return new PlanStayDetailResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlanStayDetailResponse | PlainMessage<PlanStayDetailResponse> | undefined, b: PlanStayDetailResponse | PlainMessage<PlanStayDetailResponse> | undefined): boolean {
+    return proto3.util.equals(PlanStayDetailResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.BookMentenanceInfoResponse
+ */
+export class BookMentenanceInfoResponse extends Message<BookMentenanceInfoResponse> {
+  /**
+   * @generated from field: bool IsMentenance = 1;
+   */
+  IsMentenance = false;
+
+  /**
+   * @generated from field: string Message = 2;
+   */
+  Message = "";
+
+  constructor(data?: PartialMessage<BookMentenanceInfoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.BookMentenanceInfoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "IsMentenance", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "Message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BookMentenanceInfoResponse {
+    return new BookMentenanceInfoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BookMentenanceInfoResponse {
+    return new BookMentenanceInfoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BookMentenanceInfoResponse {
+    return new BookMentenanceInfoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BookMentenanceInfoResponse | PlainMessage<BookMentenanceInfoResponse> | undefined, b: BookMentenanceInfoResponse | PlainMessage<BookMentenanceInfoResponse> | undefined): boolean {
+    return proto3.util.equals(BookMentenanceInfoResponse, a, b);
   }
 }
 

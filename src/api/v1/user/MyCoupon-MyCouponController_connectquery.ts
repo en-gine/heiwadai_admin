@@ -24,6 +24,34 @@ export const getList = {
 } as const;
 
 /**
+ * @generated from rpc server.user.MyCouponController.GetExpiredList
+ */
+export const getExpiredList = {
+  localName: "getExpiredList",
+  name: "GetExpiredList",
+  kind: MethodKind.Unary,
+  I: Empty,
+  O: MyCouponsResponse,
+  service: {
+    typeName: "server.user.MyCouponController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.user.MyCouponController.GetUsedList
+ */
+export const getUsedList = {
+  localName: "getUsedList",
+  name: "GetUsedList",
+  kind: MethodKind.Unary,
+  I: Empty,
+  O: MyCouponsResponse,
+  service: {
+    typeName: "server.user.MyCouponController"
+  }
+} as const;
+
+/**
  * クーポンの詳細
  *
  * @generated from rpc server.user.MyCouponController.GetDetail

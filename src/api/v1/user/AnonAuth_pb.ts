@@ -50,6 +50,49 @@ export class UserAuthRequest extends Message<UserAuthRequest> {
 }
 
 /**
+ * @generated from message server.user.SignUpRequest
+ */
+export class SignUpRequest extends Message<SignUpRequest> {
+  /**
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password = "";
+
+  constructor(data?: PartialMessage<SignUpRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.SignUpRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "password", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SignUpRequest {
+    return new SignUpRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SignUpRequest {
+    return new SignUpRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SignUpRequest {
+    return new SignUpRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SignUpRequest | PlainMessage<SignUpRequest> | undefined, b: SignUpRequest | PlainMessage<SignUpRequest> | undefined): boolean {
+    return proto3.util.equals(SignUpRequest, a, b);
+  }
+}
+
+/**
  * @generated from message server.user.UserMailRequest
  */
 export class UserMailRequest extends Message<UserMailRequest> {
@@ -132,6 +175,123 @@ export class AnonTokenResponse extends Message<AnonTokenResponse> {
 
   static equals(a: AnonTokenResponse | PlainMessage<AnonTokenResponse> | undefined, b: AnonTokenResponse | PlainMessage<AnonTokenResponse> | undefined): boolean {
     return proto3.util.equals(AnonTokenResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.SetNewPasswordRequest
+ */
+export class SetNewPasswordRequest extends Message<SetNewPasswordRequest> {
+  /**
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password = "";
+
+  constructor(data?: PartialMessage<SetNewPasswordRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.SetNewPasswordRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "password", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetNewPasswordRequest {
+    return new SetNewPasswordRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetNewPasswordRequest | PlainMessage<SetNewPasswordRequest> | undefined, b: SetNewPasswordRequest | PlainMessage<SetNewPasswordRequest> | undefined): boolean {
+    return proto3.util.equals(SetNewPasswordRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.TokenRequest
+ */
+export class TokenRequest extends Message<TokenRequest> {
+  /**
+   * @generated from field: string accessToken = 1;
+   */
+  accessToken = "";
+
+  constructor(data?: PartialMessage<TokenRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.TokenRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accessToken", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TokenRequest {
+    return new TokenRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TokenRequest {
+    return new TokenRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TokenRequest {
+    return new TokenRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TokenRequest | PlainMessage<TokenRequest> | undefined, b: TokenRequest | PlainMessage<TokenRequest> | undefined): boolean {
+    return proto3.util.equals(TokenRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message server.user.UserMailResponse
+ */
+export class UserMailResponse extends Message<UserMailResponse> {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email = "";
+
+  constructor(data?: PartialMessage<UserMailResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.user.UserMailResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserMailResponse {
+    return new UserMailResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserMailResponse {
+    return new UserMailResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserMailResponse {
+    return new UserMailResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserMailResponse | PlainMessage<UserMailResponse> | undefined, b: UserMailResponse | PlainMessage<UserMailResponse> | undefined): boolean {
+    return proto3.util.equals(UserMailResponse, a, b);
   }
 }
 

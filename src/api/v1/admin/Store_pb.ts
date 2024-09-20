@@ -7,6 +7,158 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
+ * @generated from message server.admin.Store
+ */
+export class Store extends Message<Store> {
+  /**
+   * uuid.UUID
+   *
+   * @generated from field: string ID = 1;
+   */
+  ID = "";
+
+  /**
+   * @generated from field: string Name = 2;
+   */
+  Name = "";
+
+  /**
+   * @generated from field: optional string BranchName = 3;
+   */
+  BranchName?: string;
+
+  /**
+   * @generated from field: string ZipCode = 4;
+   */
+  ZipCode = "";
+
+  /**
+   * @generated from field: string Address = 5;
+   */
+  Address = "";
+
+  /**
+   * @generated from field: string Tel = 6;
+   */
+  Tel = "";
+
+  /**
+   * @generated from field: string SiteURL = 7;
+   */
+  SiteURL = "";
+
+  /**
+   * @generated from field: string StampImageURL = 8;
+   */
+  StampImageURL = "";
+
+  /**
+   * @generated from field: bool Stayable = 9;
+   */
+  Stayable = false;
+
+  /**
+   * @generated from field: bool IsActive = 10;
+   */
+  IsActive = false;
+
+  /**
+   * uuid.UUID
+   *
+   * @generated from field: string QRCode = 11;
+   */
+  QRCode = "";
+
+  /**
+   * uuid.UUID
+   *
+   * @generated from field: string UnLimitedQRCode = 12;
+   */
+  UnLimitedQRCode = "";
+
+  /**
+   * @generated from field: optional server.admin.StayableStoreInfo StayableInfo = 13;
+   */
+  StayableInfo?: StayableStoreInfo;
+
+  constructor(data?: PartialMessage<Store>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.Store";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "BranchName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "ZipCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "Address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "Tel", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "SiteURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "StampImageURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "Stayable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 10, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "QRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "UnLimitedQRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "StayableInfo", kind: "message", T: StayableStoreInfo, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Store {
+    return new Store().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Store {
+    return new Store().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Store {
+    return new Store().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Store | PlainMessage<Store> | undefined, b: Store | PlainMessage<Store> | undefined): boolean {
+    return proto3.util.equals(Store, a, b);
+  }
+}
+
+/**
+ * @generated from message server.admin.Stores
+ */
+export class Stores extends Message<Stores> {
+  /**
+   * @generated from field: repeated server.admin.Store Stores = 1;
+   */
+  Stores: Store[] = [];
+
+  constructor(data?: PartialMessage<Stores>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "server.admin.Stores";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "Stores", kind: "message", T: Store, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Stores {
+    return new Stores().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Stores {
+    return new Stores().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Stores {
+    return new Stores().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Stores | PlainMessage<Stores> | undefined, b: Stores | PlainMessage<Stores> | undefined): boolean {
+    return proto3.util.equals(Stores, a, b);
+  }
+}
+
+/**
  * @generated from message server.admin.StoreRegisterRequest
  */
 export class StoreRegisterRequest extends Message<StoreRegisterRequest> {
@@ -66,9 +218,9 @@ export class StoreRegisterRequest extends Message<StoreRegisterRequest> {
   UnLimitedQRCode = "";
 
   /**
-   * @generated from field: optional server.admin.StayableInfo StayableInfo = 12;
+   * @generated from field: optional server.admin.StayableStoreInfo StayableInfo = 12;
    */
-  StayableInfo?: StayableInfo;
+  StayableInfo?: StayableStoreInfo;
 
   constructor(data?: PartialMessage<StoreRegisterRequest>) {
     super();
@@ -89,7 +241,7 @@ export class StoreRegisterRequest extends Message<StoreRegisterRequest> {
     { no: 9, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 10, name: "QRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 11, name: "UnLimitedQRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 12, name: "StayableInfo", kind: "message", T: StayableInfo, opt: true },
+    { no: 12, name: "StayableInfo", kind: "message", T: StayableStoreInfo, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StoreRegisterRequest {
@@ -174,9 +326,9 @@ export class StoreUpdateRequest extends Message<StoreUpdateRequest> {
   UnLimitedQRCode = "";
 
   /**
-   * @generated from field: server.admin.StayableInfo StayableInfo = 13;
+   * @generated from field: server.admin.StayableStoreInfo StayableInfo = 13;
    */
-  StayableInfo?: StayableInfo;
+  StayableInfo?: StayableStoreInfo;
 
   constructor(data?: PartialMessage<StoreUpdateRequest>) {
     super();
@@ -198,7 +350,7 @@ export class StoreUpdateRequest extends Message<StoreUpdateRequest> {
     { no: 10, name: "IsActive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 11, name: "QRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 12, name: "UnLimitedQRCode", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 13, name: "StayableInfo", kind: "message", T: StayableInfo },
+    { no: 13, name: "StayableInfo", kind: "message", T: StayableStoreInfo },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StoreUpdateRequest {
@@ -219,9 +371,9 @@ export class StoreUpdateRequest extends Message<StoreUpdateRequest> {
 }
 
 /**
- * @generated from message server.admin.StayableInfo
+ * @generated from message server.admin.StayableStoreInfo
  */
-export class StayableInfo extends Message<StayableInfo> {
+export class StayableStoreInfo extends Message<StayableStoreInfo> {
   /**
    * @generated from field: string Parking = 1;
    */
@@ -252,13 +404,23 @@ export class StayableInfo extends Message<StayableInfo> {
    */
   BookingSystemID = "";
 
-  constructor(data?: PartialMessage<StayableInfo>) {
+  /**
+   * @generated from field: string BookingSystemLoginId = 7;
+   */
+  BookingSystemLoginId = "";
+
+  /**
+   * @generated from field: string BookingSystemPassword = 8;
+   */
+  BookingSystemPassword = "";
+
+  constructor(data?: PartialMessage<StayableStoreInfo>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "server.admin.StayableInfo";
+  static readonly typeName = "server.admin.StayableStoreInfo";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "Parking", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "Latitude", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
@@ -266,22 +428,24 @@ export class StayableInfo extends Message<StayableInfo> {
     { no: 4, name: "AccessInfo", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "RestAPIURL", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "BookingSystemID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "BookingSystemLoginId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "BookingSystemPassword", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StayableInfo {
-    return new StayableInfo().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StayableStoreInfo {
+    return new StayableStoreInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StayableInfo {
-    return new StayableInfo().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StayableStoreInfo {
+    return new StayableStoreInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StayableInfo {
-    return new StayableInfo().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StayableStoreInfo {
+    return new StayableStoreInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: StayableInfo | PlainMessage<StayableInfo> | undefined, b: StayableInfo | PlainMessage<StayableInfo> | undefined): boolean {
-    return proto3.util.equals(StayableInfo, a, b);
+  static equals(a: StayableStoreInfo | PlainMessage<StayableStoreInfo> | undefined, b: StayableStoreInfo | PlainMessage<StayableStoreInfo> | undefined): boolean {
+    return proto3.util.equals(StayableStoreInfo, a, b);
   }
 }
 

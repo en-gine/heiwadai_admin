@@ -49,27 +49,27 @@ export class CheckinRequest extends Message<CheckinRequest> {
  */
 export class CheckinStamp extends Message<CheckinStamp> {
   /**
-   * @generated from field: string ID = 1;
+   * @generated from field: optional string ID = 1;
    */
-  ID = "";
+  ID?: string;
 
   /**
-   * @generated from field: string StoreID = 2;
+   * @generated from field: optional string StoreID = 2;
    */
-  StoreID = "";
+  StoreID?: string;
 
   /**
-   * @generated from field: string StoreName = 3;
+   * @generated from field: optional string StoreName = 3;
    */
-  StoreName = "";
+  StoreName?: string;
 
   /**
-   * @generated from field: string StoreStampImage = 4;
+   * @generated from field: optional string StoreStampImage = 4;
    */
-  StoreStampImage = "";
+  StoreStampImage?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp CheckInAt = 5;
+   * @generated from field: optional google.protobuf.Timestamp CheckInAt = 5;
    */
   CheckInAt?: Timestamp;
 
@@ -81,11 +81,11 @@ export class CheckinStamp extends Message<CheckinStamp> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.user.CheckinStamp";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "StoreName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "StoreStampImage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "CheckInAt", kind: "message", T: Timestamp },
+    { no: 1, name: "ID", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "StoreID", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "StoreName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "StoreStampImage", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "CheckInAt", kind: "message", T: Timestamp, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckinStamp {
@@ -147,7 +147,12 @@ export class StampCardResponse extends Message<StampCardResponse> {
  */
 export class CheckinResponse extends Message<CheckinResponse> {
   /**
-   * @generated from field: optional server.shared.Coupon MayCoupon = 1;
+   * @generated from field: server.user.StampCardResponse stampCard = 1;
+   */
+  stampCard?: StampCardResponse;
+
+  /**
+   * @generated from field: optional server.shared.Coupon MayCoupon = 2;
    */
   MayCoupon?: Coupon;
 
@@ -159,7 +164,8 @@ export class CheckinResponse extends Message<CheckinResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "server.user.CheckinResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "MayCoupon", kind: "message", T: Coupon, opt: true },
+    { no: 1, name: "stampCard", kind: "message", T: StampCardResponse },
+    { no: 2, name: "MayCoupon", kind: "message", T: Coupon, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckinResponse {

@@ -5,7 +5,7 @@
 
 import { UserRegisterRequest } from "./UserData_pb.ts";
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { AnonTokenResponse, IsUnderRegisterResponse, UserAuthRequest, UserMailRequest } from "./AnonAuth_pb.ts";
+import { AnonTokenResponse, IsUnderRegisterResponse, SetNewPasswordRequest, SignUpRequest, TokenRequest, UserAuthRequest, UserMailRequest, UserMailResponse } from "./AnonAuth_pb.ts";
 
 /**
  * ログイントークン不要の処理
@@ -33,7 +33,7 @@ export const AnonAuthController = {
      */
     signUp: {
       name: "SignUp",
-      I: UserAuthRequest,
+      I: SignUpRequest,
       O: Empty,
       kind: MethodKind.Unary,
     },
@@ -57,6 +57,28 @@ export const AnonAuthController = {
       name: "ResetPasswordMail",
       I: UserMailRequest,
       O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * パスワードリセット(メールリダイレクトからのトークンと共に設定)
+     *
+     * @generated from rpc server.user.AnonAuthController.SetNewPassword
+     */
+    setNewPassword: {
+      name: "SetNewPassword",
+      I: SetNewPasswordRequest,
+      O: Empty,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * トークンを元にユーザーメール取得（パスワード再設定の画面に使用）
+     *
+     * @generated from rpc server.user.AnonAuthController.GetUserMailByToken
+     */
+    getUserMailByToken: {
+      name: "GetUserMailByToken",
+      I: TokenRequest,
+      O: UserMailResponse,
       kind: MethodKind.Unary,
     },
     /**

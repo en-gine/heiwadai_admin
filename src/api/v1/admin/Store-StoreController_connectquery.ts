@@ -4,8 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { QRResponse, StoreIDRequest, StoreRegisterRequest, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
-import { Store, Stores } from "../shared/Store_pb.ts";
+import { QRResponse, Store, StoreIDRequest, StoreRegisterRequest, Stores, StoreUpdateRequest, UnlimitQRResponse } from "./Store_pb.ts";
 
 /**
  * @generated from rpc server.admin.StoreController.GetByID

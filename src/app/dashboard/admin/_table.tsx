@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { useCallback } from "react"
 
 import { AdminListResponse } from "@/api/v1/admin/AdminData_pb"
-import { Stores } from "@/api/v1/shared/Store_pb"
+import { Stores } from "@/api/v1/admin/Store_pb"
 import { Button } from "@/components/ui/button"
 import {
   Table,

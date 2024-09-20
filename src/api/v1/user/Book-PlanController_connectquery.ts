@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { MethodKind } from "@bufbuild/protobuf";
-import { PlanSearchRequest, PlansResponse } from "./Book_pb.ts";
+import { PlanDetailRequest, PlanSearchRequest, PlanStayDetailResponse, SearchPlanResponse } from "./Book_pb.ts";
 
 /**
  * @generated from rpc server.user.PlanController.Search
@@ -14,7 +14,21 @@ export const search = {
   name: "Search",
   kind: MethodKind.Unary,
   I: PlanSearchRequest,
-  O: PlansResponse,
+  O: SearchPlanResponse,
+  service: {
+    typeName: "server.user.PlanController"
+  }
+} as const;
+
+/**
+ * @generated from rpc server.user.PlanController.GetDetail
+ */
+export const getDetail = {
+  localName: "getDetail",
+  name: "GetDetail",
+  kind: MethodKind.Unary,
+  I: PlanDetailRequest,
+  O: PlanStayDetailResponse,
   service: {
     typeName: "server.user.PlanController"
   }

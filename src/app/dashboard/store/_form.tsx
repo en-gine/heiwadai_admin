@@ -8,11 +8,11 @@ import { useMutation } from "@connectrpc/connect-query"
 import React, { useCallback, useMemo, useState } from "react"
 
 import { StoreController } from "@/api/v1/admin/Store_connect"
+import { Store } from "@/api/v1/admin/Store_pb"
 import {
   register,
   update
 } from "@/api/v1/admin/Store-StoreController_connectquery"
-import { Store } from "@/api/v1/shared/Store_pb"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -46,9 +46,9 @@ export const Form = ({ data }: Props) => {
   )
   const defaultStayableinfo = useMemo(
     () => ({
-      ...store?.StayableStoreInfo
+      ...store?.StayableInfo
     }),
-    [store?.StayableStoreInfo]
+    [store?.StayableInfo]
   )
   const isNew = defaultStore?.ID === undefined
 
@@ -354,7 +354,7 @@ export const Form = ({ data }: Props) => {
       </RadioGroup>
       {updateStore?.Stayable && (
         <Card className="mt-4 p-4">
-          <Label htmlFor="tl-lincoln">TLリンカーン施設番号</Label>
+          <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label>
           <Input
             id="tl-lincoln"
             type="text"
@@ -366,6 +366,31 @@ export const Form = ({ data }: Props) => {
               })
             }}
           />
+          <Label htmlFor="tl-lincoln">TLリンカーンログインID</Label>
+          <Input
+            id="tl-lincoln-login"
+            type="text"
+            value={updateStayableinfo.BookingSystemLoginId}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemLoginId: event.target.value
+              })
+            }}
+          />
+          <Label htmlFor="tl-lincoln">TLリンカーンログインパスワード</Label>
+          <Input
+            id="tl-lincoln-password"
+            type="password"
+            value={updateStayableinfo.BookingSystemPassword}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemPassword: event.target.value
+              })
+            }}
+          />
+
           <Label htmlFor="access-info">アクセス情報</Label>
           <Input
             id="access-info"

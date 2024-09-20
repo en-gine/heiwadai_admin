@@ -25,6 +25,24 @@ export const MyCouponController = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc server.user.MyCouponController.GetExpiredList
+     */
+    getExpiredList: {
+      name: "GetExpiredList",
+      I: Empty,
+      O: MyCouponsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.user.MyCouponController.GetUsedList
+     */
+    getUsedList: {
+      name: "GetUsedList",
+      I: Empty,
+      O: MyCouponsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * クーポンの詳細
      *
      * @generated from rpc server.user.MyCouponController.GetDetail

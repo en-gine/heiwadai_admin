@@ -37,7 +37,7 @@ export class UserRegisterRequest extends Message<UserRegisterRequest> {
   CompanyName?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp BirthDate = 6;
+   * @generated from field: optional google.protobuf.Timestamp BirthDate = 6;
    */
   BirthDate?: Timestamp;
 
@@ -94,7 +94,7 @@ export class UserRegisterRequest extends Message<UserRegisterRequest> {
     { no: 3, name: "FirstNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "LastNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "CompanyName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "BirthDate", kind: "message", T: Timestamp },
+    { no: 6, name: "BirthDate", kind: "message", T: Timestamp, opt: true },
     { no: 7, name: "ZipCode", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 8, name: "Prefecture", kind: "enum", T: proto3.getEnumType(Prefecture) },
     { no: 9, name: "City", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
@@ -152,7 +152,7 @@ export class UserUpdateDataRequest extends Message<UserUpdateDataRequest> {
   CompanyName?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp BirthDate = 6;
+   * @generated from field: optional google.protobuf.Timestamp BirthDate = 6;
    */
   BirthDate?: Timestamp;
 
@@ -204,7 +204,7 @@ export class UserUpdateDataRequest extends Message<UserUpdateDataRequest> {
     { no: 3, name: "FirstNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "LastNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "CompanyName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "BirthDate", kind: "message", T: Timestamp },
+    { no: 6, name: "BirthDate", kind: "message", T: Timestamp, opt: true },
     { no: 7, name: "ZipCode", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 8, name: "Prefecture", kind: "enum", T: proto3.getEnumType(Prefecture) },
     { no: 9, name: "City", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
@@ -266,7 +266,7 @@ export class UserDataResponse extends Message<UserDataResponse> {
   CompanyName?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp BirthDate = 7;
+   * @generated from field: optional google.protobuf.Timestamp BirthDate = 7;
    */
   BirthDate?: Timestamp;
 
@@ -319,7 +319,7 @@ export class UserDataResponse extends Message<UserDataResponse> {
     { no: 4, name: "FirstNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "LastNameKana", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "CompanyName", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 7, name: "BirthDate", kind: "message", T: Timestamp },
+    { no: 7, name: "BirthDate", kind: "message", T: Timestamp, opt: true },
     { no: 8, name: "ZipCode", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 9, name: "Prefecture", kind: "enum", T: proto3.getEnumType(Prefecture) },
     { no: 10, name: "City", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },

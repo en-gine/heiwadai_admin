@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { Empty, MethodKind } from "@bufbuild/protobuf";
-import { BookIDRequest, BookResponse, BooksResponse, PlanSearchRequest, PlansResponse, ReserveRequest } from "./Book_pb.ts";
+import { BookIDRequest, BookMentenanceInfoResponse, BookResponse, BooksResponse, PlanDetailRequest, PlanSearchRequest, PlanStayDetailResponse, ReserveRequest, SearchPlanResponse } from "./Book_pb.ts";
 
 /**
  * @generated from service server.user.BookController
@@ -56,6 +56,17 @@ export const BookController = {
       O: Empty,
       kind: MethodKind.Unary,
     },
+    /**
+     * 現在メンテナンス中かどうか
+     *
+     * @generated from rpc server.user.BookController.GetMentenanceInfo
+     */
+    getMentenanceInfo: {
+      name: "GetMentenanceInfo",
+      I: Empty,
+      O: BookMentenanceInfoResponse,
+      kind: MethodKind.Unary,
+    },
   }
 } as const;
 
@@ -71,7 +82,16 @@ export const PlanController = {
     search: {
       name: "Search",
       I: PlanSearchRequest,
-      O: PlansResponse,
+      O: SearchPlanResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc server.user.PlanController.GetDetail
+     */
+    getDetail: {
+      name: "GetDetail",
+      I: PlanDetailRequest,
+      O: PlanStayDetailResponse,
       kind: MethodKind.Unary,
     },
   }
