@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM node:21-alpine AS build
 
 WORKDIR /app
 COPY package*.json ./
@@ -14,7 +14,7 @@ RUN touch .env.production \
   && cat .env.production
 RUN yarn build
 
-FROM node:18-alpine AS runtime
+FROM node:21-alpine AS runtime
 
 WORKDIR /app
 COPY package*.json ./

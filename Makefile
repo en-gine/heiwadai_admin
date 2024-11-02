@@ -20,8 +20,11 @@ pre-flight: #　pre-flightリクエストのテスト
      -i
 
 
-login: # AWSログイン
-	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin https://${AWS_ID}.dkr.ecr.ap-northeast-1.amazonaws.com
+build:
+	docker build -t ${AWS_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/heiwadai-admin:latest -f ./Dockerfile .
 
-deploy: #マニュアルデプロイ
-	aws amplify start-job --app-id $(APP_ID) --branch-name $(branch) --job-type RELEASE --region "ap-northeast-1"
+push:
+	docker push ${AWS_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/heiwadai-admin:latest
+
+login:
+	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin https://${AWS_ID}.dkr.ecr.ap-northeast-1.amazonaws.com
