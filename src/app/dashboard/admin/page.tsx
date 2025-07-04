@@ -10,6 +10,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { AdminListTable } from "./_table"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 const Page = async () => {
   const client = fetcher(AdminDataController)
   const storeClient = fetcher(StoreController)

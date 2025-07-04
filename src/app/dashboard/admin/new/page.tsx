@@ -1,8 +1,8 @@
 import { unstable_noStore } from "next/cache"
-import Link from "next/link"
 import * as React from "react"
 
 import { StoreController } from "@/api/v1/admin/Store_connect"
+import { BackToListButton } from "@/components/parts/BackToListButton"
 import { fetcher } from "@/lib/fetch"
 
 import { Form } from "../_form"
@@ -15,7 +15,7 @@ const Page = async () => {
   return (
     <div className="w-full">
       <div className="flex justify-between">
-        <Link href="/dashboard/admin">一覧へ戻る</Link>
+        <BackToListButton href="/dashboard/admin" />
       </div>
       <Form storeData={storeRes.toJson()} />
     </div>

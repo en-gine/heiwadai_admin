@@ -1,12 +1,13 @@
-import Link from "next/link"
 import * as React from "react"
+
+import { BackToListButton } from "@/components/parts/BackToListButton"
 
 import { Form } from "../_form"
 
 const Page = async () => (
   <div className="w-full">
     <div className="flex justify-between">
-      <Link href="/dashboard/store">一覧へ戻る</Link>
+      <BackToListButton href="/dashboard/store" />
     </div>
     <Form />
   </div>

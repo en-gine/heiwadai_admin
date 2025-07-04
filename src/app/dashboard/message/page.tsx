@@ -11,6 +11,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { MessageListTable } from "./_table"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 const Page = async ({ searchParams }: { searchParams: { page: number } }) => {
   const client = fetcher(MessageController)
   const pageParam = searchParams.page

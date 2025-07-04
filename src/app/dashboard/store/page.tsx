@@ -9,6 +9,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { StoreListTable } from "./_table"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 const Page = async () => {
   const client = fetcher(StoreController)
   let data: JsonValue = {}

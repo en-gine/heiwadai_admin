@@ -1,10 +1,10 @@
 import { JsonValue } from "@bufbuild/protobuf"
 import { unstable_noStore } from "next/cache"
-import Link from "next/link"
 import * as React from "react"
 import { Suspense } from "react"
 
 import { UserDataController } from "@/api/v1/admin/UserData_connect"
+import { BackToListButton } from "@/components/parts/BackToListButton"
 import { Loading } from "@/components/parts/loading"
 import { fetcher } from "@/lib/fetch"
 
@@ -26,7 +26,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="w-full">
       <div className="flex justify-between">
-        <Link href="/dashboard/users">一覧へ戻る</Link>
+        <BackToListButton href="/dashboard/users" />
       </div>
       <Suspense fallback={<Loading />}>
         <DataCard data={user} />

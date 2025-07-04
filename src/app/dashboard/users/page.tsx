@@ -11,6 +11,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { UserListTable } from "./_table"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export type SearchFilterProps = {
   LastName?: string
   FirstName?: string

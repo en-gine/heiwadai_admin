@@ -11,6 +11,9 @@ import { fetcher } from "@/lib/fetch"
 
 import { MagazineListTable } from "./_table"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 const Page = async ({ searchParams }: { searchParams: { page: number } }) => {
   const client = fetcher(MailMagazineController)
   const pageParam = searchParams.page
