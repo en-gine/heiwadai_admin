@@ -60,7 +60,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
         <div className="flex items-center py-4">
           <Input
             placeholder="姓"
-            value={filter?.LastName}
+            value={filter?.LastName || ""}
             className="max-w-xs"
             onChange={(event) => {
               setFilter({ ...filter, LastName: event.target.value })
@@ -69,7 +69,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
           &nbsp;
           <Input
             placeholder="名"
-            value={filter?.FirstName}
+            value={filter?.FirstName || ""}
             className="max-w-xs"
             onChange={(event) => {
               setFilter({ ...filter, FirstName: event.target.value })
@@ -86,7 +86,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
         <div className="flex items-center py-4">
           <Input
             placeholder="せい"
-            value={filter?.LastNameKana}
+            value={filter?.LastNameKana || ""}
             className="max-w-xs"
             onChange={(event) => {
               setFilter({ ...filter, LastNameKana: event.target.value })
@@ -95,7 +95,7 @@ export const UserListTable = ({ data, searchParam }: Props) => {
           &nbsp;
           <Input
             placeholder="めい"
-            value={filter?.FirstNameKana}
+            value={filter?.FirstNameKana || ""}
             className="max-w-xs"
             onChange={(event) => {
               setFilter({ ...filter, FirstNameKana: event.target.value })
