@@ -37,6 +37,7 @@ export const CouponListTable = ({ data }: Props) => {
             <TableHead>クーポン名</TableHead>
             <TableHead>値引額</TableHead>
             <TableHead>期限</TableHead>
+            <TableHead>発行日</TableHead>
             <TableHead>作成日</TableHead>
             <TableHead>ステータス</TableHead>
           </TableRow>
@@ -52,6 +53,9 @@ export const CouponListTable = ({ data }: Props) => {
               </TableCell>
               <TableCell>
                 {dayjs(cpn.ExpireAt?.toDate()).format("YYYY/MM/DD")}
+              </TableCell>
+              <TableCell>
+                {dayjs(cpn.IssueAt?.toDate()).format("YYYY/MM/DD HH:mm")}
               </TableCell>
               <TableCell>
                 {dayjs(cpn.CreateAt?.toDate()).format("YYYY/MM/DD HH:mm")}
