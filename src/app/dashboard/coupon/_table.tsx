@@ -55,7 +55,7 @@ export const CouponListTable = ({ data }: Props) => {
                 {dayjs(cpn.ExpireAt?.toDate()).format("YYYY/MM/DD")}
               </TableCell>
               <TableCell>
-                {dayjs(cpn.IssueAt?.toDate()).format("YYYY/MM/DD HH:mm")}
+                {cpn.IssueAt ? dayjs(cpn.IssueAt?.toDate()).format("YYYY/MM/DD HH:mm") : ""}
               </TableCell>
               <TableCell>
                 {dayjs(cpn.CreateAt?.toDate()).format("YYYY/MM/DD HH:mm")}
