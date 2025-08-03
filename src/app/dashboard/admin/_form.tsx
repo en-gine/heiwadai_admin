@@ -57,6 +57,10 @@ export const Form = ({ adminData, storeData }: Props) => {
               alert("名前は必須です。")
               return
             }
+            if (!belongTo) {
+              alert("所属店舗は必須です。")
+              return
+            }
             if (isNew) {
               const res = await authClient.register({
                 Name: name,
@@ -122,11 +126,6 @@ export const Form = ({ adminData, storeData }: Props) => {
         type="mail"
         defaultValue={admin?.Mail}
       />
-      {/* 
-      <Label htmlFor="password" className="required">
-        パスワード
-      </Label>
-      <Input id="password" name="password" className="w-full" type="password" /> */}
       {!isNew && (
         <>
           <Label htmlFor="is-active" className="mt-4">
@@ -150,7 +149,7 @@ export const Form = ({ adminData, storeData }: Props) => {
           </RadioGroup>
         </>
       )}
-      <Label htmlFor="belong-store">所属店舗</Label>
+      <Label htmlFor="belong-store" className="required">所属店舗</Label>
       <Select name="belong-store" defaultValue={admin?.StoreID}>
         <SelectTrigger>
           <SelectValue placeholder="所属店舗" />

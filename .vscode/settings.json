@@ -7,4 +7,5 @@
   "editor.quickSuggestions": {
     "strings": true
   },
+  "makefile.configureOnOpen": false,
 }
