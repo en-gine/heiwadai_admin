@@ -21,6 +21,15 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -42,6 +51,7 @@ export const DataCard = ({ data }: Props) => {
   )
 
   const [updateUser, setUpdateUser] = useState<typeof defaultUser>(defaultUser)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const { mutate: mutateUpdate } = useMutation(update)
   const { mutate: mutateDelete } = useMutation(delete$)
   const handleUpdate = useCallback(() => {
@@ -66,18 +76,18 @@ export const DataCard = ({ data }: Props) => {
   }, [mutateUpdate, updateUser])
 
   const handleDelete = useCallback(() => {
-    if (!prompt("ユーザーを削除しますか？\nこの操作は取り消せません")) return
-
     mutateDelete(
       {
         ID: defaultUser.ID
       },
       {
         onSuccess: () => {
+          setIsDeleteDialogOpen(false)
           alert("削除しました。")
           window.location.href = "/dashboard/users"
         },
         onError: (e) => {
+          setIsDeleteDialogOpen(false)
           alert("削除に失敗しました。")
           console.error(e)
         }
@@ -357,9 +367,29 @@ export const DataCard = ({ data }: Props) => {
             </label>
           </div>
           <div className="flex justify-between mt-4">
-            <Button variant="destructive" onAbort={handleDelete}>
-              ユーザー削除
-            </Button>
+            <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="destructive">
+                  ユーザー削除
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>ユーザーを削除しますか？</DialogTitle>
+                  <DialogDescription>
+                    この操作は取り消すことができません。本当にこのユーザーを削除してもよろしいですか？
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+                    キャンセル
+                  </Button>
+                  <Button variant="destructive" onClick={handleDelete}>
+                    削除する
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
             <Button onClick={handleUpdate}>変更</Button>
           </div>
         </CardFooter>
