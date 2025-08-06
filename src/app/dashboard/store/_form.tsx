@@ -357,7 +357,7 @@ export const Form = ({ data }: Props) => {
           {/* <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label> */}
           <Input
             id="tl-lincoln"
-            type="hiddden"
+            type="hidden"
             value={updateStayableinfo.BookingSystemID}
             onChange={(event) => {
               setUpdateStayableinfo({
