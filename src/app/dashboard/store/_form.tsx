@@ -354,10 +354,10 @@ export const Form = ({ data }: Props) => {
       </RadioGroup>
       {updateStore?.Stayable && (
         <Card className="mt-4 p-4">
-          <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label>
+          {/* <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label> */}
           <Input
             id="tl-lincoln"
-            type="text"
+            type="hiddden"
             value={updateStayableinfo.BookingSystemID}
             onChange={(event) => {
               setUpdateStayableinfo({
@@ -366,10 +366,10 @@ export const Form = ({ data }: Props) => {
               })
             }}
           />
-          <Label htmlFor="tl-lincoln">TLリンカーンログインID</Label>
+          {/* <Label htmlFor="tl-lincoln">TLリンカーンログインID</Label> */}
           <Input
             id="tl-lincoln-login"
-            type="text"
+            type="hidden"
             value={updateStayableinfo.BookingSystemLoginId}
             onChange={(event) => {
               setUpdateStayableinfo({
@@ -378,10 +378,10 @@ export const Form = ({ data }: Props) => {
               })
             }}
           />
-          <Label htmlFor="tl-lincoln">TLリンカーンログインパスワード</Label>
+          {/* <Label htmlFor="tl-lincoln">TLリンカーンログインパスワード</Label> */}
           <Input
             id="tl-lincoln-password"
-            type="password"
+            type="hidden"
             value={updateStayableinfo.BookingSystemPassword}
             onChange={(event) => {
               setUpdateStayableinfo({
