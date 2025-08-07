@@ -155,7 +155,12 @@ export const Form = ({ data }: Props) => {
           ...updateStore,
           StampImageData: stampImageData,
           StayableInfo: {
-            ...updateStayableinfo
+            ...updateStayableinfo,
+            BookingSystemID: defaultStayableinfo.BookingSystemID || "",
+            BookingSystemLoginId:
+              defaultStayableinfo.BookingSystemLoginId || "",
+            BookingSystemPassword:
+              defaultStayableinfo.BookingSystemPassword || ""
           }
         },
         {
@@ -169,14 +174,7 @@ export const Form = ({ data }: Props) => {
         }
       )
     },
-    [
-      isNew,
-      mutateRegister,
-      mutateUpdate,
-      stampImageData,
-      updateStayableinfo,
-      updateStore
-    ]
+    [defaultStayableinfo.BookingSystemID, defaultStayableinfo.BookingSystemLoginId, defaultStayableinfo.BookingSystemPassword, isNew, mutateRegister, mutateUpdate, stampImageData, updateStayableinfo, updateStore]
   )
 
   return (
@@ -354,43 +352,6 @@ export const Form = ({ data }: Props) => {
       </RadioGroup>
       {updateStore?.Stayable && (
         <Card className="mt-4 p-4">
-          {/* <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label> */}
-          <Input
-            id="tl-lincoln"
-            type="hidden"
-            value={updateStayableinfo.BookingSystemID}
-            onChange={(event) => {
-              setUpdateStayableinfo({
-                ...updateStayableinfo,
-                BookingSystemID: event.target.value
-              })
-            }}
-          />
-          {/* <Label htmlFor="tl-lincoln">TLリンカーンログインID</Label> */}
-          <Input
-            id="tl-lincoln-login"
-            type="hidden"
-            value={updateStayableinfo.BookingSystemLoginId}
-            onChange={(event) => {
-              setUpdateStayableinfo({
-                ...updateStayableinfo,
-                BookingSystemLoginId: event.target.value
-              })
-            }}
-          />
-          {/* <Label htmlFor="tl-lincoln">TLリンカーンログインパスワード</Label> */}
-          <Input
-            id="tl-lincoln-password"
-            type="hidden"
-            value={updateStayableinfo.BookingSystemPassword}
-            onChange={(event) => {
-              setUpdateStayableinfo({
-                ...updateStayableinfo,
-                BookingSystemPassword: event.target.value
-              })
-            }}
-          />
-
           <Label htmlFor="access-info">アクセス情報</Label>
           <Input
             id="access-info"
