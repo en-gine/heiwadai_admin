@@ -156,11 +156,6 @@ export const Form = ({ data }: Props) => {
           StampImageData: stampImageData,
           StayableInfo: {
             ...updateStayableinfo,
-            BookingSystemID: defaultStayableinfo.BookingSystemID || "",
-            BookingSystemLoginId:
-              defaultStayableinfo.BookingSystemLoginId || "",
-            BookingSystemPassword:
-              defaultStayableinfo.BookingSystemPassword || ""
           }
         },
         {
@@ -352,6 +347,39 @@ export const Form = ({ data }: Props) => {
       </RadioGroup>
       {updateStore?.Stayable && (
         <Card className="mt-4 p-4">
+        <Label htmlFor="tl-lincoln">TLリンカーン施設ID</Label>
+          <Input
+            id="tl-lincoln"
+            value={updateStayableinfo.BookingSystemID}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemID: event.target.value
+              })
+            }}
+          />
+          <Label htmlFor="tl-lincoln">TLリンカーンログインID</Label>
+          <Input
+            id="tl-lincoln-login"
+            value={updateStayableinfo.BookingSystemLoginId}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemLoginId: event.target.value
+              })
+            }}
+          />
+          <Label htmlFor="tl-lincoln">TLリンカーンログインパスワード</Label>
+          <Input
+            id="tl-lincoln-password"
+            value={updateStayableinfo.BookingSystemPassword}
+            onChange={(event) => {
+              setUpdateStayableinfo({
+                ...updateStayableinfo,
+                BookingSystemPassword: event.target.value
+              })
+            }}
+          />
           <Label htmlFor="access-info">アクセス情報</Label>
           <Input
             id="access-info"
