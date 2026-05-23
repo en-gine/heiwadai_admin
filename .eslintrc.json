@@ -78,8 +78,7 @@
       "files": ["**/*.ts?(x)"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": "./tsconfig.json",
-        "tsconfigRootDir": "."
+        "project": "./tsconfig.json"
       },
       "plugins": ["@typescript-eslint"],
       "rules": {
